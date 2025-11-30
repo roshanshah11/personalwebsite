@@ -86,6 +86,16 @@ export default function Home() {
         </button>
 
       </main>
+
+      {/* Bottom Navigation */}
+      <footer className="pb-6 flex justify-center">
+        <a
+          href="/awards"
+          className="text-sm font-mono text-text-muted hover:text-primary transition-colors tracking-widest"
+        >
+          [ VIEW ALL AWARDS ]
+        </a>
+      </footer>
     </div>
   );
 }

@@ -14,6 +14,41 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
     const [textRevealed, setTextRevealed] = useState(false);
     const [subTextRevealed, setSubTextRevealed] = useState(false);
     const [isExiting, setIsExiting] = useState(false);
+    const [particles, setParticles] = useState<Array<{
+        x: number[];
+        y: number[];
+        duration: number;
+        delay: number;
+        color: string;
+        shadowSize: number;
+    }>>([]);
+    const [isMounted, setIsMounted] = useState(false);
+
+    // Generate particles only on client side
+    useEffect(() => {
+        setIsMounted(true);
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        const newParticles = [...Array(20)].map((_, i) => ({
+            x: [
+                Math.random() * width,
+                Math.random() * width,
+                Math.random() * width
+            ],
+            y: [
+                Math.random() * height,
+                Math.random() * height,
+                Math.random() * height
+            ],
+            duration: 4 + Math.random() * 4,
+            delay: Math.random() * 2,
+            color: i % 2 === 0 ? '#3b82f6' : '#D4AF37',
+            shadowSize: 4 + Math.random() * 6
+        }));
+
+        setParticles(newParticles);
+    }, []);
 
     // Cinematic Reveal Sequence
     useEffect(() => {
@@ -68,46 +103,32 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
             />
 
             {/* Floating Particles */}
-            {[...Array(20)].map((_, i) => {
-                // Check if window is defined (client-side only)
-                const width = typeof window !== 'undefined' ? window.innerWidth : 1920;
-                const height = typeof window !== 'undefined' ? window.innerHeight : 1080;
-
-                return (
-                    <motion.div
-                        key={i}
-                        initial={{
-                            x: Math.random() * width,
-                            y: Math.random() * height,
-                            opacity: 0
-                        }}
-                        animate={{
-                            x: [
-                                Math.random() * width,
-                                Math.random() * width,
-                                Math.random() * width
-                            ],
-                            y: [
-                                Math.random() * height,
-                                Math.random() * height,
-                                Math.random() * height
-                            ],
-                            opacity: [0, 0.6, 0],
-                        }}
-                        transition={{
-                            duration: 4 + Math.random() * 4,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: Math.random() * 2
-                        }}
-                        className="absolute w-1 h-1 rounded-full"
-                        style={{
-                            background: i % 2 === 0 ? '#3b82f6' : '#D4AF37',
-                            boxShadow: `0 0 ${4 + Math.random() * 6}px ${i % 2 === 0 ? '#3b82f6' : '#D4AF37'}`
-                        }}
-                    />
-                );
-            })}
+            {isMounted && particles.map((particle, i) => (
+                <motion.div
+                    key={i}
+                    initial={{
+                        x: particle.x[0],
+                        y: particle.y[0],
+                        opacity: 0
+                    }}
+                    animate={{
+                        x: particle.x,
+                        y: particle.y,
+                        opacity: [0, 0.6, 0],
+                    }}
+                    transition={{
+                        duration: particle.duration,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: particle.delay
+                    }}
+                    className="absolute w-1 h-1 rounded-full"
+                    style={{
+                        background: particle.color,
+                        boxShadow: `0 0 ${particle.shadowSize}px ${particle.color}`
+                    }}
+                />
+            ))}
 
             {/* Main Content */}
             <div className="relative z-10 flex flex-col items-center p-4 text-center">

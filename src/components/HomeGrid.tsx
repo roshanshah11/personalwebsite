@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, Variants } from 'framer-motion';
+import Link from 'next/link';
 import ProfileCard from './ProfileCard';
 import ExperienceCard from './ExperienceCard';
 import ProjectsCard from './ProjectsCard';
@@ -50,21 +51,20 @@ const HomeGrid = () => {
                 <AwardsCard />
             </motion.div>
 
-            {/* Connect - Tall Right (1x2) */}
-            <motion.div variants={item} className="md:col-span-1 md:row-span-2">
+            {/* Connect - Contact Info (1x1) */}
+            <motion.div variants={item} className="md:col-span-1 md:row-span-1">
                 <motion.div
-                    className="h-full w-full p-8 rounded-3xl bg-white/[0.03] border border-primary/20 flex flex-col justify-center items-center relative overflow-hidden group hover:border-accent-gold/50 transition-colors"
+                    className="h-full w-full p-6 rounded-3xl bg-white/[0.03] border border-primary/20 flex flex-col justify-center items-center relative overflow-hidden group hover:border-accent-gold/50 transition-colors cursor-pointer"
                     whileHover={{ scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 200, damping: 20 }}
                 >
-                    {/* Background Gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent-gold/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <Link href="/contact" className="absolute inset-0 z-0" aria-label="Contact Page" />
 
-                    <h2 className="text-2xl font-bold text-white mb-2 relative z-10 text-center">LET'S CONNECT</h2>
-                    <p className="text-text-muted text-base text-center mb-6 max-w-xs relative z-10">
-                        I'm always happy to chat about finance, AI, or just say hello.
-                    </p>
-                    <div className="flex flex-row gap-4 relative z-10">
+                    {/* Background Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent-gold/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                    <h2 className="text-xl font-bold text-white mb-3 relative z-10 text-center pointer-events-none">LET'S CONNECT</h2>
+                    <div className="flex flex-row gap-3 relative z-20" onClick={(e) => e.stopPropagation()}>
                         <a href="mailto:roshah@unc.edu" className="p-3 rounded-full bg-white/5 hover:bg-white/10 transition-colors text-white hover:scale-110 duration-300 flex items-center justify-center">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
                         </a>
@@ -81,6 +81,42 @@ const HomeGrid = () => {
             {/* Interests - Middle Middle (1x1) */}
             <motion.div variants={item} className="md:col-span-1 md:row-span-1">
                 <InterestsCard />
+            </motion.div>
+
+            {/* Call to Action - Explore More (1x1) */}
+            <motion.div variants={item} className="md:col-span-1 md:row-span-1">
+                <motion.div
+                    className="h-full w-full p-6 rounded-3xl bg-gradient-to-br from-accent-blue/10 via-accent-gold/5 to-white/[0.03] border border-accent-blue/30 flex flex-col justify-center items-center relative overflow-hidden group hover:border-accent-blue/60 transition-colors cursor-pointer"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                >
+                    {/* Animated Background */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-accent-blue/20 via-accent-gold/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                    {/* Pulsing Icon */}
+                    <motion.div
+                        className="mb-3 relative z-10"
+                        animate={{
+                            scale: [1, 1.1, 1],
+                        }}
+                        transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                    >
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-accent-blue">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 16 16 12 12 8" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                        </svg>
+                    </motion.div>
+
+                    <h3 className="text-lg font-bold text-white text-center relative z-10 mb-1">Explore More</h3>
+                    <p className="text-sm text-text-muted text-center relative z-10">
+                        Click on the boxes to learn more!
+                    </p>
+                </motion.div>
             </motion.div>
 
             {/* Bottom Row */}

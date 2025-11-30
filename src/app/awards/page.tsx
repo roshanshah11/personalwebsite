@@ -49,7 +49,7 @@ export default function AwardsPage() {
                                         The Lawrenceville School
                                     </div>
                                     <div className="col-span-2 mb-4 md:mb-0 font-mono text-sm text-text-muted">
-                                        May 2024
+                                        May 2025
                                     </div>
                                     <div className="col-span-4 text-text-main text-sm leading-relaxed">
                                         Awarded to the student who exhibits the most creativity, ingenuity, or entrepreneurial flair in the application of computer science. Recognized for building a Transcript analysis tool used by dean of students for student analysis and insight.
@@ -134,7 +134,7 @@ export default function AwardsPage() {
                                         The Lawrenceville School
                                     </div>
                                     <div className="col-span-2 mb-4 md:mb-0 font-mono text-sm text-text-muted">
-                                        May 2024
+                                        May 2025
                                     </div>
                                     <div className="col-span-4 text-text-main text-sm leading-relaxed">
                                         Top 10% of graduating class. Recognized for academic excellence across all disciplines (GPA 3.92/4.00).
@@ -151,7 +151,7 @@ export default function AwardsPage() {
                                         Federal Reserve Bank
                                     </div>
                                     <div className="col-span-2 mb-4 md:mb-0 font-mono text-sm text-text-muted">
-                                        May 2024
+                                        May 2025
                                     </div>
                                     <div className="col-span-4 text-text-main text-sm leading-relaxed">
                                         Selected as one of the top 12 teams nationally in the High School Fed Challenge. Research published highlighting excellence in monetary policy.

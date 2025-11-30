@@ -27,8 +27,9 @@ const ProfileCard = () => {
             </p>
 
             <p className="text-text-muted text-base leading-relaxed max-w-xs relative z-10">
-                Building at the intersection of markets and machine intelligence.
-                Student at <span className="text-white">UNC Chapel Hill</span>.
+                Building at the intersection of financial markets and machine intelligence.
+                <br />
+                <span className="text-white">Student at UNC Chapel Hill</span>.
             </p>
         </motion.div>
     );
