@@ -12,7 +12,7 @@ export default function AwardsPage() {
                         <header className="mb-16 mt-8">
                             <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-white/10 pb-8">
                                 <div>
-                                    <h1 className="text-6xl md:text-8xl font-bold tracking-tighter text-accent-amber text-glow opacity-90">
+                                    <h1 className="text-6xl md:text-8xl font-bold tracking-tighter text-accent-gold text-glow opacity-90">
                                         AWARDS
                                     </h1>
                                     <p className="text-xl md:text-2xl text-text-muted mt-2 font-light tracking-wide">
@@ -52,7 +52,7 @@ export default function AwardsPage() {
                                         May 2024
                                     </div>
                                     <div className="col-span-4 text-text-main text-sm leading-relaxed">
-                                        Awarded to the most creative student in computer science. Recognized for building "Stitch," an AI-powered study tool used by 400+ students.
+                                        Awarded to the student who exhibits the most creativity, ingenuity, or entrepreneurial flair in the application of computer science. Recognized for building a Transcript analysis tool used by dean of students for student analysis and insight.
                                     </div>
                                 </div>
 
@@ -155,6 +155,17 @@ export default function AwardsPage() {
                                     </div>
                                     <div className="col-span-4 text-text-main text-sm leading-relaxed">
                                         Selected as one of the top 12 teams nationally in the High School Fed Challenge. Research published highlighting excellence in monetary policy.
+                                        <div className="mt-3">
+                                            <a
+                                                href="/2025-journal-of-future-economists.pdf"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-2 text-accent-cyan hover:text-accent-gold transition-colors font-mono text-xs uppercase tracking-wider"
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                                View Publication
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
 

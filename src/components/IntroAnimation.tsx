@@ -1,185 +1,228 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import React, { useEffect, useState, useRef } from 'react';
+import { motion } from 'framer-motion';
 
 interface IntroAnimationProps {
     onComplete: () => void;
 }
 
-export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
-    const [lines, setLines] = useState<string[]>([]);
-    const [currentLine, setCurrentLine] = useState("");
-    const [showDownload, setShowDownload] = useState(false);
-    const [progress, setProgress] = useState(0);
-    const [isComplete, setIsComplete] = useState(false);
-    const [waitingForUser, setWaitingForUser] = useState(false);
-    const [userProceeded, setUserProceeded] = useState(false);
-    const [isPixelating, setIsPixelating] = useState(false);
+const TARGET_TEXT = "ROSHAN SHAH";
+const SUB_TEXT = "FINANCE + AI";
 
-    // The sequence of text to type out
-    const sequencePart1 = [
-        "Hi! My name is Roshan and welcome to my website!",
-        "A little about me...",
-        "I study Business & Data Science at UNC Chapel Hill.",
-        "I am interested in Quantitative Finance, Investment Banking, and Entrepreneurship.",
-        "Explore the website to learn more about me !!!!"
-    ];
+const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
+    const [textRevealed, setTextRevealed] = useState(false);
+    const [subTextRevealed, setSubTextRevealed] = useState(false);
+    const [isExiting, setIsExiting] = useState(false);
 
-    const sequencePart2 = [
-        "Initializing portfolio..."
-    ];
-
-    const typeLine = async (text: string) => {
-        for (let j = 0; j <= text.length; j++) {
-            setCurrentLine(text.slice(0, j));
-            await new Promise((r) => setTimeout(r, 30));
-        }
-        // Wait a bit after finishing the line
-        await new Promise((r) => setTimeout(r, 400));
-        setLines((prev) => [...prev, text]);
-        setCurrentLine("");
-        // Extra pause between lines
-        await new Promise((r) => setTimeout(r, 100));
-    };
-
+    // Cinematic Reveal Sequence
     useEffect(() => {
-        const runSequence = async () => {
-            // Initial delay
-            await new Promise((r) => setTimeout(r, 800));
+        const t1 = setTimeout(() => setTextRevealed(true), 300);
+        const t2 = setTimeout(() => setSubTextRevealed(true), 1200);
+        const t3 = setTimeout(() => setIsExiting(true), 3200);
+        const t4 = setTimeout(onComplete, 4200);
 
-            // Run Part 1
-            for (const text of sequencePart1) {
-                await typeLine(text);
-            }
-
-            // Wait for user interaction
-            setWaitingForUser(true);
+        return () => {
+            clearTimeout(t1);
+            clearTimeout(t2);
+            clearTimeout(t3);
+            clearTimeout(t4);
         };
-
-        runSequence();
-    }, []);
-
-    useEffect(() => {
-        if (userProceeded) {
-            const runPart2 = async () => {
-                setWaitingForUser(false);
-
-                // Run Part 2
-                for (const text of sequencePart2) {
-                    await typeLine(text);
-                }
-
-                // Start "Download" phase
-                setShowDownload(true);
-
-                const totalSteps = 50;
-                for (let i = 0; i <= totalSteps; i++) {
-                    setProgress(Math.floor((i / totalSteps) * 100));
-                    await new Promise((r) => setTimeout(r, Math.random() * 20 + 10));
-                }
-
-                await new Promise((r) => setTimeout(r, 500));
-
-                // Start pixelate transition
-                setIsPixelating(true);
-
-                // Wait for pixelate animation
-                await new Promise((r) => setTimeout(r, 1500));
-
-                setIsComplete(true);
-                onComplete();
-            };
-            runPart2();
-        }
-    }, [userProceeded, onComplete]);
-
-    if (isComplete) {
-        return null;
-    }
+    }, [onComplete]);
 
     return (
-        <div className={`fixed inset-0 z-[100] bg-black flex items-center justify-center font-mono text-base md:text-lg p-0 md:p-4 ${isPixelating ? 'animate-pixelate' : ''}`}>
-            {/* Maximized Terminal Window */}
-            <div className="w-full h-full md:h-[95vh] md:w-[95vw] bg-black md:rounded-lg shadow-2xl overflow-hidden border border-neutral-800 flex flex-col">
+        <motion.div
+            initial={{ opacity: 1 }}
+            animate={{ opacity: isExiting ? 0 : 1 }}
+            transition={{ duration: 1, ease: "easeInOut" }}
+            className="fixed inset-0 z-50 bg-background-dark flex flex-col items-center justify-center overflow-hidden"
+            style={{ pointerEvents: isExiting ? 'none' : 'auto' }}
+        >
+            {/* Animated Background Gradients */}
+            <motion.div
+                animate={{
+                    scale: [1, 1.3, 1],
+                    opacity: [0.2, 0.4, 0.2],
+                    rotate: [0, 90, 0],
+                }}
+                transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                }}
+                className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-primary/20 rounded-full blur-[150px] pointer-events-none"
+            />
+            <motion.div
+                animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.15, 0.3, 0.15],
+                    rotate: [0, -90, 0],
+                }}
+                transition={{
+                    duration: 10,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1
+                }}
+                className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-accent-gold/15 rounded-full blur-[150px] pointer-events-none"
+            />
 
-                {/* MacOS Terminal Header (Monochrome) */}
-                <div className="bg-neutral-900 px-4 py-3 flex items-center gap-2 border-b border-neutral-800">
-                    <div className="w-3 h-3 rounded-full bg-neutral-600"></div>
-                    <div className="w-3 h-3 rounded-full bg-neutral-600"></div>
-                    <div className="w-3 h-3 rounded-full bg-neutral-600"></div>
-                    <div className="flex-1 text-center text-neutral-500 text-xs font-sans tracking-wide">roshan — -zsh — 120x40</div>
+            {/* Floating Particles */}
+            {[...Array(20)].map((_, i) => (
+                <motion.div
+                    key={i}
+                    initial={{
+                        x: Math.random() * window.innerWidth,
+                        y: Math.random() * window.innerHeight,
+                        opacity: 0
+                    }}
+                    animate={{
+                        x: [
+                            Math.random() * window.innerWidth,
+                            Math.random() * window.innerWidth,
+                            Math.random() * window.innerWidth
+                        ],
+                        y: [
+                            Math.random() * window.innerHeight,
+                            Math.random() * window.innerHeight,
+                            Math.random() * window.innerHeight
+                        ],
+                        opacity: [0, 0.6, 0],
+                    }}
+                    transition={{
+                        duration: 4 + Math.random() * 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: Math.random() * 2
+                    }}
+                    className="absolute w-1 h-1 rounded-full"
+                    style={{
+                        background: i % 2 === 0 ? '#3b82f6' : '#D4AF37',
+                        boxShadow: `0 0 ${4 + Math.random() * 6}px ${i % 2 === 0 ? '#3b82f6' : '#D4AF37'}`
+                    }}
+                />
+            ))}
+
+            {/* Main Content */}
+            <div className="relative z-10 flex flex-col items-center p-4 text-center">
+                {/* Name with Split Effect */}
+                <div className="mb-8 relative overflow-hidden">
+                    {/* Glow Effect */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{
+                            opacity: textRevealed ? [0.3, 0.6, 0.3] : 0,
+                            scale: textRevealed ? [1, 1.2, 1] : 0.5
+                        }}
+                        transition={{
+                            duration: 3,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-32 bg-gradient-to-r from-primary/30 to-accent-gold/30 rounded-full blur-[80px]"
+                    />
+
+                    {/* Text Split Animation */}
+                    <div className="relative z-10 flex flex-col md:flex-row gap-2 md:gap-4">
+                        <motion.h1
+                            initial={{ opacity: 0, x: -100, rotateY: -90 }}
+                            animate={{
+                                opacity: textRevealed ? 1 : 0,
+                                x: textRevealed ? 0 : -100,
+                                rotateY: textRevealed ? 0 : -90
+                            }}
+                            transition={{
+                                duration: 1,
+                                ease: [0.6, 0.05, 0.01, 0.9]
+                            }}
+                            className="text-5xl md:text-8xl font-bold font-mono tracking-tight bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent"
+                            style={{
+                                textShadow: '0 0 40px rgba(59, 130, 246, 0.3)',
+                                transformStyle: 'preserve-3d'
+                            }}
+                        >
+                            ROSHAN
+                        </motion.h1>
+                        <motion.h1
+                            initial={{ opacity: 0, x: 100, rotateY: 90 }}
+                            animate={{
+                                opacity: textRevealed ? 1 : 0,
+                                x: textRevealed ? 0 : 100,
+                                rotateY: textRevealed ? 0 : 90
+                            }}
+                            transition={{
+                                duration: 1,
+                                ease: [0.6, 0.05, 0.01, 0.9],
+                                delay: 0.1
+                            }}
+                            className="text-5xl md:text-8xl font-bold font-mono tracking-tight bg-gradient-to-r from-gray-300 via-gray-100 to-white bg-clip-text text-transparent"
+                            style={{
+                                textShadow: '0 0 40px rgba(212, 175, 55, 0.3)',
+                                transformStyle: 'preserve-3d'
+                            }}
+                        >
+                            SHAH
+                        </motion.h1>
+                    </div>
                 </div>
 
-                {/* Terminal Content */}
-                <div className="flex-1 p-6 md:p-10 text-neutral-200 font-mono overflow-y-auto">
+                {/* Subtitle with Line Reveal */}
+                <div className="relative overflow-hidden">
+                    {/* Accent Lines */}
+                    <motion.div
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: subTextRevealed ? 1 : 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent origin-center"
+                        style={{ transform: 'translateY(-50%)' }}
+                    />
 
-                    {/* History of typed lines */}
-                    {lines.map((line, index) => (
-                        <div key={index} className="mb-4">
-                            <span className="text-neutral-500 mr-3">➜</span>
-                            <span className="text-neutral-500 mr-3">~</span>
-                            <span className="text-white">{line}</span>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20, scale: 0.8 }}
+                        animate={{
+                            opacity: subTextRevealed ? 1 : 0,
+                            y: subTextRevealed ? 0 : 20,
+                            scale: subTextRevealed ? 1 : 0.8
+                        }}
+                        transition={{
+                            duration: 1,
+                            ease: [0.6, 0.05, 0.01, 0.9],
+                            delay: 0.2
+                        }}
+                        className="relative z-10 px-8 py-4 backdrop-blur-sm"
+                    >
+                        <div className="text-lg md:text-2xl tracking-[0.4em] font-light bg-gradient-to-r from-accent-cyan via-primary to-accent-gold bg-clip-text text-transparent">
+                            {SUB_TEXT}
                         </div>
-                    ))}
+                    </motion.div>
 
-                    {/* Current typing line (if not downloading yet and not waiting) */}
-                    {!showDownload && !waitingForUser && (
-                        <div className="mb-4">
-                            <span className="text-neutral-500 mr-3">➜</span>
-                            <span className="text-neutral-500 mr-3">~</span>
-                            <span className="text-white">{currentLine}</span>
-                            <span className="animate-pulse inline-block w-2.5 h-5 bg-white align-middle ml-1"></span>
-                        </div>
-                    )}
-
-                    {/* User Interaction Prompt */}
-                    {waitingForUser && (
-                        <div className="mb-4 mt-8">
-                            <div className="text-neutral-400 mb-4">Continue to portfolio?</div>
-                            <div className="flex gap-4">
-                                <button
-                                    onClick={() => setUserProceeded(true)}
-                                    className="px-6 py-2 border border-neutral-600 hover:bg-neutral-800 hover:border-neutral-400 text-white transition-colors duration-200"
-                                >
-                                    [Y] Yes
-                                </button>
-                                <button
-                                    onClick={() => {
-                                        // Optional: Handle "No" case, maybe just stay or show a message
-                                        alert("Session terminated. (Just kidding, click Yes!)");
-                                    }}
-                                    className="px-6 py-2 border border-neutral-800 text-neutral-600 hover:text-neutral-400 transition-colors duration-200"
-                                >
-                                    [N] No
-                                </button>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Download Progress */}
-                    {showDownload && (
-                        <div className="mt-8 text-white max-w-2xl">
-                            <div className="mb-2 text-neutral-400">Downloading assets...</div>
-                            <div className="w-full bg-neutral-800 h-6 rounded-sm overflow-hidden border border-neutral-700">
-                                <div
-                                    className="h-full bg-white transition-all duration-75 ease-out"
-                                    style={{ width: `${progress}%` }}
-                                ></div>
-                            </div>
-                            <div className="mt-2 text-sm text-neutral-500 font-mono flex justify-between">
-                                <span>{progress}% Complete</span>
-                                <span>[{progress === 100 ? "DONE" : "LOADING"}]</span>
-                            </div>
-
-                            {progress === 100 && (
-                                <div className="mt-4 text-white animate-pulse">
-                                    &gt; Launching interface...
-                                </div>
-                            )}
-                        </div>
-                    )}
+                    <motion.div
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: subTextRevealed ? 1 : 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+                        className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-accent-gold to-transparent origin-center"
+                        style={{ transform: 'translateY(50%)' }}
+                    />
                 </div>
+
+                {/* Pulsing Indicator */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{
+                        opacity: subTextRevealed ? [0.3, 0.8, 0.3] : 0,
+                        scale: subTextRevealed ? [1, 1.1, 1] : 1
+                    }}
+                    transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 0.5
+                    }}
+                    className="mt-12 w-2 h-2 rounded-full bg-primary shadow-[0_0_20px_rgba(59,130,246,0.8)]"
+                />
             </div>
-        </div>
+        </motion.div>
     );
-}
+};
+
+export default IntroAnimation;

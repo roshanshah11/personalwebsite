@@ -2,19 +2,27 @@ import React from 'react';
 
 const Bio = () => {
     return (
-        <div className="py-8 md:py-12 text-center animate-fade-in">
-            <h1 className="text-primary tracking-widest text-2xl md:text-4xl font-bold text-glow mb-4">
-                HI, I'M ROSHAN!
-            </h1>
-            <div className="inline-block glass-panel px-6 py-2 mb-8">
-                <h2 className="text-accent-cyan text-sm md:text-base font-bold tracking-widest">
-                    INTERESTED IN: INVESTMENT BANKING | QUANTITATIVE RESEARCH | EARLY-STAGE STARTUPS
-                </h2>
+        <div className="flex flex-col items-center justify-center space-y-8 max-w-4xl mx-auto my-20 animate-fade-in">
+
+            {/* Name & Title */}
+            <div className="text-center space-y-4">
+                <h1 className="text-6xl md:text-8xl font-bold tracking-tight text-white">
+                    Roshan Shah
+                </h1>
+                <p className="text-xl md:text-2xl text-text-muted font-light tracking-wide">
+                    Quantitative Finance <span className="text-white/20 mx-2">|</span> AI Research
+                </p>
             </div>
 
-            <div className="max-w-3xl mx-auto text-left space-y-6 px-6 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-                {/* Minimal Bio - Content moved to Experience page */}
-            </div>
+            {/* Description */}
+            <p className="text-lg md:text-xl text-text-muted max-w-2xl leading-relaxed text-center font-light">
+                Building at the intersection of <span className="text-white font-medium">markets</span> and <span className="text-white font-medium">machine intelligence</span>.
+                <br />
+                Student at <span className="text-white font-medium">UNC Chapel Hill</span>.
+            </p>
+
+            {/* Subtle decorative element */}
+            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent rounded-full opacity-50"></div>
         </div>
     );
 };

@@ -1,54 +1,91 @@
-import Link from "next/link";
+import React from 'react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+
+const navItems = [
+    {
+        name: 'Experience',
+        path: '/experience',
+        color: 'group-hover:text-blue-400',
+        border: 'group-hover:border-blue-400/30',
+        bg: 'group-hover:bg-blue-400/10'
+    },
+    {
+        name: 'Projects',
+        path: '/projects',
+        color: 'group-hover:text-purple-400',
+        border: 'group-hover:border-purple-400/30',
+        bg: 'group-hover:bg-purple-400/10'
+    },
+    {
+        name: 'Awards',
+        path: '/awards',
+        color: 'group-hover:text-amber-400',
+        border: 'group-hover:border-amber-400/30',
+        bg: 'group-hover:bg-amber-400/10'
+    },
+    {
+        name: 'Contact',
+        path: '/contact',
+        color: 'group-hover:text-emerald-400',
+        border: 'group-hover:border-emerald-400/30',
+        bg: 'group-hover:bg-emerald-400/10'
+    },
+];
+
+const container = {
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.05,
+            delayChildren: 0.2
+        }
+    }
+};
+
+const item = {
+    hidden: { opacity: 0, y: 10 },
+    show: { opacity: 1, y: 0 }
+};
 
 const NavigationMenu = () => {
     return (
-        <nav className="w-full max-w-md mx-auto mt-8 border border-text-muted/30 p-4 glass-panel relative">
-            {/* Swirly Arrow & Text (Desktop) */}
-            <div className="absolute -left-48 -top-10 hidden md:flex flex-col items-end pointer-events-none">
-                <span className="text-accent-cyan font-handwriting text-sm mb-1 rotate-[-12deg] w-40 text-right animate-pulse">
-                    if you're stuck, start here!!
-                </span>
-                <svg width="120" height="60" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-accent-cyan">
-                    <path
-                        d="M10 40 C 40 10, 70 10, 110 30"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeDasharray="5 5"
-                        className="animate-dash"
-                    />
-                    <path d="M105 25 L 110 30 L 100 33" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+        <motion.nav
+            variants={container}
+            initial="hidden"
+            animate="show"
+            className="w-full max-w-2xl mx-auto mt-12"
+        >
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 px-4">
+                {navItems.map((navItem) => (
+                    <motion.div key={navItem.name} variants={item}>
+                        <Link
+                            href={navItem.path}
+                            className="group relative block"
+                        >
+                            <div className={`
+                                px-4 py-3 rounded-lg bg-white/5 border border-white/5
+                                transition-all duration-300 ease-out
+                                backdrop-blur-sm relative overflow-hidden
+                                ${navItem.border} ${navItem.bg}
+                                hover:scale-[1.02]
+                            `}>
+                                <div className="relative z-10 flex items-center justify-center">
+                                    <span className={`
+                                        text-sm font-medium text-text-muted
+                                        transition-colors duration-300
+                                        ${navItem.color}
+                                    `}>
+                                        {navItem.name}
+                                    </span>
+                                </div>
+                            </div>
+                        </Link>
+                    </motion.div>
+                ))}
             </div>
-
-            <div className="flex flex-col gap-2">
-                <Link href="/intro" className="group flex items-center justify-between hover:bg-primary/10 p-2 transition-colors rounded relative">
-                    {/* Mobile Arrow (Simple) */}
-                    <div className="absolute -left-8 top-1/2 -translate-y-1/2 md:hidden text-accent-cyan animate-bounce">
-                        ➜
-                    </div>
-
-                    <span className="text-accent-amber font-bold">0) INTRO</span>
-                    <span className="text-primary group-hover:text-white">&lt;GO&gt;</span>
-                </Link>
-                <Link href="/experience" className="group flex items-center justify-between hover:bg-primary/10 p-2 transition-colors rounded">
-                    <span className="text-accent-amber font-bold">1) EXPERIENCE</span>
-                    <span className="text-primary group-hover:text-white">&lt;GO&gt;</span>
-                </Link>
-                <Link href="/projects" className="group flex items-center justify-between hover:bg-primary/10 p-2 transition-colors rounded">
-                    <span className="text-accent-amber font-bold">2) PROJECTS</span>
-                    <span className="text-primary group-hover:text-white">&lt;GO&gt;</span>
-                </Link>
-                <Link href="/awards" className="group flex items-center justify-between hover:bg-primary/10 p-2 transition-colors rounded">
-                    <span className="text-accent-amber font-bold">3) AWARDS</span>
-                    <span className="text-primary group-hover:text-white">&lt;GO&gt;</span>
-                </Link>
-                <Link href="/contact" className="group flex items-center justify-between hover:bg-primary/10 p-2 transition-colors rounded">
-                    <span className="text-accent-amber font-bold">4) CONTACT</span>
-                    <span className="text-primary group-hover:text-white">&lt;GO&gt;</span>
-                </Link>
-            </div>
-        </nav>
+        </motion.nav>
     );
 };
 

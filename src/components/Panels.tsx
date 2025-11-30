@@ -28,7 +28,7 @@ const Panels = () => {
             description: 'CODE & BUILD LOGS',
             link: '/projects', // Assuming this route exists or will exist
             icon: (
-                <svg className="size-8 mb-4 text-accent-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="size-8 mb-4 text-accent-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                 </svg>
             )

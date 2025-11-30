@@ -39,7 +39,7 @@ export default function ContactPage() {
 
                                 {/* Email */}
                                 <div className="group">
-                                    <h2 className="text-sm font-bold text-accent-amber tracking-[0.2em] mb-4 uppercase">
+                                    <h2 className="text-sm font-bold text-accent-gold tracking-[0.2em] mb-4 uppercase">
                                         // Email
                                     </h2>
                                     <a href="mailto:roshah@unc.edu" className="text-3xl md:text-5xl font-bold text-white hover:text-accent-cyan transition-colors tracking-tight break-all">
@@ -49,7 +49,7 @@ export default function ContactPage() {
 
                                 {/* Socials */}
                                 <div>
-                                    <h2 className="text-sm font-bold text-accent-amber tracking-[0.2em] mb-6 uppercase">
+                                    <h2 className="text-sm font-bold text-accent-gold tracking-[0.2em] mb-6 uppercase">
                                         // Socials
                                     </h2>
                                     <div className="flex flex-col gap-6 items-start">
@@ -76,11 +76,11 @@ export default function ContactPage() {
 
                                 {/* Location */}
                                 <div>
-                                    <h2 className="text-sm font-bold text-accent-amber tracking-[0.2em] mb-4 uppercase">
+                                    <h2 className="text-sm font-bold text-accent-gold tracking-[0.2em] mb-4 uppercase">
                                         // Base
                                     </h2>
                                     <p className="text-2xl text-white">
-                                        Chapel Hill, NC
+                                        New York, NY
                                     </p>
                                 </div>
 
@@ -88,7 +88,7 @@ export default function ContactPage() {
                         </div>
 
                         <div className="mt-auto pb-12">
-                            <NextPageButton href="/awards" label="AWARDS" />
+                            <NextPageButton href="/experience" label="EXPERIENCE" />
                         </div>
                     </div>
                 </div>

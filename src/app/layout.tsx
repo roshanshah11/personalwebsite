@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono } from "next/font/google";
+import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import CommandBar from "@/components/CommandBar";
 import ResumeDownload from "@/components/ResumeDownload";
 import { TerminalProvider } from "@/context/TerminalContext";
 
 
-const ibmPlexMono = IBM_Plex_Mono({
-  weight: ["400", "500", "700"],
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-ibm-plex-mono",
+  variable: "--font-jetbrains-mono",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${ibmPlexMono.variable} antialiased`}>
+      <body className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased bg-background-dark text-text-main font-sans selection:bg-primary/30 selection:text-white`}>
         <TerminalProvider>
           {children}
           <ResumeDownload />

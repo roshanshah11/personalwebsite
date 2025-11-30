@@ -6,27 +6,29 @@ const ResumeDownload = () => {
     return (
         <a
             href="/roshan_shah_resume.pdf"
-            download="Roshan_Shah_Resume.pdf"
-            className="fixed bottom-20 right-6 z-50 group animate-fade-in"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="fixed top-6 right-6 z-40 group"
             aria-label="Download Resume"
         >
-            <div className="relative flex items-center gap-3 px-5 py-3 bg-black/90 border border-primary/50 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.3)] backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]">
-                {/* Icon */}
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2}
-                    stroke="currentColor"
-                    className="w-5 h-5 text-primary group-hover:text-white transition-colors duration-300 animate-bounce-subtle"
-                >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M12 9.75V1.5m0 0 3 3m-3-3-3 3" />
-                </svg>
+            <div className="relative flex items-center justify-center w-40 h-12 bg-background-dark border border-white/10 rounded-full shadow-lg overflow-hidden transition-all duration-300 group-hover:border-primary/50">
 
-                {/* Text Label - Always visible now */}
-                <span className="text-primary font-mono font-bold tracking-wider text-sm group-hover:text-white transition-colors duration-300">
-                    RESUME
+                {/* Icon */}
+                <div className="absolute left-3 text-text-muted group-hover:text-primary transition-colors">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M7 10L12 15L17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M12 15V3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </div>
+
+                {/* Text (Revealed on Hover) */}
+                <span className="ml-8 text-sm font-mono font-bold text-primary opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                    GET RESUME
                 </span>
+
+                {/* Glow Effect */}
+                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-20 bg-primary blur-md transition-opacity duration-300"></div>
             </div>
         </a>
     );

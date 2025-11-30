@@ -33,7 +33,7 @@ export default function Footer() {
 
             {/* Command Line */}
             <div
-                className="bg-black/80 px-2 py-1 flex items-center text-sm cursor-text"
+                className="bg-background-dark/80 px-2 py-1 flex items-center text-sm cursor-text"
                 onClick={focusInput}
             >
                 <span className="text-text-muted">COMMAND:</span>
