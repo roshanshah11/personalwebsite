@@ -68,40 +68,46 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
             />
 
             {/* Floating Particles */}
-            {[...Array(20)].map((_, i) => (
-                <motion.div
-                    key={i}
-                    initial={{
-                        x: Math.random() * window.innerWidth,
-                        y: Math.random() * window.innerHeight,
-                        opacity: 0
-                    }}
-                    animate={{
-                        x: [
-                            Math.random() * window.innerWidth,
-                            Math.random() * window.innerWidth,
-                            Math.random() * window.innerWidth
-                        ],
-                        y: [
-                            Math.random() * window.innerHeight,
-                            Math.random() * window.innerHeight,
-                            Math.random() * window.innerHeight
-                        ],
-                        opacity: [0, 0.6, 0],
-                    }}
-                    transition={{
-                        duration: 4 + Math.random() * 4,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: Math.random() * 2
-                    }}
-                    className="absolute w-1 h-1 rounded-full"
-                    style={{
-                        background: i % 2 === 0 ? '#3b82f6' : '#D4AF37',
-                        boxShadow: `0 0 ${4 + Math.random() * 6}px ${i % 2 === 0 ? '#3b82f6' : '#D4AF37'}`
-                    }}
-                />
-            ))}
+            {[...Array(20)].map((_, i) => {
+                // Check if window is defined (client-side only)
+                const width = typeof window !== 'undefined' ? window.innerWidth : 1920;
+                const height = typeof window !== 'undefined' ? window.innerHeight : 1080;
+
+                return (
+                    <motion.div
+                        key={i}
+                        initial={{
+                            x: Math.random() * width,
+                            y: Math.random() * height,
+                            opacity: 0
+                        }}
+                        animate={{
+                            x: [
+                                Math.random() * width,
+                                Math.random() * width,
+                                Math.random() * width
+                            ],
+                            y: [
+                                Math.random() * height,
+                                Math.random() * height,
+                                Math.random() * height
+                            ],
+                            opacity: [0, 0.6, 0],
+                        }}
+                        transition={{
+                            duration: 4 + Math.random() * 4,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: Math.random() * 2
+                        }}
+                        className="absolute w-1 h-1 rounded-full"
+                        style={{
+                            background: i % 2 === 0 ? '#3b82f6' : '#D4AF37',
+                            boxShadow: `0 0 ${4 + Math.random() * 6}px ${i % 2 === 0 ? '#3b82f6' : '#D4AF37'}`
+                        }}
+                    />
+                );
+            })}
 
             {/* Main Content */}
             <div className="relative z-10 flex flex-col items-center p-4 text-center">
