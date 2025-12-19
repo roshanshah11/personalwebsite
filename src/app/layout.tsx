@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import CommandBar from "@/components/CommandBar";
+
 import ResumeDownload from "@/components/ResumeDownload";
 import { TerminalProvider } from "@/context/TerminalContext";
+import GlobalBackground from "@/components/GlobalBackground";
 
 
 const jetbrainsMono = JetBrains_Mono({
@@ -31,11 +32,10 @@ export default function RootLayout({
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased bg-background-dark text-text-main font-sans selection:bg-primary/30 selection:text-white`}>
         <TerminalProvider>
+          <GlobalBackground />
           {children}
           <ResumeDownload />
-          <div className="fixed bottom-0 left-0 right-0 z-50">
-            <CommandBar />
-          </div>
+
         </TerminalProvider>
       </body>
     </html>

@@ -5,31 +5,39 @@
   --font-mono: var(--font-jetbrains-mono), monospace;
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
 
-  /* Luxury Dark Palette */
-  --color-background-dark: #1c1c1c;
-  --color-background-black: #000000;
-  --color-background-light: #2d2d2d;
+  /* Sleek Modern Palette */
+  --color-background-dark: #09090b;
+  /* Zinc 950 */
+  --color-background-black: #09090b;
+  /* Replaced true black with deep charcoal */
+  --color-background-light: #18181b;
+  /* Zinc 900 */
 
   /* Sophisticated Accents */
   --color-primary: #3b82f6;
-  /* Keep blue but use it more subtly */
   --color-primary-glow: rgba(59, 130, 246, 0.3);
 
-  --color-accent-cyan: #06b6d4;
+  --color-accent-cyan: #00D9FF;
   --color-accent-gold: #D4AF37;
+  --color-accent-blue: #3b82f6;
   --color-destructive: #ef4444;
 
   --color-text-main: #ededed;
-  --color-text-muted: #a1a1aa;
+  --color-text-muted: #71717a;
 
   /* Glassmorphism Refined */
-  --color-glass-bg: rgba(255, 255, 255, 0.03);
-  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --color-glass-bg: rgba(255, 255, 255, 0.02);
+  --color-glass-border: rgba(255, 255, 255, 0.06);
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background-dark text-text-main font-sans min-h-screen flex flex-col antialiased overflow-x-hidden;
+    background: radial-gradient(circle at top center, #18181b 0%, #09090b 100%);
   }
 
   .bg-background-black {
