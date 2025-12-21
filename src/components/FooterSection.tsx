@@ -31,10 +31,11 @@ export default function FooterSection() {
     return (
         <motion.footer
             ref={sectionRef}
+            data-tour="footer"
             className="py-20 px-4 border-t border-white/5"
             style={isMounted ? { opacity, y } : {}}
         >
-            <div className="max-w-6xl mx-auto">
+            <div className="section-container">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                     {/* Leadership */}
                     <div>
@@ -52,7 +53,7 @@ export default function FooterSection() {
                     </div>
 
                     {/* Contact */}
-                    <div>
+                    <div data-tour="contact">
                         <h3 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-4">
                             Contact
                         </h3>

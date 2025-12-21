@@ -36,8 +36,8 @@
   }
 
   body {
-    @apply bg-background-dark text-text-main font-sans min-h-screen flex flex-col antialiased overflow-x-hidden;
-    background: radial-gradient(circle at top center, #18181b 0%, #09090b 100%);
+    @apply text-text-main font-sans min-h-screen flex flex-col antialiased overflow-x-hidden;
+    background: transparent;
   }
 
   .bg-background-black {
@@ -162,4 +162,8 @@
 
 .delay-300 {
   animation-delay: 300ms;
+}
+
+.section-container {
+  @apply max-w-[90rem] mx-auto;
 }

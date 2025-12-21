@@ -22,37 +22,36 @@ const awards: AwardItem[] = [
         name: "NJ State Economics Champion",
         org: "Council for Economic Education",
         year: "Apr 2024",
-        description: "Led 4-person team to 1st place in NJ (David Ricardo Division). Qualified for National Semifinals. Tested on micro/macro theory and international trade."
-    },
-    {
-        name: "Wharton Investment Comp",
-        org: "Wharton School (UPenn)",
-        year: "Jan 2024",
-        description: "Top 50 out of 1,600+ global teams. Managed $100K virtual portfolio. Pitched long-term strategy focusing on semiconductor supply chains."
+        description: "Led 4-person team to 1st place in NJ (David Ricardo Division). Qualified for National Semifinals. Tested on micro/macro theory and international trade.",
+        image: "/NEC.png"
     },
     {
         name: "Most Innovative Idea",
         org: "Jerome Fisher Program (UPenn)",
         year: "Jul 2023",
-        description: "Awarded for 'VoiceBraille' – a portable speech-to-Braille printer. Developed prototype and business plan during the Management & Technology Summer Institute."
+        description: "Awarded for 'VoiceBraille' – a portable speech-to-Braille printer. Developed prototype and business plan during the Management & Technology Summer Institute.",
+        image: "/voicebraille.jpg"
     },
     {
         name: "McClellan Society",
         org: "The Lawrenceville School",
         year: "2021 – 2024",
-        description: "Given to students with 400+ hours of community service. Recognized for tutoring in Trenton public schools and organizing campus cleanups."
+        description: "Given to students with 400+ hours of community service. Recognized for tutoring in Trenton public schools and organizing campus cleanups.",
+        image: "/2024McClellanSociety.jpg"
     },
     {
         name: "Cum Laude Society",
         org: "The Lawrenceville School",
         year: "May 2025",
-        description: "Top 10% of graduating class. Recognized for academic excellence across all disciplines (GPA 3.92/4.00)."
+        description: "Top 10% of graduating class. Recognized for academic excellence across all disciplines (GPA 3.92/4.00).",
+        image: "/cumlaudesociety.png"
     },
     {
         name: "Journal of Future Economists",
         org: "Federal Reserve Bank",
         year: "May 2025",
-        description: "Selected as one of the top 12 teams nationally in the High School Fed Challenge. Research published highlighting excellence in monetary policy."
+        description: "Selected as one of the top 12 teams nationally in the High School Fed Challenge. Research published highlighting excellence in monetary policy.",
+        image: "/hsfedchallange.jpeg"
     },
 ];
 
@@ -67,11 +66,12 @@ export default function AwardsHoverPreview() {
 
     return (
         <div
-            className="relative max-w-5xl mx-auto py-24 px-4"
+            data-tour="awards"
+            className="relative section-container py-16 px-4"
             onMouseMove={handleMouseMove}
         >
-            <h2 className="text-3xl md:text-5xl font-bold text-amber-400 tracking-tight mb-16 px-4">
-                AWARDS
+            <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-200 to-amber-500 mb-8 px-4">
+                Awards
             </h2>
 
             <div className="space-y-4">
@@ -85,6 +85,7 @@ export default function AwardsHoverPreview() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: index * 0.1 }}
+                        data-tour={index === 0 ? "award-0" : undefined}
                     >
                         {/* Hover Background Hihghlight */}
                         <div className="absolute inset-0 bg-white/5 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500 ease-out" />
@@ -119,14 +120,24 @@ export default function AwardsHoverPreview() {
                         transition={{ type: "spring", stiffness: 150, damping: 15 }}
                     >
                         <div className="w-full h-40 bg-gradient-to-br from-gray-900 to-black rounded-lg mb-1 overflow-hidden relative border border-white/5">
-                            <div className="absolute inset-0 opacity-40"
-                                style={{
-                                    backgroundImage: `radial-gradient(circle at 50% 50%, ${hoveredIndex % 2 ? '#00D9FF' : '#D4AF37'} 0%, transparent 60%)`,
-                                }}
-                            />
-                            <div className="absolute inset-0 flex items-center justify-center text-xs text-gray-500 font-mono tracking-widest">
-                                [IMAGE PREVIEW]
-                            </div>
+                            {awards[hoveredIndex].image ? (
+                                <img
+                                    src={awards[hoveredIndex].image}
+                                    alt={awards[hoveredIndex].name}
+                                    className="w-full h-full object-cover opacity-90"
+                                />
+                            ) : (
+                                <>
+                                    <div className="absolute inset-0 opacity-40"
+                                        style={{
+                                            backgroundImage: `radial-gradient(circle at 50% 50%, ${hoveredIndex % 2 ? '#00D9FF' : '#D4AF37'} 0%, transparent 60%)`,
+                                        }}
+                                    />
+                                    <div className="absolute inset-0 flex items-center justify-center text-xs text-gray-500 font-mono tracking-widest">
+                                        [IMAGE PREVIEW]
+                                    </div>
+                                </>
+                            )}
                         </div>
 
                         <div>

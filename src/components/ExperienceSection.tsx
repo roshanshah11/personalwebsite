@@ -1,269 +1,149 @@
 "use client";
 
-import { Canvas } from "@react-three/fiber";
-import { useState, Suspense, useEffect, useRef } from "react";
-import { AnimatePresence, motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
-import ExperienceScene from "./ExperienceScene";
+import { motion } from "framer-motion";
 
 interface Experience {
+    id: number;
     company: string;
     role: string;
     date: string;
-    shortDescription: string;
-    fullDescription: string;
-    metrics: { label: string; value: string; subtext?: string }[];
-    techStack?: string;
-    id: number;
-    logo?: string;
+    description: string;
+    metrics?: { label: string; value: string }[];
+    skills: string[];
 }
 
 const experiences: Experience[] = [
     {
         id: 1,
-        company: "BLACK SWAN MANAGEMENT",
+        company: "Black Swan Management",
         role: "Researcher",
-        date: "NOV 2025 – PRESENT",
-        shortDescription: "Volatility and risk models for public markets. GARCH/rough volatility frameworks.",
-        fullDescription: "Researching volatility and risk models for public markets, focusing on regime changes and catalysts. Developing volatility models blending regime-switching logic, distributional assumptions, and realized-vol tracking. Experimenting with GARCH/rough volatility frameworks.",
+        date: "Nov 2025 – Present",
+        description: "Researching volatility and risk models for public markets, focusing on regime changes and catalysts. Developing volatility models blending regime-switching logic, distributional assumptions, and realized-vol tracking.",
         metrics: [
-            { label: "Models Built", value: "3", subtext: "(Volatility & Risk)" }
+            { label: "Models Built", value: "3" }
         ],
-        techStack: "Python (GARCH / Rough Vol)"
+        skills: ["Python", "GARCH", "Rough Vol"]
     },
     {
         id: 2,
-        company: "KENAN-FLAGLER CDR",
+        company: "Kenan-Flagler CDR",
         role: "Research Assistant",
-        date: "SEP 2025 – PRESENT",
-        shortDescription: "Experimental design for behavioral studies. Cleaning and structuring raw behavioral data.",
-        fullDescription: "Assisting with experimental design for behavioral studies. Managing study sessions and participant logistics. Cleaning and structuring raw behavioral data for analysis.",
-        metrics: [
-            { label: "Studies", value: "Behavioral", subtext: "(Experimental Design)" },
-            { label: "Data", value: "Cleaning", subtext: "(Analysis Prep)" }
-        ],
-        logo: "/kenanflagler.jpeg"
+        date: "Sep 2025 – Present",
+        description: "Assisting with experimental design for behavioral studies. Managing study sessions and participant logistics. Cleaning and structuring raw behavioral data.",
+        skills: ["Research Design", "Data Analysis", "Statistics"]
     },
     {
         id: 3,
-        company: "HITECH CORPORATION",
+        company: "Hitech Corporation",
         role: "Marketing & Strategy Intern",
-        date: "JUL 2025 – SEP 2025",
-        shortDescription: "U.S. market entry strategy for $3.4M+ automotive plastics acquisition.",
-        fullDescription: "Designed U.S. market entry strategy for a $3.4M+ automotive plastics acquisition. Built CRM-integrated lead pipeline targeting $50M+ TAM. Analyzed competitor pricing and distribution to recommend go-to-market strategy.",
+        date: "Jul 2025 – Sep 2025",
+        description: "Designed U.S. market entry strategy for a $3.4M+ automotive plastics acquisition. Built CRM-integrated lead pipeline targeting $50M+ TAM. Analyzed competitor pricing and distribution.",
         metrics: [
-            { label: "Deal Size", value: "$3.4M", subtext: "(Acquisition Strategy)" },
-            { label: "TAM Identified", value: "$50M+", subtext: "(Lead Pipeline)" }
+            { label: "Deal Size", value: "$3.4M" },
+            { label: "TAM", value: "$50M+" }
         ],
-        logo: "/Hitech.jpeg"
+        skills: ["Strategy", "CRM", "Market Analysis"]
     },
     {
         id: 4,
-        company: "CHAKLI CAPITAL LLC",
+        company: "Chakli Capital LLC",
         role: "Summer Analyst",
-        date: "MAY 2025 – JUL 2025",
-        shortDescription: "Public-equity investing in AI and enterprise software. DCF, comps, TAM models.",
-        fullDescription: "Supported public-equity investing in AI and enterprise software. Built DCF, trading comps, and TAM models supporting $20M+ capital allocation. Wrote sector memos on AI monetization and infrastructure cycles.",
+        date: "May 2025 – Jul 2025",
+        description: "Supported public-equity investing in AI and enterprise software. Built DCF, trading comps, and TAM models supporting $20M+ capital allocation. Wrote sector memos on AI monetization.",
         metrics: [
-            { label: "Capital Deployed", value: "$20M+", subtext: "(Allocation Support)" },
-            { label: "Focus", value: "AI / SaaS", subtext: "(Sector Analysis)" }
+            { label: "Capital", value: "$20M+" },
+            { label: "Focus", value: "AI/SaaS" }
         ],
-        logo: "/Chakli.png"
+        skills: ["DCF", "Comps", "Financial Modeling"]
     },
     {
         id: 5,
         company: "DTV.AI",
         role: "Co-Founder",
-        date: "MAY 2023 – FEB 2025",
-        shortDescription: "Cost-analytics startup for retailers/CPG. Quantified margin improvements.",
-        fullDescription: "Co-founded cost-analytics startup for retailers/CPG. Produced teardown reports identifying sourcing inefficiencies. Quantified 12–15% margin improvements, generating $40K+ B2B revenue.",
+        date: "May 2023 – Feb 2025",
+        description: "Co-founded cost-analytics startup for retailers/CPG. Produced teardown reports identifying sourcing inefficiencies. Quantified 12–15% margin improvements.",
         metrics: [
-            { label: "Margin Impact", value: "+15%", subtext: "(Cost Optimization)" },
-            { label: "Revenue", value: "$40K+", subtext: "(B2B Generated)" }
+            { label: "Margin", value: "+15%" },
+            { label: "Revenue", value: "$40K+" }
         ],
-        logo: "/DTV.AI logo.png"
+        skills: ["Startups", "B2B Sales", "Analytics"]
     }
 ];
 
-function ExperiencePopup({ exp, onClose }: { exp: Experience | null; onClose: () => void }) {
-    if (!exp) return null;
-
-    return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
-            onClick={onClose}
-        >
-            <motion.div
-                initial={{ scale: 0.95, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.95, opacity: 0 }}
-                onClick={(e) => e.stopPropagation()}
-                className="w-full max-w-2xl bg-black border border-zinc-800 shadow-2xl relative overflow-hidden flex flex-col max-h-[90vh]"
-            >
-                {/* Header Bar */}
-                <div className="h-10 border-b border-zinc-800 flex items-center justify-between px-4 bg-zinc-900/50">
-                    <button
-                        onClick={onClose}
-                        className="flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-white transition-colors uppercase"
-                    >
-                        <span className="px-1.5 py-0.5 border border-zinc-700 rounded text-[10px]">[ ESC ]</span>
-                        BACK
-                    </button>
-                    <div className="text-xs font-mono text-zinc-600">
-                        Node: {exp.id} / 5
-                    </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-8 overflow-y-auto custom-scrollbar">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-                        <div>
-                            <div className="flex items-center gap-3 mb-2">
-                                <span className="text-4xl font-bold text-zinc-800 tracking-tight uppercase">
-                                    {exp.id < 10 ? `0${exp.id}` : exp.id}
-                                </span>
-                                <div className="h-px bg-zinc-800 flex-grow w-12" />
-                            </div>
-                            <div className="text-amber-500 font-mono text-sm mb-1 uppercase tracking-wider">
-                                {exp.date}
-                            </div>
-                            <h2 className="text-3xl font-bold text-white uppercase tracking-wider leading-tight">
-                                {exp.company}
-                            </h2>
-                        </div>
-                    </div>
-
-                    <div className="space-y-8">
-                        <div>
-                            <h3 className="text-xs font-mono text-zinc-500 uppercase mb-2">Role</h3>
-                            <p className="text-xl text-cyan-400 font-medium font-mono border-b border-zinc-800/50 pb-4 inline-block">{exp.role}</p>
-                        </div>
-
-                        <div>
-                            <h3 className="text-xs font-mono text-zinc-500 uppercase mb-2">Description</h3>
-                            <p className="text-zinc-300 leading-relaxed text-sm md:text-base border-l-2 border-zinc-800 pl-4 py-1">
-                                {exp.fullDescription}
-                            </p>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <h3 className="text-xs font-mono text-zinc-500 uppercase mb-3">Key Highlights</h3>
-                                <div className="space-y-3">
-                                    {exp.metrics.map((m, i) => (
-                                        <div key={i} className="bg-zinc-900/30 p-3 border border-zinc-800/50 hover:border-amber-500/20 transition-colors">
-                                            <div className="flex justify-between items-baseline mb-1">
-                                                <span className="text-xs text-zinc-400 uppercase tracking-tight">{m.label}</span>
-                                                <span className="text-amber-400 font-mono font-bold">{m.value}</span>
-                                            </div>
-                                            {m.subtext && (
-                                                <p className="text-[10px] text-zinc-600 font-mono uppercase text-right">
-                                                    {m.subtext}
-                                                </p>
-                                            )}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {exp.techStack && (
-                                <div>
-                                    <h3 className="text-xs font-mono text-zinc-500 uppercase mb-3">Tech Stack</h3>
-                                    <div className="bg-zinc-900/30 p-3 border border-zinc-800/50">
-                                        <p className="text-sm text-zinc-300 font-mono break-words">
-                                            {exp.techStack}
-                                        </p>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </motion.div>
-        </motion.div>
-    );
-}
-
 export default function ExperienceSection() {
-    const [selectedExp, setSelectedExp] = useState<Experience | null>(null);
-    const [isMounted, setIsMounted] = useState(false);
-    const [scrollProgress, setScrollProgress] = useState(0);
-    const sectionRef = useRef<HTMLElement>(null);
-
-    useEffect(() => setIsMounted(true), []);
-
-    // Use Framer Motion's useScroll to get native page scroll progress for this section
-    // Only run after mount to avoid hydration issues
-    const { scrollYProgress } = useScroll({
-        target: isMounted ? sectionRef : undefined,
-        offset: ["start start", "end end"]
-    });
-
-    // Update the scrollProgress state whenever the scroll progresses
-    useMotionValueEvent(scrollYProgress, "change", (latest) => {
-        setScrollProgress(latest);
-    });
-
-    // Handle ESC key
-    useEffect(() => {
-        const handleEsc = (e: KeyboardEvent) => {
-            if (e.key === "Escape") setSelectedExp(null);
-        };
-        window.addEventListener("keydown", handleEsc);
-        return () => window.removeEventListener("keydown", handleEsc);
-    }, []);
-
-    // If not mounted (SSR), show placeholder
-    if (!isMounted) return <section ref={sectionRef} className="h-screen bg-black" id="experience" />;
-
     return (
-        <section ref={sectionRef} className="relative h-[400vh] w-full bg-black" id="experience">
-            {/* 3D Canvas Container - sticky so it stays while we scroll */}
-            <div className="sticky top-0 h-screen w-full">
+        <section data-tour="experience" className="py-16 px-4 relative">
+            <div className="section-container">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    {/* Left: Section Title */}
+                    <div className="lg:col-span-4">
+                        <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-200 to-amber-500 mb-3">
+                            Experience
+                        </h2>
+                        <p className="text-sm text-gray-400 leading-relaxed">
+                            A track record of building financial models, executing strategies, and analyzing data.
+                        </p>
+                    </div>
 
-                {/* Title Overlay */}
-                <div className="absolute top-10 left-10 z-10 pointer-events-none">
-                    <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase mb-4 opacity-50 mix-blend-difference">
-                        Experience
-                    </h2>
-                    <div className="flex items-center gap-2 text-zinc-500 font-mono text-sm max-w-xl">
-                        <span className="w-2 h-2 bg-amber-500 animate-pulse" />
-                        <span className="uppercase tracking-widest">Interactive 3D Timeline • Scroll to Explore</span>
+                    {/* Right: Experience Items */}
+                    <div className="lg:col-span-8 space-y-6">
+                        {experiences.map((exp, i) => (
+                            <motion.div
+                                key={exp.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.05 }}
+                                className="group"
+                                data-tour={i === 0 ? "experience-card-0" : undefined}
+                            >
+                                {/* Header Row */}
+                                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+                                    <h3 className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">
+                                        {exp.company}
+                                    </h3>
+                                    <span className="text-xs text-cyan-400 font-mono">{exp.role}</span>
+                                    <span className="text-[10px] text-gray-600 font-mono ml-auto">{exp.date}</span>
+                                </div>
+
+                                {/* Description */}
+                                <p className="text-xs text-gray-400 leading-relaxed mb-2">
+                                    {exp.description}
+                                </p>
+
+                                {/* Skills & Metrics Row */}
+                                <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+                                    <div className="flex flex-wrap gap-1.5">
+                                        {exp.skills.map((skill, j) => (
+                                            <span
+                                                key={j}
+                                                className="text-[10px] font-mono text-gray-500"
+                                            >
+                                                {skill}{j < exp.skills.length - 1 && " ·"}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    {exp.metrics && (
+                                        <div className="flex gap-3 ml-auto">
+                                            {exp.metrics.map((m, k) => (
+                                                <span key={k} className="text-[10px] font-mono">
+                                                    <span className="text-gray-600">{m.label}:</span>{" "}
+                                                    <span className="text-amber-500">{m.value}</span>
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Subtle divider */}
+                                {i < experiences.length - 1 && (
+                                    <div className="mt-5 border-b border-white/5" />
+                                )}
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
-
-                {/* Scroll Progress Indicator */}
-                <div className="absolute bottom-10 left-10 z-10 pointer-events-none">
-                    <div className="w-32 h-1 bg-zinc-800 rounded-full overflow-hidden">
-                        <motion.div
-                            className="h-full bg-amber-500"
-                            style={{ width: `${scrollProgress * 100}%` }}
-                        />
-                    </div>
-                    <p className="text-xs text-zinc-600 font-mono mt-2">
-                        {Math.round(scrollProgress * 100)}% explored
-                    </p>
-                </div>
-
-                <Canvas camera={{ position: [0, 0, 5], fov: 60, near: 0.1, far: 500 }} gl={{ antialias: true }}>
-                    <Suspense fallback={null}>
-                        <ExperienceScene
-                            experiences={experiences}
-                            onSelect={setSelectedExp}
-                            scrollProgress={scrollProgress}
-                        />
-                    </Suspense>
-                </Canvas>
             </div>
-
-            {/* Popup behaves as modal on top of everything */}
-            <AnimatePresence>
-                {selectedExp && (
-                    <ExperiencePopup exp={selectedExp} onClose={() => setSelectedExp(null)} />
-                )}
-            </AnimatePresence>
         </section>
     );
 }

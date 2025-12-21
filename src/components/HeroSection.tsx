@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import TextReveal from "./TextReveal";
+import { useLenis } from "./SmoothScroll";
 
 export default function HeroSection() {
     const [isMounted, setIsMounted] = useState(false);
@@ -13,6 +14,23 @@ export default function HeroSection() {
         offset: ["start start", "end start"]
     });
 
+    const lenis = useLenis();
+
+    useEffect(() => {
+        if (!lenis) return;
+
+        // Auto-scroll after animation completion
+        // Name animation finishes around 1.5s
+        const timer = setTimeout(() => {
+            lenis.scrollTo("#about", {
+                duration: 2.5,
+                easing: (t) => 1 - Math.pow(1 - t, 3) // Cubic ease out
+            });
+        }, 2500); // 2.5 seconds delay
+
+        return () => clearTimeout(timer);
+    }, [lenis]);
+
     const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
     const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
     const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
@@ -20,6 +38,7 @@ export default function HeroSection() {
     return (
         <section
             ref={sectionRef}
+            data-tour="hero"
             className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
         >
             <motion.div

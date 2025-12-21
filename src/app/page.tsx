@@ -3,8 +3,7 @@
 import SmoothScroll from "@/components/SmoothScroll";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
-import ExperienceSection from "@/components/ExperienceSection";
-import ProjectCarousel3D from "@/components/ProjectCarousel3D";
+import WorkSection from "@/components/WorkSection";
 import AwardsHoverPreview from "@/components/AwardsHoverPreview";
 import FooterSection from "@/components/FooterSection";
 import ClickEffect from "@/components/ClickEffect";
@@ -26,12 +25,7 @@ export default function Home() {
         <div className="relative z-10">
           <HeroSection />
           <AboutSection />
-          <ExperienceSection />
-
-          {/* New 3D Carousel Section */}
-          <section className="py-20 relative z-10">
-            <ProjectCarousel3D />
-          </section>
+          <WorkSection />
 
           {/* New Awards Hover Section */}
           <AwardsHoverPreview />

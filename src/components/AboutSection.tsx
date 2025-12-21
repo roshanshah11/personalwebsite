@@ -39,8 +39,8 @@ export default function AboutSection() {
     const imageScale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
 
     return (
-        <section ref={sectionRef} className="py-16 px-4 relative">
-            <div className="max-w-6xl mx-auto">
+        <section id="about" ref={sectionRef} data-tour="about" className="py-16 px-4 relative">
+            <div className="section-container">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                     {/* Left: Profile Image */}
                     <motion.div
@@ -68,7 +68,7 @@ export default function AboutSection() {
                         </div>
 
                         {/* Education */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div data-tour="education" className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {education.map((edu, i) => (
                                 <motion.div
                                     key={i}
@@ -87,7 +87,7 @@ export default function AboutSection() {
                         </div>
 
                         {/* Skills Grid */}
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div data-tour="skills" className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             {Object.entries(skills).map(([category, items], i) => (
                                 <motion.div
                                     key={category}

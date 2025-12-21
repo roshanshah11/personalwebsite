@@ -5,6 +5,7 @@ import "./globals.css";
 import ResumeDownload from "@/components/ResumeDownload";
 import { TerminalProvider } from "@/context/TerminalContext";
 import GlobalBackground from "@/components/GlobalBackground";
+import { TourWrapper } from "@/components/Tour";
 
 
 const jetbrainsMono = JetBrains_Mono({
@@ -32,10 +33,11 @@ export default function RootLayout({
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased bg-background-dark text-text-main font-sans selection:bg-primary/30 selection:text-white`}>
         <TerminalProvider>
-          <GlobalBackground />
-          {children}
-          <ResumeDownload />
-
+          <TourWrapper>
+            <GlobalBackground />
+            {children}
+            <ResumeDownload />
+          </TourWrapper>
         </TerminalProvider>
       </body>
     </html>
