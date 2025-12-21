@@ -315,7 +315,7 @@ export function TourProvider({ children, onAnalyticsEvent }: TourProviderProps) 
         let startTime = 0;
 
         if (startChapter) {
-            const chapter = chapters.find(ch => ch.id === startChapter);
+            const chapter = chapters.find((ch: TourChapter) => ch.id === startChapter);
             if (chapter) {
                 // Calculate start time for this chapter
                 startTime = steps.slice(0, chapter.startStepIndex)
@@ -397,7 +397,7 @@ export function TourProvider({ children, onAnalyticsEvent }: TourProviderProps) 
     }, [steps]);
 
     const goToChapter = useCallback((chapterId: string) => {
-        const chapter = chapters.find(ch => ch.id === chapterId);
+        const chapter = chapters.find((ch: TourChapter) => ch.id === chapterId);
         if (chapter) {
             const time = steps.slice(0, chapter.startStepIndex).reduce((acc: number, s: TourStep) => acc + s.durationMs, 0);
             setElapsedTime(time + 10);
