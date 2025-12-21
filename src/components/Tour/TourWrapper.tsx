@@ -1,4 +1,5 @@
 'use client';
+import { Suspense } from 'react';
 
 import { TourProvider, TourOverlay, PlayTourButton } from '@/components/Tour';
 
@@ -25,7 +26,9 @@ export function TourWrapper({ children }: TourWrapperProps) {
         >
             {children}
             <TourOverlay />
-            <PlayTourButton />
+            <Suspense fallback={null}>
+                <PlayTourButton />
+            </Suspense>
         </TourProvider>
     );
 }

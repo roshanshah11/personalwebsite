@@ -1,0 +1,27 @@
+
+> web@0.1.0 build
+> next build
+
+   ▲ Next.js 16.0.10 (Turbopack)
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 2.8s
+   Running TypeScript ...
+   Collecting page data using 10 workers ...
+   Generating static pages using 10 workers (0/5) ...
+   Generating static pages using 10 workers (1/5) 
+ ⨯ useSearchParams() should be wrapped in a suspense boundary at page "/". Read more: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+    at S (/Users/roshanshah1/Downloads/personalwebsite/.next/server/chunks/ssr/_3f6e8734._.js:2:2111)
+    at p (/Users/roshanshah1/Downloads/personalwebsite/.next/server/chunks/ssr/_3f6e8734._.js:4:4847)
+    at i (/Users/roshanshah1/Downloads/personalwebsite/.next/server/chunks/ssr/_3f6e8734._.js:27:19732)
+    at ar (/Users/roshanshah1/Downloads/personalwebsite/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:84366)
+    at aa (/Users/roshanshah1/Downloads/personalwebsite/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:86185)
+    at as (/Users/roshanshah1/Downloads/personalwebsite/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:107952)
+    at ao (/Users/roshanshah1/Downloads/personalwebsite/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:105374)
+    at ap (/Users/roshanshah1/Downloads/personalwebsite/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:112881)
+    at al (/Users/roshanshah1/Downloads/personalwebsite/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:109984)
+    at as (/Users/roshanshah1/Downloads/personalwebsite/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:108230)
+Error occurred prerendering page "/". Read more: https://nextjs.org/docs/messages/prerender-error
+Export encountered an error on /page: /, exiting the build.
+ ⨯ Next.js build worker exited with code: 1 and signal: null
