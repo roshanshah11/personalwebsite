@@ -97,7 +97,7 @@ export function PlayTourButton() {
 
                 {/* Text */}
                 <span className="relative text-sm font-medium text-white/90 whitespace-nowrap">
-                    Play Tour
+                    Quick walkthrough here
                 </span>
 
                 {/* Sparkle icon */}

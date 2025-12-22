@@ -8,21 +8,20 @@ const education = [
     {
         school: "UNC Chapel Hill",
         program: "Kenan-Flagler Business School",
-        degree: "B.S. Business Administration + Data Science",
-        details: "Assured Enrollment. Portfolio Management Team (TMT), Quant Finance Assoc."
+        degree: "B.S. Business Administration + Data Science (GPA 4.0)",
+        details: "Assured Enrollment into KF. Portfolio Management Team (TMT), Quant Finance Association"
     },
     {
         school: "The Lawrenceville School",
-        program: "Cum Laude (GPA 3.92/4.00)",
-        degree: "Herman Hollerith Prize, McClellan Society"
+        program: "High School (GPA 3.92/4.00)",
+        details: "Herman Hollerith Prize, Cum Laude Society, McClellan Society"
     }
 ];
 
 const skills = {
     languages: ["Python", "R", "C++", "SQL"],
-    finance: ["DCF / Comps", "Volatility Models", "Derivatives", "Market Microstructure"],
-    data: ["Pandas / NumPy", "Scikit-Learn", "TensorFlow"],
-    web: ["Next.js", "React", "TypeScript"]
+    skills: ["DCF / Comps", "Volatility Models", "Derivatives trading", "Economic modeling"],
+    interests: ["Poker", "Football", "Traveling", "FOOD (like any)", "Reading", "AI governance"]
 };
 
 export default function AboutSection() {
@@ -58,10 +57,8 @@ export default function AboutSection() {
                         {/* Bio */}
                         <div>
                             <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-                                <span className="text-amber-400 font-bold">Roshan Shah</span> — quantitative researcher and
-                                engineer focused on volatility modeling, derivatives pricing, and
-                                AI-driven financial systems. Building at the intersection of
-                                <span className="text-cyan-400"> mathematics</span>,
+                                <span className="text-amber-400 font-bold">Roshan Shah</span>: Finance and quantitative researcher focused on volatility modeling and AI-driven financial systems. Always building at the intersection of
+                                <span className="text-cyan-400"> finance</span>,
                                 <span className="text-cyan-400"> technology</span>, and
                                 <span className="text-cyan-400"> markets</span>.
                             </p>

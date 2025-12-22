@@ -1,6 +1,7 @@
 "use client";
 
-import SmoothScroll from "@/components/SmoothScroll";
+
+
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import WorkSection from "@/components/WorkSection";
@@ -12,27 +13,25 @@ import ShaderBackground from "@/components/ShaderBackground";
 
 export default function Home() {
   return (
-    <SmoothScroll>
-      <main className="relative min-h-screen text-white selection:bg-amber-500/20">
-        {/* Scroll progress indicator */}
-        <ScrollProgress />
-        <ShaderBackground />
+    <main className="relative min-h-screen text-white selection:bg-amber-500/20">
+      {/* Scroll progress indicator */}
+      <ScrollProgress />
+      <ShaderBackground />
 
-        {/* Click effect overlay */}
-        <ClickEffect />
+      {/* Click effect overlay */}
+      <ClickEffect />
 
-        {/* Content sections - continuous scroll */}
-        <div className="relative z-10">
-          <HeroSection />
-          <AboutSection />
-          <WorkSection />
+      {/* Content sections - continuous scroll */}
+      <div className="relative z-10">
+        <HeroSection />
+        <AboutSection />
+        <WorkSection />
 
-          {/* New Awards Hover Section */}
-          <AwardsHoverPreview />
+        {/* New Awards Hover Section */}
+        <AwardsHoverPreview />
 
-          <FooterSection />
-        </div>
-      </main>
-    </SmoothScroll>
+        <FooterSection />
+      </div>
+    </main>
   );
 }

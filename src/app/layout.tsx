@@ -3,6 +3,8 @@ import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 import ResumeDownload from "@/components/ResumeDownload";
+import SmoothScroll from "@/components/SmoothScroll";
+
 import { TerminalProvider } from "@/context/TerminalContext";
 import GlobalBackground from "@/components/GlobalBackground";
 import { TourWrapper } from "@/components/Tour";
@@ -33,11 +35,13 @@ export default function RootLayout({
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased bg-background-dark text-text-main font-sans selection:bg-primary/30 selection:text-white`}>
         <TerminalProvider>
-          <TourWrapper>
-            <GlobalBackground />
-            {children}
-            <ResumeDownload />
-          </TourWrapper>
+          <SmoothScroll>
+            <TourWrapper>
+              <GlobalBackground />
+              {children}
+              <ResumeDownload />
+            </TourWrapper>
+          </SmoothScroll>
         </TerminalProvider>
       </body>
     </html>

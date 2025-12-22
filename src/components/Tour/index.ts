@@ -15,6 +15,8 @@ export { CaptionRenderer } from './CaptionRenderer';
 export { TimelineControls } from './TimelineControls';
 export { ContentViewerModal } from './ContentViewerModal';
 export { KeyboardHandler } from './KeyboardHandler';
+export { HelpButton } from './HelpButton';
+export { RocketPromo } from './RocketPromo';
 
 // Config
 export { tourConfig } from './steps';

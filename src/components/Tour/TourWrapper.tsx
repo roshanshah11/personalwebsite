@@ -1,7 +1,7 @@
 'use client';
 import { Suspense } from 'react';
 
-import { TourProvider, TourOverlay, PlayTourButton } from '@/components/Tour';
+import { TourProvider, TourOverlay, PlayTourButton, RocketPromo } from '@/components/Tour';
 
 interface TourWrapperProps {
     children: React.ReactNode;
@@ -26,6 +26,7 @@ export function TourWrapper({ children }: TourWrapperProps) {
         >
             {children}
             <TourOverlay />
+            <RocketPromo />
             <Suspense fallback={null}>
                 <PlayTourButton />
             </Suspense>

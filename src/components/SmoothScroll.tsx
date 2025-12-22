@@ -26,6 +26,9 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
         setLenis(lenisInstance);
 
+        // Expose globally for Tour and other components
+        (window as any).__lenis = lenisInstance;
+
         function raf(time: number) {
             lenisInstance.raf(time);
             requestAnimationFrame(raf);
@@ -36,6 +39,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
         return () => {
             lenisInstance.destroy();
             setLenis(null);
+            delete (window as any).__lenis;
         };
     }, []);
 

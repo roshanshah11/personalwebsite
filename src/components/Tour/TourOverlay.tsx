@@ -7,6 +7,7 @@ import { CaptionRenderer } from './CaptionRenderer';
 import { TimelineControls } from './TimelineControls';
 import { KeyboardHandler } from './KeyboardHandler';
 import { ContentViewerModal } from './ContentViewerModal';
+import { HelpButton } from './HelpButton';
 
 /**
  * Main Tour Overlay - the fullscreen cinematic layer
@@ -90,6 +91,9 @@ export function TourOverlay() {
 
                         {/* Content viewer modal */}
                         <ContentViewerModal />
+
+                        {/* Help button - top left */}
+                        <HelpButton />
 
                         {/* Timeline controls - fade out on exit */}
                         <motion.div

@@ -84,15 +84,16 @@ export default function FooterSection() {
                     </div>
                 </div>
 
-                {/* Large Name at Bottom */}
+                {/* Quote at Bottom */}
                 <div className="mt-16 pt-8 border-t border-white/5">
                     <motion.p
-                        className="text-6xl md:text-8xl font-bold text-white/[0.03] tracking-tighter text-center"
+                        className="text-base md:text-lg text-white text-center italic"
+                        style={{ fontFamily: "'Georgia', 'Times New Roman', cursive" }}
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                     >
-                        ROSHAN SHAH
+                        "There is nothing so practical as a good theory." — Kurt Lewin
                     </motion.p>
                 </div>
             </div>

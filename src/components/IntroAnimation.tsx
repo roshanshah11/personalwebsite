@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { useLenis } from './SmoothScroll';
+
 
 interface IntroAnimationProps {
     onComplete: () => void;
@@ -64,6 +66,22 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
             clearTimeout(t4);
         };
     }, [onComplete]);
+
+    // Lock Scroll during animation
+    const lenis = useLenis();
+    useEffect(() => {
+        if (!lenis) return;
+
+        if (!isExiting) {
+            lenis.stop();
+        } else {
+            lenis.start();
+        }
+
+        return () => {
+            lenis.start();
+        };
+    }, [lenis, isExiting]);
 
     return (
         <motion.div

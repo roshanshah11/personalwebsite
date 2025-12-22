@@ -212,7 +212,7 @@ export default function WorkSection() {
                         </motion.h2>
                         <div className="space-y-1">
                             {experiences.map((exp, i) => (
-                                <InteractiveItem key={i} index={i} accentColor="amber" dataTour={i === 0 ? "experience-card-0" : undefined}>
+                                <InteractiveItem key={i} index={i} accentColor="amber" dataTour={`experience-card-${i}`}>
                                     <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mb-1">
                                         <h3 className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors duration-200">
                                             {exp.company}

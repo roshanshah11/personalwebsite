@@ -3,7 +3,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTourController } from './useTourController';
 import { X, ExternalLink, Download, ZoomIn, ZoomOut } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLenis } from '../SmoothScroll';
 
 /**
  * Content viewer modal for displaying PDFs, images, videos, and code
@@ -12,6 +13,22 @@ import { useState } from 'react';
 export function ContentViewerModal() {
     const { isViewerOpen, viewerContent, closeViewer, isReducedMotion } = useTourController();
     const [imageZoom, setImageZoom] = useState(1);
+    const lenis = useLenis();
+
+    // Lock scroll when viewer is open
+    useEffect(() => {
+        if (!lenis) return;
+
+        if (isViewerOpen) {
+            lenis.stop();
+        } else {
+            lenis.start();
+        }
+
+        return () => {
+            lenis.start();
+        };
+    }, [lenis, isViewerOpen]);
 
     if (!isViewerOpen || !viewerContent) return null;
 

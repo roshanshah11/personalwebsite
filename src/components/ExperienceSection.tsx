@@ -95,7 +95,7 @@ export default function ExperienceSection() {
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.05 }}
                                 className="group"
-                                data-tour={i === 0 ? "experience-card-0" : undefined}
+                                data-tour={`experience-card-${i}`}
                             >
                                 {/* Header Row */}
                                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
