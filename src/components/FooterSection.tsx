@@ -40,7 +40,7 @@ export default function FooterSection() {
                     {/* Leadership */}
                     <div>
                         <h3 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-4">
-                            Leadership
+                            Highschool Leadership
                         </h3>
                         <div className="space-y-3">
                             {leadership.map((item, i) => (
@@ -63,9 +63,6 @@ export default function FooterSection() {
                             </a>
                             <a href="https://linkedin.com/in/roshan-shah11" target="_blank" className="block text-sm text-gray-400 hover:text-white transition-colors">
                                 LinkedIn
-                            </a>
-                            <a href="https://github.com/roshanshah11" target="_blank" className="block text-sm text-gray-400 hover:text-white transition-colors">
-                                GitHub
                             </a>
                         </div>
                     </div>
