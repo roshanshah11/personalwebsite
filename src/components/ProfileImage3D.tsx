@@ -8,14 +8,14 @@ export default function ProfileImage3D() {
 
     return (
         <motion.div
-            className="relative w-full aspect-[3/4] max-w-[280px] mx-auto"
+            className="relative w-full aspect-square max-w-[260px] mx-auto"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             style={{ perspective: 1000 }}
         >
             {/* Main Image Container */}
             <motion.div
-                className="relative w-full h-full rounded-2xl overflow-hidden"
+                className="relative w-full h-full rounded-3xl overflow-hidden"
                 animate={{
                     rotateY: isHovered ? 5 : 0,
                     rotateX: isHovered ? -5 : 0,
@@ -29,6 +29,7 @@ export default function ProfileImage3D() {
                     src="/profile.jpeg"
                     alt="Roshan Shah"
                     className="w-full h-full object-cover"
+                    style={{ objectPosition: "28% 5%", transform: "scale(1.4)", transformOrigin: "center 15%" }}
                 />
 
                 {/* Scanline Effect */}

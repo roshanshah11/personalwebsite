@@ -8,8 +8,8 @@ const education = [
     {
         school: "UNC Chapel Hill",
         program: "Kenan-Flagler Business School",
-        degree: "B.S. Business Administration + Data Science (GPA 4.0)",
-        details: "Assured Enrollment into KF. Portfolio Management Team (TMT), Quant Finance Association"
+        degree: "Honors B.S. Business Administration + Data Science (GPA 4.0)",
+        details: "Honors Carolina. Assured Enrollment into Kenan-Flagler. Engineer at Carolina Skylab. Portfolio Management Team (TMT), Quant Finance Association"
     },
     {
         school: "The Lawrenceville School",
@@ -77,8 +77,8 @@ export default function AboutSection() {
                                 >
                                     <h4 className="text-sm font-bold text-white">{edu.school}</h4>
                                     <p className="text-xs text-cyan-400 font-mono mt-1">{edu.program}</p>
-                                    <p className="text-xs text-gray-400 mt-2">{edu.degree}</p>
-                                    {edu.details && <p className="text-xs text-gray-500 mt-1">{edu.details}</p>}
+                                    <p className="text-xs text-white font-medium mt-2">{edu.degree}</p>
+                                    {edu.details && <p className="text-xs text-gray-400 mt-1">{edu.details}</p>}
                                 </motion.div>
                             ))}
                         </div>

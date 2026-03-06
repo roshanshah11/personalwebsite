@@ -53,7 +53,7 @@ const awards: Award[] = [
         date: "May 2025",
         description: "Top 10% of graduating class. GPA 3.92/4.00.",
         badge: "HONOR"
-    }
+    },
 ];
 
 export default function AwardsSection() {
