@@ -14,11 +14,11 @@ import { TourConfig, TourStep, TourChapter } from './types';
 // =========================================
 export const tourChapters: TourChapter[] = [
     { id: 'intro', title: 'Welcome', startStepIndex: 0, endStepIndex: 1 },
-    { id: 'about', title: 'About', startStepIndex: 1, endStepIndex: 4 },
-    { id: 'experience', title: 'Experience', startStepIndex: 4, endStepIndex: 6 },
+    { id: 'about', title: 'About', startStepIndex: 1, endStepIndex: 3 },
+    { id: 'experience', title: 'Experience', startStepIndex: 3, endStepIndex: 6 },
     { id: 'projects', title: 'Projects', startStepIndex: 6, endStepIndex: 9 },
-    { id: 'awards', title: 'Awards', startStepIndex: 9, endStepIndex: 11 },
-    { id: 'contact', title: 'Contact', startStepIndex: 11, endStepIndex: 12 },
+    { id: 'awards', title: 'Awards', startStepIndex: 9, endStepIndex: 10 },
+    { id: 'contact', title: 'Contact', startStepIndex: 10, endStepIndex: 11 },
 ];
 
 // =========================================
@@ -43,10 +43,10 @@ export const tourSteps: TourStep[] = [
         id: 'about-intro',
         chapter: 'about',
         text:
-            "I'm really interested in the intersection of Finance and AI, whether it be modeling stocks, building financial tools, or just learning about new tech in the startup space!!",
+            "I'm a finance and investing researcher focused on equity markets, valuation, and AI driven tools for better decision making. Always building at the intersection of finance, technology, and real world markets.",
         targetSelector: '[data-tour="about"]',
         action: 'scrollTo',
-        durationMs: 4500,
+        durationMs: 5500,
         placement: 'top-center',
         camera: { zoomLevel: 1.02, padding: 48, easing: 'easeInOut' },
     },
@@ -54,7 +54,7 @@ export const tourSteps: TourStep[] = [
         id: 'about-education',
         chapter: 'about',
         text:
-            "I’m at UNC-Chapel Hill studying Business and Data Science right now! And graduated Lawrenceville in 2025. At UNC, I'm apart of the Portfolio Management Team, focusing on analyzing public companies in the technology space, and I am apart of the Quantitative Finance Association as apart of their Derivatives Team!  ",
+            "I’m at UNC Chapel Hill studying Business and Data Science right now! And graduated Lawrenceville in 2025. At UNC, I'm apart of the Portfolio Management Team, focusing on analyzing public companies in the technology space, and I am apart of the Quantitative Finance Association as apart of their Derivatives Team!  ",
         targetSelector: '[data-tour="education"]',
         action: 'scrollTo',
         durationMs: 8000,
@@ -79,21 +79,21 @@ export const tourSteps: TourStep[] = [
         id: 'experience-featured',
         chapter: 'experience',
         text:
-            "At Black Swan, I am working at a hedge-fund incubator specializing in machine learning and event-driven investing. I am working on volatility modeling and writing reports on how to model different events from bankrupcies to M&As",
+            "At Cofounders Capital, I'm a VC intern on a $60M seed stage fund. I evaluate B2B SaaS companies across market size, unit economics, competitive dynamics, and downside risk. Diligence across 100+ startups and early stage investment judgment.",
         targetSelector: '[data-tour="experience-card-0"]',
         action: 'scrollTo',
-        durationMs: 6000,
+        durationMs: 7000,
         placement: 'top-center',
         camera: { zoomLevel: 1.045, padding: 26, easing: 'spring' },
     },
     {
-        id: 'experience-featured-2',
+        id: 'experience-skylab',
         chapter: 'experience',
         text:
-            "At Hitech, I worked on business development for a recent 3.4M acquisition and focused on US market entry strategies! Learned alot about the plastics manufacturing space and the supply chain ",
-        targetSelector: '[data-tour="experience-card-2"]',
+            "At Carolina SkyLab, I'm an engineer building a 2 fan tail sitter VTOL drone. Full CAD assembly with gear driven servo actuation, plus ArduPilot SITL closed loop flight control sims for a medical delivery UAV.",
+        targetSelector: '[data-tour="experience-card-3"]',
         action: 'scrollTo',
-        durationMs: 6000,
+        durationMs: 6500,
         placement: 'top-center',
         camera: { zoomLevel: 1.045, padding: 26, easing: 'spring' },
     },

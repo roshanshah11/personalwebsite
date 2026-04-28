@@ -23,19 +23,41 @@ interface Project {
 
 const experiences: Experience[] = [
     {
-        company: "Black Swan Management",
-        role: "Researcher",
-        date: "Nov 2025 – Present",
-        description: "Analyzing regime changes and market catalysts for public equity investing. Studying volatility dynamics and distributional assumptions to improve risk-adjusted returns.",
-        metrics: [{ label: "Focus", value: "Vol Models" }],
-        skills: ["Volatility", "Risk Analysis", "Public Markets"]
+        company: "Cofounders Capital",
+        role: "Venture Capital Intern",
+        date: "Jan 2026 – Present",
+        description: "Evaluating seed-stage B2B SaaS investments for a $60M fund. Synthesizing diligence on 100+ companies across unit economics, market structure, and exit viability.",
+        metrics: [{ label: "Fund", value: "$60M" }],
+        skills: ["Venture Capital", "Diligence", "SaaS"]
+    },
+    {
+        company: "UNC Portfolio Management Team",
+        role: "Technology Sector Analyst",
+        date: "Sep 2025 – Present",
+        description: "TMT equity research for the Ewing-Schleeter Harris Fund ($120K AUM). Building DCF models, WACC calculations, and public comp analyses to develop buy/sell recommendations. 1 of 12 selected from 170+ applicants.",
+        metrics: [{ label: "AUM", value: "$120K" }],
+        skills: ["Equity Research", "DCF", "TMT"]
     },
     {
         company: "Kenan-Flagler CDR",
         role: "Research Assistant",
-        date: "Sep 2025 – Present",
-        description: "Supporting faculty research on behavioral decision-making in financial contexts. Designing experiments and analyzing participant data for academic publication.",
-        skills: ["Behavioral Finance", "Research Methods"]
+        date: "Oct 2025 – Present",
+        description: "Supporting faculty and PhD research on behavioral decision-making. Designing experiments and analyzing participant data for academic publication.",
+        skills: ["Behavioral Finance", "R", "Research Methods"]
+    },
+    {
+        company: "Carolina SkyLab",
+        role: "Engineer",
+        date: "Jan 2026 – Present",
+        description: "Building CAD assemblies and ArduPilot SITL closed-loop simulations for a medical-delivery VTOL drone.",
+        skills: ["CAD", "ArduPilot", "VTOL"]
+    },
+    {
+        company: "Quantitative Finance Association",
+        role: "Derivatives Analyst",
+        date: "Oct 2025 – Present",
+        description: "Studying options pricing, volatility, Greeks, and hedging through peer-led technical work on real market data.",
+        skills: ["Options Pricing", "Greeks", "Volatility"]
     },
     {
         company: "Hitech Corporation",
@@ -73,20 +95,35 @@ const projects: Project[] = [
         link: "https://arxiv.org/abs/2508.07151v2",
     },
     {
-        title: "Krypop",
-        category: "E-Commerce",
-        role: "Founder",
-        description: "High-performance D2C e-commerce platform with custom subscription management and optimized checkout flows.",
-        tech: "Next.js • TypeScript • Stripe",
-        link: "https://krypop.com",
-    },
-    {
         title: "VertexLadder",
         category: "FinTech",
         role: "Engineer",
         description: "Ultra-low latency trading engine (1.8M+ orders/sec). Lock-free concurrency with sharded SPSC queues.",
         tech: "C++ • Boost.Asio",
         link: "https://github.com/roshanshah11/vertexladder",
+    },
+    {
+        title: "VoiceBraille",
+        category: "Engineering",
+        role: "Team Lead",
+        description: "Portable speech-to-Braille printer for deafblind accessibility. CAD prototyping, business modeling, and GTM targeting 200 schools/nonprofits. Won 'Most Innovative Idea' at Penn M&TSI.",
+        tech: "SolidWorks • CAD • Business Modeling",
+    },
+    {
+        title: "Transcript Analysis",
+        category: "Tool",
+        role: "Developer",
+        description: "Automated academic auditing via custom PDF parsing. Used by administration for transcript analysis.",
+        tech: "Python • Flask • React",
+        link: "https://lawrenceville.netlify.app",
+    },
+    {
+        title: "Krypop",
+        category: "E-Commerce",
+        role: "Founder",
+        description: "High-performance D2C e-commerce platform with custom subscription management and optimized checkout flows.",
+        tech: "Next.js • TypeScript • Stripe",
+        link: "https://krypop.com",
     },
     {
         title: "QuantVerse",
@@ -104,14 +141,6 @@ const projects: Project[] = [
         tech: "Python • Scikit-learn",
         link: "https://devpost.com/software/pewp-predicting-exoplanet-weather-patterns",
     },
-    {
-        title: "Transcript Analysis",
-        category: "Tool",
-        role: "Developer",
-        description: "Automated academic auditing via custom PDF parsing. Used by administration for transcript analysis.",
-        tech: "Python • Flask • React",
-        link: "https://lawrenceville.netlify.app",
-    }
 ];
 
 // Interactive item with cursor tracking spotlight
@@ -158,11 +187,11 @@ function InteractiveItem({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{
-                delay: index * 0.08,
+                delay: index * 0.06,
                 duration: 0.5,
                 ease: [0.25, 0.1, 0.25, 1]
             }}
-            className="group relative py-4 px-3 -mx-3 rounded-lg overflow-hidden"
+            className="group relative py-3.5 px-3 -mx-3 rounded-lg overflow-hidden"
         >
             {/* Cursor-tracking spotlight */}
             <motion.div
@@ -210,7 +239,7 @@ export default function WorkSection() {
                         >
                             Experience
                         </motion.h2>
-                        <div className="space-y-1">
+                        <div className="space-y-0">
                             {experiences.map((exp, i) => (
                                 <InteractiveItem key={i} index={i} accentColor="amber" dataTour={`experience-card-${i}`}>
                                     <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mb-1">
@@ -251,7 +280,7 @@ export default function WorkSection() {
                         >
                             Projects
                         </motion.h2>
-                        <div className="space-y-1">
+                        <div className="space-y-0">
                             {projects.map((project, i) => (
                                 <InteractiveItem key={i} index={i} accentColor="cyan" dataTour={i === 0 ? "project-0" : undefined}>
                                     <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mb-1">
@@ -280,7 +309,7 @@ export default function WorkSection() {
                                         {project.description}
                                     </p>
                                     <div className="text-[10px] font-mono text-gray-500 group-hover:text-gray-400 transition-colors">
-                                        {project.tech.split('•').map(t => t.trim()).join(" · ")}
+                                        {project.tech.split(/[•·]/).map(t => t.trim()).join(" · ")}
                                     </div>
                                 </InteractiveItem>
                             ))}

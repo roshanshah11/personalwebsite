@@ -20,7 +20,7 @@ const education = [
 
 const skills = {
     languages: ["Python", "R", "C++", "SQL"],
-    skills: ["DCF / Comps", "Volatility Models", "Derivatives trading", "Economic modeling"],
+    skills: ["DCF / Comps", "Equity Research", "Venture Diligence", "AI / Technical Systems"],
     interests: ["Poker", "Football", "Traveling", "FOOD (like any)", "Reading", "AI governance"]
 };
 
@@ -57,10 +57,10 @@ export default function AboutSection() {
                         {/* Bio */}
                         <div>
                             <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-                                <span className="text-amber-400 font-bold">Roshan Shah</span>: Finance and quantitative researcher focused on volatility modeling and AI-driven financial systems. Always building at the intersection of
-                                <span className="text-cyan-400"> finance</span>,
-                                <span className="text-cyan-400"> technology</span>, and
-                                <span className="text-cyan-400"> markets</span>.
+                                <span className="text-amber-400 font-bold">Roshan Shah</span>: Finance and investing researcher focused on
+                                <span className="text-cyan-400"> equity markets</span>,
+                                <span className="text-cyan-400"> valuation</span>, and
+                                <span className="text-cyan-400"> AI-driven tools</span> for better decision-making. Always building at the intersection of finance, technology, and real-world markets.
                             </p>
                         </div>
 
@@ -109,7 +109,7 @@ export default function AboutSection() {
                         {/* Contact Links */}
                         <div className="flex flex-wrap gap-3">
                             <a
-                                href="mailto:roshah@unc.edu"
+                                href="mailto:roshah2007@gmail.com"
                                 className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-amber-500/50 hover:bg-white/10 transition-all text-sm text-white"
                             >
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

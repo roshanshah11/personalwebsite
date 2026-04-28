@@ -16,42 +16,43 @@ const awards: AwardItem[] = [
         name: "Herman Hollerith Prize",
         org: "The Lawrenceville School",
         year: "May 2025",
-        description: "Awarded to the student who exhibits the most creativity, ingenuity, or entrepreneurial flair in the application of computer science. Recognized for building a Transcript analysis tool used by dean of students for student analysis and insight."
+        description: "Awarded for the highest degree of creativity and entrepreneurial application in computer science. Recognized for building a Python/React transcript analysis tool that automated academic auditing and was used by school administration.",
+        image: undefined
     },
     {
-        name: "NJ State Economics Champion",
+        name: "Journal of Future Economists",
+        org: "Federal Reserve Bank of New York",
+        year: "2025",
+        description: "Published in the 2025 Journal of Future Economists. Selected as one of the top 12 papers from approximately 195 submissions nationwide.",
+        image: "/hsfedchallange.jpeg"
+    },
+    {
+        name: "National Economics Challenge",
         org: "Council for Economic Education",
         year: "Apr 2024",
-        description: "Led 4-person team to 1st place in NJ (David Ricardo Division). Qualified for National Semifinals. Tested on micro/macro theory and international trade.",
+        description: "New Jersey State Champion and National Finalist. Led 4-person team to 1st place in NJ (David Ricardo Division). Tested on micro/macro theory and international trade.",
         image: "/NEC.png"
     },
     {
-        name: "Most Innovative Idea",
-        org: "Jerome Fisher Program (UPenn)",
-        year: "Jul 2023",
-        description: "Awarded for 'VoiceBraille' – a portable speech-to-Braille printer. Developed prototype and business plan during the Management & Technology Summer Institute.",
-        image: "/voicebraille.jpg"
+        name: "President's Volunteer Service Award (Gold)",
+        org: "President's Council on Service",
+        year: "2024",
+        description: "Recognized for 250+ hours of volunteer service, including logistics and operations support for community drives and pantry work.",
+        image: undefined
     },
     {
-        name: "McClellan Society",
+        name: "Karl Bronson Prize",
         org: "The Lawrenceville School",
-        year: "2021 – 2024",
-        description: "Given to students with 400+ hours of community service. Recognized for tutoring in Trenton public schools and organizing campus cleanups.",
-        image: "/2024McClellanSociety.jpg"
+        year: "May 2025",
+        description: "Presented to the student with the highest cumulative GPA in Griswold House.",
+        image: undefined
     },
     {
         name: "Cum Laude Society",
         org: "The Lawrenceville School",
         year: "May 2025",
-        description: "Top 10% of graduating class. Recognized for academic excellence across all disciplines (GPA 3.92/4.00).",
+        description: "Top 10% of graduating class. Recognized for academic excellence across all disciplines.",
         image: "/cumlaudesociety.png"
-    },
-    {
-        name: "Journal of Future Economists",
-        org: "Federal Reserve Bank",
-        year: "May 2025",
-        description: "Selected as one of the top 12 teams nationally in the High School Fed Challenge. Research published highlighting excellence in monetary policy.",
-        image: "/hsfedchallange.jpeg"
     },
 ];
 
@@ -71,7 +72,7 @@ export default function AwardsHoverPreview() {
             onMouseMove={handleMouseMove}
         >
             <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-200 to-amber-500 mb-8 px-4">
-                Awards
+                Selected Honors & Publications
             </h2>
 
             <div className="space-y-4">

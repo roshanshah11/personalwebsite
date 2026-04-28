@@ -20,13 +20,12 @@ export default function HeroSection() {
         if (!lenis) return;
 
         // Auto-scroll after animation completion
-        // Name animation finishes around 1.5s
         const timer = setTimeout(() => {
             lenis.scrollTo("#about", {
                 duration: 2.5,
-                easing: (t) => 1 - Math.pow(1 - t, 3) // Cubic ease out
+                easing: (t: number) => 1 - Math.pow(1 - t, 3)
             });
-        }, 2500); // 2.5 seconds delay
+        }, 2500);
 
         return () => clearTimeout(timer);
     }, [lenis]);
@@ -87,8 +86,8 @@ export default function HeroSection() {
                     transition={{ duration: 1, delay: 1.8 }}
                     className="mt-8 text-sm md:text-base text-gray-500 max-w-md mx-auto px-4"
                 >
-                    Quantitative researcher building volatility models, derivatives pricing systems,
-                    and AI-driven financial infrastructure.
+                    Building at the intersection of finance, AI, and technical systems —
+                    across public markets, venture, and software.
                 </motion.p>
 
                 {/* Scroll indicator */}

@@ -3,18 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
-const leadership = [
-    {
-        title: "Economics Club",
-        role: "President",
-        desc: "NJ State Champions, National Finalists"
-    },
-    {
-        title: "Investment Club",
-        role: "President",
-        desc: "Wharton Investment Comp Semifinals"
-    }
-];
+const openTo = ["Public markets", "Venture capital", "Finance + AI", "Technical systems", "Investing"];
 
 export default function FooterSection() {
     const [isMounted, setIsMounted] = useState(false);
@@ -37,16 +26,15 @@ export default function FooterSection() {
         >
             <div className="section-container">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    {/* Leadership */}
+                    {/* Open To */}
                     <div>
                         <h3 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-4">
-                            Highschool Leadership
+                            Open To
                         </h3>
                         <div className="space-y-3">
-                            {leadership.map((item, i) => (
+                            {openTo.map((item, i) => (
                                 <div key={i}>
-                                    <p className="text-sm font-medium text-white">{item.title}</p>
-                                    <p className="text-xs text-gray-500">{item.role} — {item.desc}</p>
+                                    <p className="text-sm font-medium text-white">{item}</p>
                                 </div>
                             ))}
                         </div>
@@ -58,11 +46,14 @@ export default function FooterSection() {
                             Contact
                         </h3>
                         <div className="space-y-2">
-                            <a href="mailto:roshah@unc.edu" className="block text-sm text-gray-400 hover:text-white transition-colors">
-                                roshah@unc.edu
+                            <a href="mailto:roshah2007@gmail.com" className="block text-sm text-gray-400 hover:text-white transition-colors">
+                                roshah2007@gmail.com
                             </a>
                             <a href="https://linkedin.com/in/roshan-shah11" target="_blank" className="block text-sm text-gray-400 hover:text-white transition-colors">
                                 LinkedIn
+                            </a>
+                            <a href="https://github.com/roshanshah11" target="_blank" className="block text-sm text-gray-400 hover:text-white transition-colors">
+                                GitHub
                             </a>
                         </div>
                     </div>
@@ -76,7 +67,7 @@ export default function FooterSection() {
                             Next.js · Three.js · Framer Motion
                         </p>
                         <p className="text-xs text-gray-600 mt-4">
-                            © 2025 Roshan Shah
+                            © 2026 Roshan Shah · Updated Spring 2026
                         </p>
                     </div>
                 </div>
