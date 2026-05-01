@@ -15,6 +15,15 @@ interface Project {
 const projects: Project[] = [
     {
         id: 1,
+        title: "AI and the HAL Revisited",
+        category: "AI Governance",
+        role: "Author & Researcher",
+        description: "Economics paper arguing that AI has weakened the computational constraint on planning, while the binding risks remain institutional: oversight failure, concentrated power, incentive gaming, and democratic accountability.",
+        tech: "AI Governance • Political Economy • Institutional Design",
+        link: "/ai-and-the-hal-revisited.html",
+    },
+    {
+        id: 2,
         title: "American Option Pricing",
         category: "Research",
         role: "Author & Researcher",
@@ -23,7 +32,7 @@ const projects: Project[] = [
         link: "https://arxiv.org/abs/2508.07151v2",
     },
     {
-        id: 2,
+        id: 3,
         title: "Krypop",
         category: "E-Commerce",
         role: "Founder",
@@ -32,7 +41,7 @@ const projects: Project[] = [
         link: "https://krypop.com",
     },
     {
-        id: 3,
+        id: 4,
         title: "VertexLadder",
         category: "FinTech",
         role: "Systems Engineer",
@@ -41,7 +50,7 @@ const projects: Project[] = [
         link: "https://github.com/roshanshah11/vertexladder",
     },
     {
-        id: 4,
+        id: 5,
         title: "QuantVerse",
         category: "EdTech",
         role: "Lead Developer",
@@ -50,7 +59,7 @@ const projects: Project[] = [
         link: "https://quantverse.vercel.app/",
     },
     {
-        id: 5,
+        id: 6,
         title: "PEWP",
         category: "ML / Space",
         role: "ML Engineer",
@@ -59,7 +68,7 @@ const projects: Project[] = [
         link: "https://devpost.com/software/pewp-predicting-exoplanet-weather-patterns",
     },
     {
-        id: 6,
+        id: 7,
         title: "Transcript Analysis",
         category: "Internal Tool",
         role: "Sole Developer",

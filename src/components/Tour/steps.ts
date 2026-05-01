@@ -43,7 +43,7 @@ export const tourSteps: TourStep[] = [
         id: 'about-intro',
         chapter: 'about',
         text:
-            "I'm a finance and investing researcher focused on equity markets, valuation, and AI driven tools for better decision making. Always building at the intersection of finance, technology, and real world markets.",
+            "I'm a finance and AI governance researcher focused on institutional design, market structure, and accountable AI systems. I study how incentives, governance, and technical systems shape markets and democratic outcomes.",
         targetSelector: '[data-tour="about"]',
         action: 'scrollTo',
         durationMs: 5500,
@@ -114,7 +114,7 @@ export const tourSteps: TourStep[] = [
     {
         id: 'project-featured',
         chapter: 'projects',
-        text: "I wrote a paper focusing on improving the computational and financial efficiencies of an American options pricing model created by Bayer et all (2024); I focused on creating a regime shiting hybrid model that adapts based off of different volility conditions and improved computational efficiencies with Random Fourier Features (RFF). Super cool stuff! ",
+        text: "My latest paper, AI and the HAL Revisited, argues that AI weakens the computational constraint on central planning, but the real risks remain institutional: oversight failure, concentrated power, incentive gaming, and democratic accountability.",
         targetSelector: '[data-tour="project-0"]',
         action: 'scrollTo',
         durationMs: 8500,

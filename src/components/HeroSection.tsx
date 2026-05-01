@@ -1,13 +1,16 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import TextReveal from "./TextReveal";
 import { useLenis } from "./SmoothScroll";
 
 export default function HeroSection() {
     const [isMounted, setIsMounted] = useState(false);
-    useEffect(() => setIsMounted(true), []);
+    useEffect(() => {
+        const timer = window.setTimeout(() => setIsMounted(true), 0);
+        return () => window.clearTimeout(timer);
+    }, []);
     const sectionRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: sectionRef,
@@ -86,8 +89,8 @@ export default function HeroSection() {
                     transition={{ duration: 1, delay: 1.8 }}
                     className="mt-8 text-sm md:text-base text-gray-500 max-w-md mx-auto px-4"
                 >
-                    Building at the intersection of finance, AI, and technical systems —
-                    across public markets, venture, and software.
+                    Building at the intersection of finance, AI governance, and technical systems —
+                    across markets, institutions, and software.
                 </motion.p>
 
                 {/* Scroll indicator */}

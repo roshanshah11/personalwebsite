@@ -87,6 +87,14 @@ const experiences: Experience[] = [
 
 const projects: Project[] = [
     {
+        title: "AI and the HAL Revisited",
+        category: "AI Governance",
+        role: "Author",
+        description: "Economics paper arguing that AI has weakened the computational constraint on planning, while the binding risks remain institutional: oversight failure, concentrated power, incentive gaming, and democratic accountability.",
+        tech: "AI Governance • Political Economy • Institutional Design",
+        link: "/ai-and-the-hal-revisited.html",
+    },
+    {
         title: "American Option Pricing",
         category: "Research",
         role: "Author",
@@ -225,7 +233,7 @@ function InteractiveItem({
 
 export default function WorkSection() {
     return (
-        <section className="py-16 px-4 relative">
+        <section id="projects" className="py-16 px-4 relative">
             <div className="section-container">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
                     {/* Experience Column */}

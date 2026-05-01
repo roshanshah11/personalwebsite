@@ -20,13 +20,16 @@ const education = [
 
 const skills = {
     languages: ["Python", "R", "C++", "SQL"],
-    skills: ["DCF / Comps", "Equity Research", "Venture Diligence", "AI / Technical Systems"],
-    interests: ["Poker", "Football", "Traveling", "FOOD (like any)", "Reading", "AI governance"]
+    skills: ["DCF / Comps", "Equity Research", "Venture Diligence", "AI Governance Research"],
+    interests: ["AI governance", "Institutional design", "Democratic AI", "Political economy", "Market design", "Reading"]
 };
 
 export default function AboutSection() {
     const [isMounted, setIsMounted] = useState(false);
-    useEffect(() => setIsMounted(true), []);
+    useEffect(() => {
+        const timer = window.setTimeout(() => setIsMounted(true), 0);
+        return () => window.clearTimeout(timer);
+    }, []);
     const sectionRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: sectionRef,
@@ -57,10 +60,10 @@ export default function AboutSection() {
                         {/* Bio */}
                         <div>
                             <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-                                <span className="text-amber-400 font-bold">Roshan Shah</span>: Finance and investing researcher focused on
-                                <span className="text-cyan-400"> equity markets</span>,
-                                <span className="text-cyan-400"> valuation</span>, and
-                                <span className="text-cyan-400"> AI-driven tools</span> for better decision-making. Always building at the intersection of finance, technology, and real-world markets.
+                                <span className="text-amber-400 font-bold">Roshan Shah</span>: Finance and AI governance researcher focused on
+                                <span className="text-cyan-400"> institutional design</span>,
+                                <span className="text-cyan-400"> market structure</span>, and
+                                <span className="text-cyan-400"> accountable AI systems</span>. I study how incentives, governance, and technical systems shape real-world markets and democratic outcomes.
                             </p>
                         </div>
 
