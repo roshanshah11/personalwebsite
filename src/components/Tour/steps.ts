@@ -43,7 +43,7 @@ export const tourSteps: TourStep[] = [
         id: 'about-intro',
         chapter: 'about',
         text:
-            "I'm a finance and AI governance researcher focused on institutional design, market structure, and accountable AI systems. I study how incentives, governance, and technical systems shape markets and democratic outcomes.",
+            "I'm a finance and investing researcher focused on equity markets, valuation, and AI driven tools for better decision making. Always building at the intersection of finance, technology, AI governance, and real world markets.",
         targetSelector: '[data-tour="about"]',
         action: 'scrollTo',
         durationMs: 5500,
