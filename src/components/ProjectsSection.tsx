@@ -20,7 +20,7 @@ const projects: Project[] = [
         role: "Author & Researcher",
         description: "Economics paper arguing that AI has weakened the computational constraint on planning, while the binding risks remain institutional: oversight failure, concentrated power, incentive gaming, and democratic accountability.",
         tech: "AI Governance • Political Economy • Institutional Design",
-        link: "/ai-and-the-hal-revisited",
+        link: "/ai-and-the-hal-revisited.pdf",
     },
     {
         id: 2,
