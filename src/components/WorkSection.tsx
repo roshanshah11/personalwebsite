@@ -100,6 +100,22 @@ const experiences: Experience[] = [
 
 const projects: Project[] = [
     {
+        title: "Murmur",
+        category: "macOS",
+        role: "Founder",
+        description: "Open-source macOS dictation app in Swift, shipped via Homebrew and DMG. Local-first, production software built for everyday use.",
+        tech: "Swift • macOS • Audio Processing",
+        featured: true,
+    },
+    {
+        title: "Ascent",
+        category: "Aerospace Software",
+        role: "Builder",
+        description: "Building a competition-rocket design and flight-review workbench around the decisions teams actually make: vehicle geometry, motors, drag models, launch conditions, and the evidence behind a result. The app previews design changes without mutating the live vehicle, then commits one deliberate command on release.",
+        tech: "Rust • Tauri • React • Flight Simulation • RASP Motor Import • Unity Visualization",
+        featured: true,
+    },
+    {
         title: "AI and the HAL Revisited",
         category: "AI Governance",
         role: "Author",
@@ -165,14 +181,6 @@ const projects: Project[] = [
         description: "Universal Atmospheric Model forecasting exoplanet weather with 94% accuracy.",
         tech: "Python • Scikit-learn",
         link: "https://devpost.com/software/pewp-predicting-exoplanet-weather-patterns",
-    },
-    {
-        title: "Murmur",
-        category: "macOS",
-        role: "Founder",
-        description: "Open-source macOS dictation app in Swift, shipped via Homebrew and DMG. Active, production software.",
-        tech: "Swift • macOS • Audio Processing",
-        featured: true,
     },
 ];
 
