@@ -71,35 +71,34 @@ export default function AwardsHoverPreview() {
             className="relative section-container py-16 px-4"
             onMouseMove={handleMouseMove}
         >
-            <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-200 to-amber-500 mb-8 px-4">
-                Selected Honors & Publications
-            </h2>
+            <div className="px-4 mb-6">
+                <p className="text-[11px] font-mono uppercase tracking-[0.25em] text-gray-600 mb-1">Supporting signal</p>
+                <h2 className="text-2xl md:text-3xl font-bold text-amber-300">
+                    Honors &amp; Publications
+                </h2>
+            </div>
 
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 px-4">
                 {awards.map((award, index) => (
                     <motion.div
                         key={index}
-                        className="flex flex-col md:flex-row items-baseline justify-between py-8 border-b border-white/10 cursor-none group relative overflow-hidden px-4"
+                        className={`group relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.02] p-4 cursor-none transition-colors hover:border-amber-500/40 hover:bg-white/[0.04] ${index === 0 ? "sm:col-span-2" : ""}`}
                         onMouseEnter={() => setHoveredIndex(index)}
                         onMouseLeave={() => setHoveredIndex(null)}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 12 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: index * 0.1 }}
+                        transition={{ delay: index * 0.05, duration: 0.4, ease: [0.2, 0.8, 0.2, 1] }}
                         data-tour={index === 0 ? "award-0" : undefined}
                     >
-                        {/* Hover Background Hihghlight */}
-                        <div className="absolute inset-0 bg-white/5 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500 ease-out" />
-
-                        <div className="flex items-baseline gap-6 relative z-10 w-full md:w-auto">
-                            <span className="text-xs text-cyan-400 font-mono min-w-[30px]">0{index + 1}</span>
-                            <h3 className="text-lg md:text-xl font-bold text-gray-400 group-hover:text-white transition-colors duration-300">
-                                {award.name}
-                            </h3>
+                        <div className="flex items-center justify-between gap-2 relative z-10">
+                            <span className="text-[10px] text-cyan-400 font-mono">0{index + 1}</span>
+                            <span className="text-[10px] text-gray-600 font-mono group-hover:text-amber-400 transition-colors whitespace-nowrap">{award.year}</span>
                         </div>
-                        <div className="flex gap-8 text-xs md:text-sm text-gray-600 font-mono relative z-10 mt-2 md:mt-0">
-                            <span className="group-hover:text-amber-400 transition-colors whitespace-nowrap">{award.year}</span>
-                        </div>
+                        <h3 className={`mt-2 font-bold text-gray-300 leading-snug group-hover:text-white transition-colors ${index === 0 ? "text-base md:text-lg" : "text-sm"}`}>
+                            {award.name}
+                        </h3>
+                        <p className="mt-1 text-[11px] text-gray-600 font-mono">{award.org}</p>
                     </motion.div>
                 ))}
             </div>

@@ -41,6 +41,73 @@ function ScrollDrivenCamera() {
     return null;
 }
 
+// Pointer + device-tilt parallax. Shifts the camera laterally so near stars
+// drift more than far ones (true depth). Disabled under prefers-reduced-motion.
+function PointerParallax() {
+    const { camera } = useThree();
+    const target = useRef({ x: 0, y: 0 });
+    const enabled = useRef(true);
+
+    useEffect(() => {
+        const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+        if (mq.matches) {
+            enabled.current = false;
+            return;
+        }
+
+        const onMouseMove = (e: MouseEvent) => {
+            const nx = (e.clientX / window.innerWidth) * 2 - 1;
+            const ny = (e.clientY / window.innerHeight) * 2 - 1;
+            target.current.x = nx * 4;
+            target.current.y = -ny * 3;
+        };
+
+        const onOrient = (e: DeviceOrientationEvent) => {
+            if (e.gamma == null || e.beta == null) return;
+            // gamma: left/right tilt, beta: front/back tilt (offset to a neutral hold angle)
+            const gx = Math.max(-30, Math.min(30, e.gamma)) / 30;
+            const gy = Math.max(-30, Math.min(30, e.beta - 45)) / 30;
+            target.current.x = gx * 4;
+            target.current.y = -gy * 3;
+        };
+
+        window.addEventListener("mousemove", onMouseMove, { passive: true });
+
+        // iOS 13+ requires a user gesture to grant orientation access.
+        const requestGyro = () => {
+            const DOE = window.DeviceOrientationEvent as unknown as {
+                requestPermission?: () => Promise<string>;
+            };
+            if (DOE && typeof DOE.requestPermission === "function") {
+                DOE.requestPermission()
+                    .then((state) => {
+                        if (state === "granted") {
+                            window.addEventListener("deviceorientation", onOrient, { passive: true });
+                        }
+                    })
+                    .catch(() => {});
+            } else {
+                window.addEventListener("deviceorientation", onOrient, { passive: true });
+            }
+        };
+        window.addEventListener("touchstart", requestGyro, { passive: true, once: true });
+
+        return () => {
+            window.removeEventListener("mousemove", onMouseMove);
+            window.removeEventListener("deviceorientation", onOrient);
+            window.removeEventListener("touchstart", requestGyro);
+        };
+    }, []);
+
+    useFrame(() => {
+        if (!enabled.current) return;
+        camera.position.x += (target.current.x - camera.position.x) * 0.04;
+        camera.position.y += (target.current.y - camera.position.y) * 0.04;
+    });
+
+    return null;
+}
+
 // --- CONSTANT DATA ---
 // Real constellations + procedural ones
 // We will scatter them along the Z axis.
@@ -160,10 +227,8 @@ function StarSprite({ position, texture }: { position: number[], texture: THREE.
 }
 
 
-function InfiniteSpaceDust() {
+function InfiniteSpaceDust({ count = 30000 }: { count?: number }) {
     const meshRef = useRef<THREE.Points>(null);
-    // Balanced star count
-    const count = 30000;
 
     const [positions, cssColors, phases] = useMemo(() => {
         const positions = new Float32Array(count * 3);
@@ -191,7 +256,7 @@ function InfiniteSpaceDust() {
             phases[i] = Math.random() * Math.PI * 2;
         }
         return [positions, cssColors, phases];
-    }, []);
+    }, [count]);
 
     const uniforms = useMemo(() => ({
         uTime: { value: 0 },
@@ -304,6 +369,7 @@ function ReactiveNebula() {
 
     const fragmentShader = `
         uniform float uTime;
+        uniform float uScroll;
         varying vec2 vUv;
 
         // Simplex 2D noise
@@ -344,22 +410,28 @@ function ReactiveNebula() {
             float n3 = snoise(vUv * 8.0 + t * 0.3);
             
             float fog = n1 * 0.5 + n2 * 0.25 + n3 * 0.125;
-            
-            // Static colors
-            vec3 colorA = vec3(0.05, 0.0, 0.15); // Deep Purple
-            vec3 colorB = vec3(0.0, 0.1, 0.3); // Dark Blue
-            
+
+            // Blue space palette (matches site theme)
+            vec3 colorA = vec3(0.0, 0.02, 0.08);  // near-black deep blue
+            vec3 colorB = vec3(0.02, 0.12, 0.35); // signature deep blue
+            vec3 accent = vec3(0.0, 0.15, 0.30);  // cyan-lean highlight on peaks
+
             vec3 finalColor = mix(colorA, colorB, smoothstep(-0.5, 1.0, fog));
-            
+            // Brightest fog peaks pick up a cyan lift, deepening as you scroll
+            finalColor = mix(finalColor, accent, smoothstep(0.35, 0.8, fog) * (0.4 + uScroll * 0.4));
+
             float dist = distance(vUv, vec2(0.5));
             float vignette = smoothstep(0.8, 0.2, dist);
-            
-            gl_FragColor = vec4(finalColor * vignette * 0.5, 1.0);
+
+            // Overall glow lifts subtly with scroll depth
+            float glow = 0.5 + uScroll * 0.25;
+            gl_FragColor = vec4(finalColor * vignette * glow, 1.0);
         }
     `;
 
     const uniforms = useMemo(() => ({
         uTime: { value: 0 },
+        uScroll: { value: 0 },
     }), []);
 
     useFrame((state) => {
@@ -367,7 +439,14 @@ function ReactiveNebula() {
             const mat = meshRef.current.material as THREE.ShaderMaterial;
             mat.uniforms.uTime.value = state.clock.elapsedTime;
 
-            // Keep nebula in background but don't change parameters based on scroll
+            // Normalized scroll depth (0 at top, ~1 near the bottom)
+            const doc = document.documentElement;
+            const scrollable = doc.scrollHeight - window.innerHeight;
+            const p = scrollable > 0 ? window.scrollY / scrollable : 0;
+            const target = Math.min(1, Math.max(0, p));
+            mat.uniforms.uScroll.value += (target - mat.uniforms.uScroll.value) * 0.05;
+
+            // Keep nebula parked just behind the camera
             meshRef.current.position.z = state.camera.position.z - 50;
         }
     });
@@ -388,20 +467,44 @@ function ReactiveNebula() {
 }
 
 export default function ShaderBackground() {
+    const [frameloop, setFrameloop] = useState<"always" | "never">("always");
+    const [reducedMotion, setReducedMotion] = useState(false);
+    const [starCount, setStarCount] = useState(30000);
+
+    useEffect(() => {
+        const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        setReducedMotion(rm);
+        // Lighter field on phones to save battery/GPU
+        setStarCount(window.innerWidth < 768 ? 12000 : 30000);
+
+        if (rm) {
+            // Calm, static star field: render once, then stop the loop
+            setFrameloop("never");
+            return;
+        }
+
+        // Pause the render loop when the tab is hidden
+        const onVisibility = () => setFrameloop(document.hidden ? "never" : "always");
+        document.addEventListener("visibilitychange", onVisibility);
+        return () => document.removeEventListener("visibilitychange", onVisibility);
+    }, []);
+
     return (
         <div className="fixed inset-0 -z-10 bg-[#020204]">
             <Canvas
+                frameloop={frameloop}
                 camera={{ position: [0, 0, 10], fov: 60 }}
                 dpr={[1, 2]}
                 gl={{ antialias: false, alpha: false }}
             >
                 <ScrollDrivenCamera />
+                {!reducedMotion && <PointerParallax />}
                 <color attach="background" args={['#020204']} />
 
                 <ReactiveNebula />
 
                 {/* Main stars layer */}
-                <InfiniteSpaceDust />
+                <InfiniteSpaceDust count={starCount} />
 
                 {/* Constellations layer */}
                 <ConstellationsGroup />

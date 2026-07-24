@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 
 interface Experience {
@@ -10,6 +10,7 @@ interface Experience {
     description: string;
     metrics?: { label: string; value: string }[];
     skills: string[];
+    featured?: boolean;
 }
 
 interface Project {
@@ -19,6 +20,7 @@ interface Project {
     description: string;
     tech: string;
     link?: string;
+    featured?: boolean;
 }
 
 const experiences: Experience[] = [
@@ -27,7 +29,8 @@ const experiences: Experience[] = [
         role: "PE Summer Analyst",
         date: "May 2026 – present",
         description: "Building the technical side of sourcing and diligence, including an AI acquisition-sourcing and broker-scraper workflow. This is the coding-for-finance work I like most.",
-        skills: ["Python", "AI Sourcing", "PE"]
+        skills: ["Python", "AI Sourcing", "PE"],
+        featured: true
     },
     {
         company: "Cofounders Capital",
@@ -35,7 +38,8 @@ const experiences: Experience[] = [
         date: "Jan 2026 – Sep 2026",
         description: "Evaluating seed-stage B2B SaaS investments for a $60M fund. Synthesizing diligence on 100+ companies across unit economics, market structure, and exit viability.",
         metrics: [{ label: "Fund", value: "$60M" }],
-        skills: ["Venture Capital", "Diligence", "SaaS"]
+        skills: ["Venture Capital", "Diligence", "SaaS"],
+        featured: true
     },
     {
         company: "UNC Portfolio Management Team",
@@ -43,7 +47,8 @@ const experiences: Experience[] = [
         date: "Sep 2025 – Aug 2026",
         description: "TMT equity research for the Ewing-Schleeter Harris Fund ($120K AUM). Building DCF models, WACC calculations, and public comp analyses to develop buy/sell recommendations. 1 of 12 selected from 170+ applicants.",
         metrics: [{ label: "AUM", value: "$120K" }],
-        skills: ["Equity Research", "DCF", "TMT"]
+        skills: ["Equity Research", "DCF", "TMT"],
+        featured: true
     },
     {
         company: "Kenan-Flagler CDR",
@@ -57,7 +62,8 @@ const experiences: Experience[] = [
         role: "Engineer",
         date: "Jan 2026 – Aug 2026",
         description: "Building CAD assemblies and ArduPilot SITL closed-loop simulations for a medical-delivery VTOL drone.",
-        skills: ["CAD", "ArduPilot", "VTOL"]
+        skills: ["CAD", "ArduPilot", "VTOL"],
+        featured: true
     },
     {
         company: "Quantitative Finance Association",
@@ -80,7 +86,8 @@ const experiences: Experience[] = [
         date: "May – Jul 2025",
         description: "Supported public-equity investing focused on AI and enterprise software. Built valuation models (DCF, comps) and wrote sector memos on AI monetization trends.",
         metrics: [{ label: "Capital", value: "$20M+" }],
-        skills: ["Equity Research", "Valuation"]
+        skills: ["Equity Research", "Valuation"],
+        featured: true
     },
     {
         company: "DTV.AI",
@@ -88,34 +95,6 @@ const experiences: Experience[] = [
         date: "May 2023 – Feb 2025",
         description: "Built cost-analytics business serving retailers and CPG brands. Identified sourcing inefficiencies and quantified 12–15% margin improvement opportunities.",
         skills: ["Entrepreneurship", "Unit Economics"]
-    },
-    {
-        company: "Murmur",
-        role: "Founder",
-        date: "Shipped (2025)",
-        description: "Shipped open-source macOS dictation app in Swift (Homebrew + DMG). Active, production software.",
-        skills: ["Swift", "macOS", "Audio Processing"]
-    },
-    {
-        company: "Parcel",
-        role: "Developer",
-        date: "Active",
-        description: "AI-native underwriting for tax-lien buyers. Full Next.js repo, YC demo candidate, active development.",
-        skills: ["Next.js", "AI", "Underwriting"]
-    },
-    {
-        company: "Broker Scraper",
-        role: "Developer",
-        date: "Active",
-        description: "Broker-scraper workflow for Blue Oak Group PE fund. Real codebase for acquisition sourcing.",
-        skills: ["Python", "Scraping", "Data Pipelines"]
-    },
-    {
-        company: "Networking OS",
-        role: "Founder",
-        date: "Shipped",
-        description: "Electron/React/SQLite desktop app for 206-firm cold outreach campaign. Shipped with production deployment.",
-        skills: ["Electron", "React", "SQLite", "DevOps"]
     }
 ];
 
@@ -127,6 +106,7 @@ const projects: Project[] = [
         description: "Economics paper arguing that AI has weakened the computational constraint on planning, while the binding risks remain institutional: oversight failure, concentrated power, incentive gaming, and democratic accountability.",
         tech: "AI Governance • Political Economy • Institutional Design",
         link: "/ai-and-the-hal-revisited.pdf",
+        featured: true,
     },
     {
         title: "American Option Pricing",
@@ -135,6 +115,7 @@ const projects: Project[] = [
         description: "Novel hybrid pricing framework for American options integrating Hurst exponent forecasting with regime-switching volatility.",
         tech: "Python • TensorFlow • XGBoost",
         link: "https://arxiv.org/abs/2508.07151v2",
+        featured: true,
     },
     {
         title: "VertexLadder",
@@ -143,6 +124,7 @@ const projects: Project[] = [
         description: "Ultra-low latency trading engine (1.8M+ orders/sec). Lock-free concurrency with sharded SPSC queues.",
         tech: "C++ • Boost.Asio",
         link: "https://github.com/roshanshah11/vertexladder",
+        featured: true,
     },
     {
         title: "VoiceBraille",
@@ -150,6 +132,7 @@ const projects: Project[] = [
         role: "Team Lead",
         description: "Portable speech-to-Braille printer for deafblind accessibility. CAD prototyping, business modeling, and GTM targeting 200 schools/nonprofits. Won 'Most Innovative Idea' at Penn M&TSI.",
         tech: "SolidWorks • CAD • Business Modeling",
+        featured: true,
     },
     {
         title: "Transcript Analysis",
@@ -182,6 +165,14 @@ const projects: Project[] = [
         description: "Universal Atmospheric Model forecasting exoplanet weather with 94% accuracy.",
         tech: "Python • Scikit-learn",
         link: "https://devpost.com/software/pewp-predicting-exoplanet-weather-patterns",
+    },
+    {
+        title: "Murmur",
+        category: "macOS",
+        role: "Founder",
+        description: "Open-source macOS dictation app in Swift, shipped via Homebrew and DMG. Active, production software.",
+        tech: "Swift • macOS • Audio Processing",
+        featured: true,
     },
 ];
 
@@ -233,7 +224,7 @@ function InteractiveItem({
                 duration: 0.5,
                 ease: [0.25, 0.1, 0.25, 1]
             }}
-            className="group relative py-3.5 px-3 -mx-3 rounded-lg overflow-hidden"
+            className="group relative py-5 px-3 -mx-3 rounded-lg overflow-hidden"
         >
             {/* Cursor-tracking spotlight */}
             <motion.div
@@ -265,15 +256,91 @@ function InteractiveItem({
     );
 }
 
-export default function WorkSection() {
+function ExperienceItem({ exp, index }: { exp: Experience; index: number }) {
     return (
-        <section id="projects" className="py-16 px-4 relative">
+        <InteractiveItem index={index} accentColor="amber" dataTour={`experience-card-${index}`}>
+            <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mb-1.5">
+                <h3 className="text-base md:text-lg font-bold text-white group-hover:text-amber-400 transition-colors duration-200">
+                    {exp.company}
+                </h3>
+                <span className="text-sm text-cyan-400 group-hover:text-cyan-300 transition-colors">{exp.role}</span>
+                <span className="text-[11px] text-gray-600 font-mono ml-auto group-hover:text-gray-400 transition-colors">{exp.date}</span>
+            </div>
+            <p className="text-sm text-gray-400 leading-relaxed mb-2 group-hover:text-gray-300 transition-colors">
+                {exp.description}
+            </p>
+            <div className="flex flex-wrap items-center gap-x-3 text-[11px] font-mono text-gray-500 group-hover:text-gray-400 transition-colors">
+                <span>{exp.skills.join(" · ")}</span>
+                {exp.metrics && exp.metrics.map((m, k) => (
+                    <motion.span
+                        key={k}
+                        className="text-amber-500/80 group-hover:text-amber-400 transition-colors"
+                        whileHover={{ scale: 1.05 }}
+                    >
+                        {m.label}: {m.value}
+                    </motion.span>
+                ))}
+            </div>
+        </InteractiveItem>
+    );
+}
+
+function ProjectItem({ project, index }: { project: Project; index: number }) {
+    return (
+        <InteractiveItem index={index} accentColor="cyan" dataTour={index === 0 ? "project-0" : undefined}>
+            <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mb-1.5">
+                <h3 className="text-base md:text-lg font-bold text-white group-hover:text-amber-400 transition-colors duration-200">
+                    {project.link ? (
+                        <a
+                            href={project.link}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="hover:underline inline-flex items-center gap-1"
+                        >
+                            {project.title}
+                            <motion.span
+                                className="text-xs opacity-50"
+                                whileHover={{ x: 2, y: -2 }}
+                            >
+                                ↗
+                            </motion.span>
+                        </a>
+                    ) : project.title}
+                </h3>
+                <span className="text-sm text-cyan-400 group-hover:text-cyan-300 transition-colors">{project.role}</span>
+                <span className="text-[11px] text-gray-600 font-mono uppercase ml-auto group-hover:text-gray-400 transition-colors">{project.category}</span>
+            </div>
+            <p className="text-sm text-gray-400 leading-relaxed mb-2 group-hover:text-gray-300 transition-colors">
+                {project.description}
+            </p>
+            <div className="text-[11px] font-mono text-gray-500 group-hover:text-gray-400 transition-colors">
+                {project.tech.split(/[•·]/).map(t => t.trim()).join(" · ")}
+            </div>
+        </InteractiveItem>
+    );
+}
+
+export default function WorkSection() {
+    const [showAll, setShowAll] = useState(false);
+    const restCount = experiences.filter((e) => !e.featured).length;
+    const remainingProjectCount = projects.filter((project) => !project.featured).length;
+
+    // Scroll-driven tracing beam down the experience column
+    const expRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress: expProgress } = useScroll({
+        target: expRef,
+        offset: ["start 0.6", "end 0.5"],
+    });
+    const beamScale = useSpring(expProgress, { stiffness: 120, damping: 30, mass: 0.4 });
+
+    return (
+        <section id="projects" className="py-24 px-4 relative">
             <div className="section-container">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
                     {/* Experience Column */}
                     <div data-tour="experience">
                         <motion.h2
-                            className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-200 to-amber-500 mb-8"
+                            className="text-3xl md:text-4xl font-bold text-amber-300 mb-8"
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -281,40 +348,55 @@ export default function WorkSection() {
                         >
                             Experience
                         </motion.h2>
-                        <div className="space-y-0">
-                            {experiences.map((exp, i) => (
-                                <InteractiveItem key={i} index={i} accentColor="amber" dataTour={`experience-card-${i}`}>
-                                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mb-1">
-                                        <h3 className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors duration-200">
-                                            {exp.company}
-                                        </h3>
-                                        <span className="text-xs text-cyan-400 group-hover:text-cyan-300 transition-colors">{exp.role}</span>
-                                        <span className="text-[10px] text-gray-600 font-mono ml-auto group-hover:text-gray-400 transition-colors">{exp.date}</span>
-                                    </div>
-                                    <p className="text-xs text-gray-400 leading-relaxed mb-1.5 group-hover:text-gray-300 transition-colors">
-                                        {exp.description}
-                                    </p>
-                                    <div className="flex flex-wrap items-center gap-x-3 text-[10px] font-mono text-gray-500 group-hover:text-gray-400 transition-colors">
-                                        <span>{exp.skills.join(" · ")}</span>
-                                        {exp.metrics && exp.metrics.map((m, k) => (
-                                            <motion.span
-                                                key={k}
-                                                className="text-amber-500/80 group-hover:text-amber-400 transition-colors"
-                                                whileHover={{ scale: 1.05 }}
-                                            >
-                                                {m.label}: {m.value}
-                                            </motion.span>
-                                        ))}
-                                    </div>
-                                </InteractiveItem>
-                            ))}
+                        <div ref={expRef} className="relative pl-5">
+                            {/* Tracing beam: static track + scroll-filled beam */}
+                            <div className="absolute left-0 top-1 bottom-1 w-px bg-white/[0.06]" />
+                            <motion.div
+                                className="absolute left-0 top-1 bottom-1 w-px origin-top bg-gradient-to-b from-amber-300 via-amber-500 to-cyan-500/40"
+                                style={{ scaleY: beamScale }}
+                            />
+                            <div className="space-y-0">
+                                {experiences.map((exp, i) =>
+                                    exp.featured ? (
+                                        <ExperienceItem key={i} exp={exp} index={i} />
+                                    ) : (
+                                        <AnimatePresence key={i} initial={false}>
+                                            {showAll && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, y: 8 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    exit={{ opacity: 0, y: 8 }}
+                                                    transition={{ duration: 0.3, ease: [0.2, 0.8, 0.2, 1] }}
+                                                >
+                                                    <ExperienceItem exp={exp} index={i} />
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    )
+                                )}
+                            </div>
                         </div>
+                        {restCount > 0 && (
+                            <button
+                                onClick={() => setShowAll((v) => !v)}
+                                className="group mt-4 flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-gray-500 hover:text-amber-400 transition-colors"
+                            >
+                                <span>{showAll ? "show less" : `show ${restCount} more`}</span>
+                                <motion.span
+                                    animate={{ rotate: showAll ? 180 : 0 }}
+                                    transition={{ duration: 0.3, ease: [0.2, 0.8, 0.2, 1] }}
+                                    className="text-amber-500/70 group-hover:text-amber-400"
+                                >
+                                    ↓
+                                </motion.span>
+                            </button>
+                        )}
                     </div>
 
                     {/* Projects Column */}
                     <div data-tour="projects">
                         <motion.h2
-                            className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-200 to-amber-500 mb-8"
+                            className="text-3xl md:text-4xl font-bold text-amber-300 mb-8"
                             initial={{ opacity: 0, x: 20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -323,39 +405,40 @@ export default function WorkSection() {
                             Projects
                         </motion.h2>
                         <div className="space-y-0">
-                            {projects.map((project, i) => (
-                                <InteractiveItem key={i} index={i} accentColor="cyan" dataTour={i === 0 ? "project-0" : undefined}>
-                                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mb-1">
-                                        <h3 className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors duration-200">
-                                            {project.link ? (
-                                                <a
-                                                    href={project.link}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    className="hover:underline inline-flex items-center gap-1"
-                                                >
-                                                    {project.title}
-                                                    <motion.span
-                                                        className="text-xs opacity-50"
-                                                        whileHover={{ x: 2, y: -2 }}
-                                                    >
-                                                        ↗
-                                                    </motion.span>
-                                                </a>
-                                            ) : project.title}
-                                        </h3>
-                                        <span className="text-xs text-cyan-400 group-hover:text-cyan-300 transition-colors">{project.role}</span>
-                                        <span className="text-[10px] text-gray-600 font-mono uppercase ml-auto group-hover:text-gray-400 transition-colors">{project.category}</span>
-                                    </div>
-                                    <p className="text-xs text-gray-400 leading-relaxed mb-1.5 group-hover:text-gray-300 transition-colors">
-                                        {project.description}
-                                    </p>
-                                    <div className="text-[10px] font-mono text-gray-500 group-hover:text-gray-400 transition-colors">
-                                        {project.tech.split(/[•·]/).map(t => t.trim()).join(" · ")}
-                                    </div>
-                                </InteractiveItem>
-                            ))}
+                            {projects.map((project, i) =>
+                                project.featured ? (
+                                    <ProjectItem key={project.title} project={project} index={i} />
+                                ) : (
+                                    <AnimatePresence key={project.title} initial={false}>
+                                        {showAll && (
+                                            <motion.div
+                                                initial={{ opacity: 0, y: 8 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: 8 }}
+                                                transition={{ duration: 0.3, ease: [0.2, 0.8, 0.2, 1] }}
+                                            >
+                                                <ProjectItem project={project} index={i} />
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                )
+                            )}
                         </div>
+                        {remainingProjectCount > 0 && (
+                            <button
+                                onClick={() => setShowAll((v) => !v)}
+                                className="group mt-4 flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-gray-500 hover:text-cyan-400 transition-colors"
+                            >
+                                <span>{showAll ? "show less" : `show ${remainingProjectCount} more`}</span>
+                                <motion.span
+                                    animate={{ rotate: showAll ? 180 : 0 }}
+                                    transition={{ duration: 0.3, ease: [0.2, 0.8, 0.2, 1] }}
+                                    className="text-cyan-500/70 group-hover:text-cyan-400"
+                                >
+                                    ↓
+                                </motion.span>
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
