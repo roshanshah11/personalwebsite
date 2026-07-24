@@ -23,9 +23,16 @@ interface Project {
 
 const experiences: Experience[] = [
     {
+        company: "Blue Oak Group",
+        role: "PE Summer Analyst",
+        date: "May 2026 – present",
+        description: "Building the technical side of sourcing and diligence, including an AI acquisition-sourcing and broker-scraper workflow. This is the coding-for-finance work I like most.",
+        skills: ["Python", "AI Sourcing", "PE"]
+    },
+    {
         company: "Cofounders Capital",
         role: "Venture Capital Intern",
-        date: "Jan 2026 – Present",
+        date: "Jan 2026 – Sep 2026",
         description: "Evaluating seed-stage B2B SaaS investments for a $60M fund. Synthesizing diligence on 100+ companies across unit economics, market structure, and exit viability.",
         metrics: [{ label: "Fund", value: "$60M" }],
         skills: ["Venture Capital", "Diligence", "SaaS"]
@@ -33,7 +40,7 @@ const experiences: Experience[] = [
     {
         company: "UNC Portfolio Management Team",
         role: "Technology Sector Analyst",
-        date: "Sep 2025 – Present",
+        date: "Sep 2025 – Aug 2026",
         description: "TMT equity research for the Ewing-Schleeter Harris Fund ($120K AUM). Building DCF models, WACC calculations, and public comp analyses to develop buy/sell recommendations. 1 of 12 selected from 170+ applicants.",
         metrics: [{ label: "AUM", value: "$120K" }],
         skills: ["Equity Research", "DCF", "TMT"]
@@ -41,21 +48,21 @@ const experiences: Experience[] = [
     {
         company: "Kenan-Flagler CDR",
         role: "Research Assistant",
-        date: "Oct 2025 – Present",
+        date: "Oct 2025 – Sep 2026",
         description: "Supporting faculty and PhD research on behavioral decision-making. Designing experiments and analyzing participant data for academic publication.",
         skills: ["Behavioral Finance", "R", "Research Methods"]
     },
     {
         company: "Carolina SkyLab",
         role: "Engineer",
-        date: "Jan 2026 – Present",
+        date: "Jan 2026 – Aug 2026",
         description: "Building CAD assemblies and ArduPilot SITL closed-loop simulations for a medical-delivery VTOL drone.",
         skills: ["CAD", "ArduPilot", "VTOL"]
     },
     {
         company: "Quantitative Finance Association",
         role: "Derivatives Analyst",
-        date: "Oct 2025 – Present",
+        date: "Oct 2025 – Sep 2026",
         description: "Studying options pricing, volatility, Greeks, and hedging through peer-led technical work on real market data.",
         skills: ["Options Pricing", "Greeks", "Volatility"]
     },
@@ -63,8 +70,8 @@ const experiences: Experience[] = [
         company: "Hitech Corporation",
         role: "Strategy Intern",
         date: "Jul – Sep 2025",
-        description: "Developed U.S. market entry thesis for a $3.4M cross-border acquisition. Conducted competitive analysis and built financial projections for TAM sizing.",
-        metrics: [{ label: "Deal", value: "$3.4M" }],
+        description: "Developed U.S. market entry thesis for a $3.4M+ automotive-plastics acquisition. Conducted competitive analysis and built financial projections for TAM sizing.",
+        metrics: [{ label: "Deal", value: "$3.4M+" }],
         skills: ["M&A Strategy", "Market Analysis"]
     },
     {
@@ -80,8 +87,35 @@ const experiences: Experience[] = [
         role: "Co-Founder",
         date: "May 2023 – Feb 2025",
         description: "Built cost-analytics business serving retailers and CPG brands. Identified sourcing inefficiencies and quantified 12–15% margin improvement opportunities.",
-        metrics: [{ label: "Revenue", value: "$40K+" }],
         skills: ["Entrepreneurship", "Unit Economics"]
+    },
+    {
+        company: "Murmur",
+        role: "Founder",
+        date: "Shipped (2025)",
+        description: "Shipped open-source macOS dictation app in Swift (Homebrew + DMG). Active, production software.",
+        skills: ["Swift", "macOS", "Audio Processing"]
+    },
+    {
+        company: "Parcel",
+        role: "Developer",
+        date: "Active",
+        description: "AI-native underwriting for tax-lien buyers. Full Next.js repo, YC demo candidate, active development.",
+        skills: ["Next.js", "AI", "Underwriting"]
+    },
+    {
+        company: "Broker Scraper",
+        role: "Developer",
+        date: "Active",
+        description: "Broker-scraper workflow for Blue Oak Group PE fund. Real codebase for acquisition sourcing.",
+        skills: ["Python", "Scraping", "Data Pipelines"]
+    },
+    {
+        company: "Networking OS",
+        role: "Founder",
+        date: "Shipped",
+        description: "Electron/React/SQLite desktop app for 206-firm cold outreach campaign. Shipped with production deployment.",
+        skills: ["Electron", "React", "SQLite", "DevOps"]
     }
 ];
 

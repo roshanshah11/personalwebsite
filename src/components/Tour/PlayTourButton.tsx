@@ -40,7 +40,7 @@ export function PlayTourButton() {
             onClick={() => tour.start()}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="fixed bottom-6 right-6 z-50 group"
+            className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 group"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 2, duration: 0.5 }}
@@ -58,7 +58,7 @@ export function PlayTourButton() {
 
             {/* Button content */}
             <motion.div
-                className="relative flex items-center gap-3 px-5 py-3 rounded-full overflow-hidden"
+                className="relative flex items-center gap-2 md:gap-3 px-3 py-3 md:px-5 rounded-full overflow-hidden"
                 style={{
                     background: 'linear-gradient(135deg, rgba(20, 20, 25, 0.95) 0%, rgba(30, 30, 40, 0.95) 100%)',
                     border: '1px solid rgba(212, 175, 55, 0.3)',
@@ -96,7 +96,7 @@ export function PlayTourButton() {
                 </motion.div>
 
                 {/* Text */}
-                <span className="relative text-sm font-medium text-white/90 whitespace-nowrap">
+                <span className="hidden sm:inline relative text-sm font-medium text-white/90 whitespace-nowrap">
                     Quick walkthrough here
                 </span>
 

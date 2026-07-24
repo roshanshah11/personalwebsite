@@ -37,7 +37,7 @@ export default function Footer() {
                 onClick={focusInput}
             >
                 <span className="text-text-muted">COMMAND:</span>
-                <span className="ml-2 text-primary">/home/rohan_shah</span>
+                <span className="ml-2 text-primary">/home/roshan_shah</span>
                 <span className="text-text-muted mx-1">$</span>
                 <div className="relative flex-grow">
                     <input

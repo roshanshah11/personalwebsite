@@ -41,22 +41,25 @@ export default function FooterSection() {
                     </div>
 
                     {/* Contact */}
-                    <div data-tour="contact">
-                        <h3 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-4">
-                            Contact
-                        </h3>
-                        <div className="space-y-2">
-                            <a href="mailto:roshah2007@gmail.com" className="block text-sm text-gray-400 hover:text-white transition-colors">
-                                roshah2007@gmail.com
-                            </a>
-                            <a href="https://linkedin.com/in/roshan-shah11" target="_blank" className="block text-sm text-gray-400 hover:text-white transition-colors">
-                                LinkedIn
-                            </a>
-                            <a href="https://github.com/roshanshah11" target="_blank" className="block text-sm text-gray-400 hover:text-white transition-colors">
-                                GitHub
-                            </a>
+                        <div data-tour="contact">
+                            <h3 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-4">
+                                Contact
+                            </h3>
+                            <div className="space-y-2">
+                                <a href="mailto:rashah@uchicago.edu" className="block text-sm text-amber-400 font-semibold hover:text-amber-300 transition-colors">
+                                    rashah@uchicago.edu (Primary)
+                                </a>
+                                <a href="mailto:roshah2007@gmail.com" className="block text-sm text-gray-400 hover:text-white transition-colors">
+                                    roshah2007@gmail.com
+                                </a>
+                                <a href="https://linkedin.com/in/roshan-shah11" target="_blank" className="block text-sm text-gray-400 hover:text-white transition-colors">
+                                    LinkedIn
+                                </a>
+                                <a href="https://github.com/roshanshah11" target="_blank" className="block text-sm text-gray-400 hover:text-white transition-colors">
+                                    GitHub
+                                </a>
+                            </div>
                         </div>
-                    </div>
 
                     {/* Branding */}
                     <div>
@@ -64,10 +67,10 @@ export default function FooterSection() {
                             Built With
                         </h3>
                         <p className="text-xs text-gray-500">
-                            Next.js · Three.js · Framer Motion
+                            Next.js · Three.js · Framer Motion · GSAP · Lenis
                         </p>
                         <p className="text-xs text-gray-600 mt-4">
-                            © 2026 Roshan Shah · Updated Spring 2026
+                            © 2024-present Roshan Shah
                         </p>
                     </div>
                 </div>

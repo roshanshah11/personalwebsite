@@ -45,6 +45,15 @@ export function RocketPromo() {
     const tour = useTourController();
     const [isVisible, setIsVisible] = useState(false);
     const [hasBeenDismissed, setHasBeenDismissed] = useState(false);
+    // Only fly the rocket on larger screens; on phones it overlaps content
+    const [isDesktop, setIsDesktop] = useState(false);
+
+    useEffect(() => {
+        const check = () => setIsDesktop(window.innerWidth >= 768);
+        check();
+        window.addEventListener('resize', check);
+        return () => window.removeEventListener('resize', check);
+    }, []);
 
     // Position and rotation state
     const [position, setPosition] = useState({ x: -150, y: 400 });
@@ -248,7 +257,7 @@ export function RocketPromo() {
         }
     };
 
-    if (tour.isActive || !isVisible) return null;
+    if (tour.isActive || !isVisible || !isDesktop) return null;
 
     // Counter-rotation for label
     const labelRotation = -rotation - 90;

@@ -76,7 +76,7 @@ export function TimelineControls() {
         <AnimatePresence>
             {isActive && (
                 <motion.div
-                    className="fixed bottom-0 left-0 right-0 z-[10002] px-4 pb-4"
+                    className="fixed bottom-0 left-0 right-0 z-[10002] px-4 pb-[max(1rem,env(safe-area-inset-bottom))]"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}

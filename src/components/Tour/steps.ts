@@ -43,7 +43,7 @@ export const tourSteps: TourStep[] = [
         id: 'about-intro',
         chapter: 'about',
         text:
-            "I'm a finance and investing researcher focused on equity markets, valuation, and AI driven tools for better decision making. Always building at the intersection of finance, technology, AI governance, and real world markets.",
+            "I'm a sophomore at UChicago studying economics. Most of my time goes to projects in aerospace and simulation software, plus the technical side of investing. Robotics, drone tech, and trading are the problems I keep coming back to, usually where finance, AI, and hardware run into each other.",
         targetSelector: '[data-tour="about"]',
         action: 'scrollTo',
         durationMs: 5500,
@@ -54,7 +54,7 @@ export const tourSteps: TourStep[] = [
         id: 'about-education',
         chapter: 'about',
         text:
-            "I’m at UNC Chapel Hill studying Business and Data Science right now! And graduated Lawrenceville in 2025. At UNC, I'm apart of the Portfolio Management Team, focusing on analyzing public companies in the technology space, and I am apart of the Quantitative Finance Association as apart of their Derivatives Team!  ",
+            "I'm heading to the University of Chicago to study Economics and Data Science, after transferring from UNC Kenan-Flagler where I kept a 4.0 in Honors Carolina. Before that I graduated Lawrenceville in 2025. At UNC I analyzed public tech companies on the Portfolio Management Team and worked options and Greeks with the Quantitative Finance Association's derivatives team.",
         targetSelector: '[data-tour="education"]',
         action: 'scrollTo',
         durationMs: 8000,
@@ -79,7 +79,7 @@ export const tourSteps: TourStep[] = [
         id: 'experience-featured',
         chapter: 'experience',
         text:
-            "At Cofounders Capital, I'm a VC intern on a $60M seed stage fund. I evaluate B2B SaaS companies across market size, unit economics, competitive dynamics, and downside risk. Diligence across 100+ startups and early stage investment judgment.",
+            "Right now I'm a PE Summer Analyst at Blue Oak Group, where I do a lot of the coding. I built an AI acquisition-sourcing and broker-scraper workflow to find and screen targets. It's the technical-finance work I like most.",
         targetSelector: '[data-tour="experience-card-0"]',
         action: 'scrollTo',
         durationMs: 7000,
@@ -90,8 +90,8 @@ export const tourSteps: TourStep[] = [
         id: 'experience-skylab',
         chapter: 'experience',
         text:
-            "At Carolina SkyLab, I'm an engineer building a 2 fan tail sitter VTOL drone. Full CAD assembly with gear driven servo actuation, plus ArduPilot SITL closed loop flight control sims for a medical delivery UAV.",
-        targetSelector: '[data-tour="experience-card-3"]',
+            "At Carolina SkyLab I was an engineer building a 2 fan tail sitter VTOL drone. Full CAD assembly with gear driven servo actuation, plus ArduPilot SITL closed loop flight control sims for a medical delivery UAV.",
+        targetSelector: '[data-tour="experience-card-4"]',
         action: 'scrollTo',
         durationMs: 6500,
         placement: 'top-center',

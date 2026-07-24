@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-24T00:00:00Z",
+  "title": "Design System: Roshan Shah Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "telemetry-gold": { "role": "primary", "displayName": "Telemetry Gold", "canonical": "#D4AF37", "tonalRamp": ["#241d09", "#453914", "#67541d", "#8a7026", "#ad8d30", "#c9a637", "#d9bd63", "#ecd9a3"] },
+      "signal-amber": { "role": "primary", "displayName": "Signal Amber", "canonical": "#FBBF24", "tonalRamp": ["#2b2005", "#4d3a08", "#71540b", "#96700d", "#bd8d0f", "#e5aa14", "#fbbf24", "#fcd66d"] },
+      "scanline-cyan": { "role": "secondary", "displayName": "Scanline Cyan", "canonical": "#00D9FF", "tonalRamp": ["#042630", "#07414f", "#0a5c70", "#0d7892", "#0f95b5", "#12b2d8", "#00d9ff", "#7aecff"] },
+      "deep-space-blue": { "role": "tertiary", "displayName": "Deep Space Blue", "canonical": "#3B82F6", "tonalRamp": ["#0a1a33", "#12294f", "#1a3a6f", "#234c90", "#2d5fb3", "#3b82f6", "#6ba1f8", "#a6c6fb"] },
+      "void-black": { "role": "neutral", "displayName": "Void Black", "canonical": "#09090B", "tonalRamp": ["#09090b", "#131316", "#1d1d21", "#28282d", "#3f3f46", "#52525b", "#71717a", "#a1a1aa"] },
+      "panel-charcoal": { "role": "neutral", "displayName": "Panel Charcoal", "canonical": "#18181B", "tonalRamp": ["#09090b", "#131316", "#18181b", "#28282d", "#3f3f46", "#52525b", "#71717a", "#a1a1aa"] },
+      "instrument-white": { "role": "neutral", "displayName": "Instrument White", "canonical": "#EDEDED", "tonalRamp": ["#3f3f46", "#52525b", "#71717a", "#a1a1aa", "#d4d4d8", "#e4e4e7", "#ededed", "#fafafa"] },
+      "muted-zinc": { "role": "neutral", "displayName": "Muted Zinc", "canonical": "#71717A", "tonalRamp": ["#18181b", "#27272a", "#3f3f46", "#52525b", "#71717a", "#a1a1aa", "#d4d4d8", "#e4e4e7"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero name only. Fills the first screen, tight -0.04em tracking." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles (Experience, Projects) in Telemetry Gold." },
+      "title": { "displayName": "Title", "purpose": "Card headers: school, role, project title, in Instrument White." },
+      "body": { "displayName": "Body", "purpose": "Bio and descriptions, gray-300 tint, 65-75ch measure." },
+      "label": { "displayName": "Label", "purpose": "JetBrains Mono uppercase micro-labels in Signal Amber." }
+    },
+    "shadows": [
+      { "name": "floating-control", "value": "0 10px 15px -3px rgba(0,0,0,0.3)", "purpose": "Fixed-position controls (resume pill, tour button) only." },
+      { "name": "accent-glow-gold", "value": "0 0 20px rgba(212,175,55,0.35)", "purpose": "Hover-only glow under gold interactive elements." },
+      { "name": "accent-glow-blue", "value": "0 0 20px rgba(59,130,246,0.3)", "purpose": "Text glow (.text-glow) and atmospheric focus glow." }
+    ],
+    "motion": [
+      { "name": "ease-out-quart", "value": "cubic-bezier(0.2, 0.8, 0.2, 1)", "purpose": "Default entrance easing for fade/slide/scale keyframes." },
+      { "name": "ease-out-cubic", "value": "cubic-bezier(0, 0, 0.3, 1)", "purpose": "Lenis scroll-to easing (1 - (1-t)^3)." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Contact Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Lit, not filled: amber text on a low-opacity amber wash. Used for the primary contact action.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/><path d=\"m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7\"/></svg>UChicago Email</a>",
+      "css": ".ds-btn-primary { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; background:rgba(245,158,11,0.2); border:1px solid rgba(245,158,11,0.3); border-radius:8px; color:#fbbf24; font-family:'Space Grotesk',sans-serif; font-size:0.875rem; font-weight:500; text-decoration:none; transition:background 0.2s ease; } .ds-btn-primary:hover { background:rgba(245,158,11,0.3); } .ds-btn-primary:focus-visible { outline:2px solid #fbbf24; outline-offset:2px; }"
+    },
+    {
+      "name": "Ghost Link Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Neutral secondary action; border warms to gold or cyan on hover.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z\"/><rect x=\"2\" y=\"9\" width=\"4\" height=\"12\"/><circle cx=\"4\" cy=\"4\" r=\"2\"/></svg>LinkedIn</a>",
+      "css": ".ds-btn-ghost { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#ededed; font-family:'Space Grotesk',sans-serif; font-size:0.875rem; text-decoration:none; transition:border-color 0.2s ease, background 0.2s ease; } .ds-btn-ghost:hover { border-color:rgba(0,217,255,0.5); background:rgba(255,255,255,0.1); } .ds-btn-ghost:focus-visible { outline:2px solid #00d9ff; outline-offset:2px; }"
+    },
+    {
+      "name": "Focus Chip",
+      "kind": "chip",
+      "refersTo": "chip-focus",
+      "description": "Work/focus tag. Amber taxonomy (robotics, drone tech, trading). Mobile-only.",
+      "html": "<span class=\"ds-chip-focus\">robotics</span>",
+      "css": ".ds-chip-focus { display:inline-block; padding:6px 12px; border-radius:9999px; background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.25); color:#fcd34d; font-family:'JetBrains Mono',monospace; font-size:0.75rem; }"
+    },
+    {
+      "name": "Personality Chip",
+      "kind": "chip",
+      "refersTo": "chip-personality",
+      "description": "Personality/interaction tag. Cyan taxonomy (finance + ai, tabla, poker). Mobile-only.",
+      "html": "<span class=\"ds-chip-personality\">finance + ai</span>",
+      "css": ".ds-chip-personality { display:inline-block; padding:6px 12px; border-radius:9999px; background:rgba(0,217,255,0.08); border:1px solid rgba(0,217,255,0.25); color:#67e8f9; font-family:'JetBrains Mono',monospace; font-size:0.75rem; }"
+    },
+    {
+      "name": "Content Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Flat surface: 2%-white fill, 1px hairline, no shadow. Depth comes from the background field.",
+      "html": "<div class=\"ds-card\"><h4>The University of Chicago</h4><p class=\"ds-card-program\">BA Economics + Data Science</p><p class=\"ds-card-detail\">Formerly UNC Kenan-Flagler (4.0 GPA)</p></div>",
+      "css": ".ds-card { background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:16px; } .ds-card h4 { margin:0; font-family:'Space Grotesk',sans-serif; font-size:0.875rem; font-weight:700; color:#fff; } .ds-card-program { margin:4px 0 0; font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#22d3ee; } .ds-card-detail { margin:8px 0 0; font-size:0.75rem; color:#9ca3af; }"
+    },
+    {
+      "name": "Resume Pill (floating)",
+      "kind": "custom",
+      "refersTo": "resume-pill",
+      "description": "Floating top-right control. Icon-only 44px circle on mobile, labeled 160px pill on desktop.",
+      "html": "<a class=\"ds-resume-pill\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><path d=\"M7 10l5 5 5-5\"/><path d=\"M12 15V3\"/></svg><span>GET RESUME</span></a>",
+      "css": ".ds-resume-pill { display:inline-flex; align-items:center; justify-content:center; gap:8px; width:160px; height:48px; background:#09090b; border:1px solid rgba(255,255,255,0.1); border-radius:9999px; box-shadow:0 10px 15px -3px rgba(0,0,0,0.3); color:#71717a; text-decoration:none; transition:border-color 0.3s ease, color 0.3s ease; } .ds-resume-pill span { font-family:'JetBrains Mono',monospace; font-size:0.875rem; font-weight:700; color:#D4AF37; } .ds-resume-pill:hover { border-color:rgba(212,175,55,0.5); color:#D4AF37; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Mission Control at Midnight",
+    "overview": "The page reads like an instrument panel in a dark room: a near-black field with a live 3D starfield behind it, and content lit by two signal colors, a telemetry gold and a scanline cyan. It is a builder's portfolio for founders and engineers, so the craft of the page is itself the evidence. Type goes cinematic and large, motion is scroll-driven, and an optional guided tour walks a visitor through the work like a flight director narrating a sequence. Bold is the brief, but never loud for its own sake. Every effect earns attention or comprehension; the moment a flourish fights readability it is cut. The register is cinematic-but-disciplined: maximal ambition, minimal gimmick.",
+    "keyCharacteristics": [
+      "Near-black zinc base (#09090B) with a live starfield, not flat dark-mode blue.",
+      "Two-signal accent system: gold/amber for work, cyan for personality and interaction.",
+      "Oversized Space Grotesk display type against small JetBrains Mono labels.",
+      "Motion is choreographed but exponential and calm (no bounce, no elastic).",
+      "Content leads; effects support."
+    ],
+    "rules": [
+      { "name": "The Two-Signal Rule", "body": "Gold/amber marks work and focus; cyan marks personality and interaction. Never swap the two, and never rely on color alone to carry the distinction (pair with position, label, or icon), so it survives color-blindness.", "section": "colors" },
+      { "name": "The Blue-Stays-Behind Rule", "body": "Deep Space Blue belongs to the atmosphere: glows, particles, focus rings. It is forbidden as a text or button color, so it never competes with the two content signals.", "section": "colors" },
+      { "name": "The Uppercase-Mono Label Rule", "body": "Uppercasing is reserved for JetBrains Mono micro-labels and the logotype-style hero. Prose is never uppercased, and in the personal copy it stays lowercase and casual, first person, concrete over label.", "section": "typography" },
+      { "name": "The Depth-From-Background Rule", "body": "Surfaces are flat at rest. If an element needs to feel lifted, it is because it floats above scroll (fixed position), not because it is a content card. Content cards never get more than a 1px hairline.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep the base near-black (#09090B) with the live starfield; let depth come from the background field and 1px hairlines, not shadows.",
+      "Do use the Two-Signal system exactly: gold/amber for work, cyan for personality and interaction. Pair color with label or position so it never depends on color alone.",
+      "Do go oversized on the Space Grotesk display type with tight negative tracking (-0.04em); scale is the drama.",
+      "Do keep personal prose lowercase, first person, and concrete, and reserve uppercase for JetBrains Mono micro-labels.",
+      "Do ease with exponential curves (cubic-bezier(0.2, 0.8, 0.2, 1)); choreograph entrances but never bounce or overshoot.",
+      "Do collapse the two floating controls to compact icons below 768px so they never overlap content."
+    ],
+    "donts": [
+      "Don't ship the generic SaaS template: no cream/navy kit, no hero-metric block, no grid of identical icon+heading+text cards.",
+      "Don't let it read as a stiff corporate resume: no LinkedIn-style bullet walls with no personality.",
+      "Don't drift into crypto/AI neon: no neon-on-black, no background-clip:text gradient text, no next-gen hype copy.",
+      "Don't overdesign: glassmorphism is not a default (the .glass-panel util is a rare, purposeful exception), and no effect may fight readability.",
+      "Don't use Deep Space Blue (#3B82F6) as a text or button color; it stays in the atmosphere.",
+      "Don't put a colored border-left/border-right stripe on any card or chip; use the full hairline border or a background tint.",
+      "Don't use em dashes in copy; use commas, colons, or periods."
+    ]
+  }
+}

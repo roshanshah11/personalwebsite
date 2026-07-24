@@ -22,8 +22,8 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Roshan Shah - Quantitative Finance + AI Research",
-  description: "Business + Data Science student at UNC Chapel Hill focused on quantitative finance, volatility modeling, and building products.",
+  title: "Roshan Shah — Finance + AI",
+  description: "Economics student at UChicago building across finance, AI, aerospace, and simulation software. Summer analyst at Blue Oak Group. Interested in robotics, drone tech, and trading.",
 };
 
 export default function RootLayout({
