@@ -89,20 +89,21 @@
     "northStar": "Mission Control at Midnight",
     "overview": "The page reads like an instrument panel in a dark room: a near-black field with a live 3D starfield behind it, and content lit by two signal colors, a telemetry gold and a scanline cyan. It is a builder's portfolio for founders and engineers, so the craft of the page is itself the evidence. Type goes cinematic and large, motion is scroll-driven, and an optional guided tour walks a visitor through the work like a flight director narrating a sequence. Bold is the brief, but never loud for its own sake. Every effect earns attention or comprehension; the moment a flourish fights readability it is cut. The register is cinematic-but-disciplined: maximal ambition, minimal gimmick.",
     "keyCharacteristics": [
-      "Near-black zinc base (#09090B) with a live starfield, not flat dark-mode blue.",
-      "Two-signal accent system: gold/amber for work, cyan for personality and interaction.",
+      "The blue space field is the hero: near-black zinc base (#09090B) with a live 3D starfield and blue atmospheric glow. Preserve it.",
+      "Two-signal accent system layered on top: gold/amber for work, cyan for personality and interaction.",
       "Oversized Space Grotesk display type against small JetBrains Mono labels.",
       "Motion is choreographed but exponential and calm (no bounce, no elastic).",
-      "Content leads; effects support."
+      "Content leads; effects support; the space field stays."
     ],
     "rules": [
       { "name": "The Two-Signal Rule", "body": "Gold/amber marks work and focus; cyan marks personality and interaction. Never swap the two, and never rely on color alone to carry the distinction (pair with position, label, or icon), so it survives color-blindness.", "section": "colors" },
       { "name": "The Blue-Stays-Behind Rule", "body": "Deep Space Blue belongs to the atmosphere: glows, particles, focus rings. It is forbidden as a text or button color, so it never competes with the two content signals.", "section": "colors" },
+      { "name": "The Space-Field-Is-Sacred Rule", "body": "The blue space field (near-black base + live 3D starfield + blue glow) is the signature and stays. Do not swap it for a flat dark background, a different hue, or a busier pattern. New surfaces sit on top of it as faint hairline planes; they never cover it edge to edge.", "section": "colors" },
       { "name": "The Uppercase-Mono Label Rule", "body": "Uppercasing is reserved for JetBrains Mono micro-labels and the logotype-style hero. Prose is never uppercased, and in the personal copy it stays lowercase and casual, first person, concrete over label.", "section": "typography" },
       { "name": "The Depth-From-Background Rule", "body": "Surfaces are flat at rest. If an element needs to feel lifted, it is because it floats above scroll (fixed position), not because it is a content card. Content cards never get more than a 1px hairline.", "section": "elevation" }
     ],
     "dos": [
-      "Do keep the base near-black (#09090B) with the live starfield; let depth come from the background field and 1px hairlines, not shadows.",
+      "Do protect the blue space theme: near-black base (#09090B), live 3D starfield, and blue atmospheric glow are the signature and stay. Let depth come from that field and 1px hairlines, not shadows.",
       "Do use the Two-Signal system exactly: gold/amber for work, cyan for personality and interaction. Pair color with label or position so it never depends on color alone.",
       "Do go oversized on the Space Grotesk display type with tight negative tracking (-0.04em); scale is the drama.",
       "Do keep personal prose lowercase, first person, and concrete, and reserve uppercase for JetBrains Mono micro-labels.",

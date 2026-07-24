@@ -99,12 +99,14 @@ Bold is the brief, but never loud for its own sake. Every effect earns attention
 
 This system explicitly rejects the generic SaaS landing template (no cream/navy kit, no hero-metric blocks, no identical feature-card grids), the stiff corporate resume (no LinkedIn-style bullet walls), and crypto/AI neon futurism (no gradient text, no overhyped "next-gen" framing). It also rejects decoration that outshouts the content: glassmorphism is not a default here.
 
+The signature to protect is the blue space theme itself: the deep near-black field, the live 3D starfield, and the blue atmospheric glow. It is clean and it is the identity. Everything else (the gold/amber and cyan accents, the type) sits on top of that field and must never flatten or fight it.
+
 **Key Characteristics:**
-- Near-black zinc base (`#09090B`) with a live starfield, not flat dark-mode blue.
-- Two-signal accent system: gold/amber for work, cyan for personality and interaction.
+- The blue space field is the hero: near-black zinc base (`#09090B`) with a live 3D starfield and blue atmospheric glow. Preserve it.
+- Two-signal accent system layered on top: gold/amber for work, cyan for personality and interaction.
 - Oversized Space Grotesk display type against small JetBrains Mono labels.
 - Motion is choreographed but exponential and calm (no bounce, no elastic).
-- Content leads; effects support.
+- Content leads; effects support; the space field stays.
 
 ## 2. Colors
 
@@ -118,7 +120,7 @@ A near-black instrument field carrying two saturated signals plus a structural b
 - **Scanline Cyan** (`#00D9FF`): the interaction and personality signal. Program subtitles, the profile scan-line, and the personality chips (finance + ai, tabla, poker). Also the cyan hover accent on ghost buttons.
 
 ### Tertiary
-- **Deep Space Blue** (`#3B82F6`): structural glow only (the `--color-primary` token, focus glows, particle field). Not a content color; it lives in the atmosphere, not the copy.
+- **Deep Space Blue** (`#3B82F6`): the signature atmosphere (the `--color-primary` token, the starfield particles, focus and text glows). This is the blue of the space theme and the thing that makes the site feel clean and distinct. It carries the mood, so it stays out of copy and buttons rather than being diluted into them.
 
 ### Neutral
 - **Void Black** (`#09090B`, zinc 950): the base background under the 3D field.
@@ -132,6 +134,8 @@ A near-black instrument field carrying two saturated signals plus a structural b
 **The Two-Signal Rule.** Gold/amber marks work and focus; cyan marks personality and interaction. Never swap the two, and never rely on color alone to carry the distinction (pair with position, label, or icon), so it survives color-blindness.
 
 **The Blue-Stays-Behind Rule.** Deep Space Blue belongs to the atmosphere: glows, particles, focus rings. It is forbidden as a text or button color, so it never competes with the two content signals.
+
+**The Space-Field-Is-Sacred Rule.** The blue space field (near-black base + live 3D starfield + blue glow) is the signature and stays. Do not swap it for a flat dark background, a different hue, or a busier pattern. New surfaces sit on top of it as faint hairline planes; they never cover it edge to edge.
 
 ## 3. Typography
 
@@ -190,7 +194,7 @@ A scroll-choreographed walkthrough (Spotlight, TimelineControls, per-step camera
 ## 6. Do's and Don'ts
 
 ### Do:
-- **Do** keep the base near-black (`#09090B`) with the live starfield; let depth come from the background field and 1px hairlines, not shadows.
+- **Do** protect the blue space theme: near-black base (`#09090B`), live 3D starfield, and blue atmospheric glow are the signature and stay. Let depth come from that field and 1px hairlines, not shadows.
 - **Do** use the Two-Signal system exactly: gold/amber for work, cyan for personality and interaction. Pair color with label or position so it never depends on color alone.
 - **Do** go oversized on the Space Grotesk display type with tight negative tracking (-0.04em); scale is the drama.
 - **Do** keep personal prose lowercase, first person, and concrete, and reserve uppercase for JetBrains Mono micro-labels.
