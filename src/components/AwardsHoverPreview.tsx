@@ -8,7 +8,6 @@ interface AwardItem {
     org: string;
     year: string;
     description: string;
-    image?: string;
 }
 
 const awards: AwardItem[] = [
@@ -16,43 +15,37 @@ const awards: AwardItem[] = [
         name: "Herman Hollerith Prize",
         org: "The Lawrenceville School",
         year: "May 2025",
-        description: "Awarded for the highest degree of creativity and entrepreneurial application in computer science. Recognized for building a Python/React transcript analysis tool that automated academic auditing and was used by school administration.",
-        image: undefined
+        description: "Awarded for the highest degree of creativity and entrepreneurial application in computer science. Recognized for building a Python/React transcript analysis tool that automated academic auditing and was used by school administration."
     },
     {
         name: "Journal of Future Economists",
         org: "Federal Reserve Bank of New York",
         year: "2025",
-        description: "Published in the 2025 Journal of Future Economists. Selected as one of the top 12 papers from approximately 195 submissions nationwide.",
-        image: "/hsfedchallange.jpeg"
+        description: "Published in the 2025 Journal of Future Economists. Selected as one of the top 12 papers from approximately 195 submissions nationwide."
     },
     {
         name: "National Economics Challenge",
         org: "Council for Economic Education",
         year: "Apr 2024",
-        description: "New Jersey State Champion and National Finalist. Led 4-person team to 1st place in NJ (David Ricardo Division). Tested on micro/macro theory and international trade.",
-        image: "/NEC.png"
+        description: "New Jersey State Champion and National Finalist. Led 4-person team to 1st place in NJ (David Ricardo Division). Tested on micro/macro theory and international trade."
     },
     {
         name: "President's Volunteer Service Award (Gold)",
         org: "President's Council on Service",
         year: "2024",
-        description: "Recognized for 250+ hours of volunteer service, including logistics and operations support for community drives and pantry work.",
-        image: undefined
+        description: "Recognized for 250+ hours of volunteer service, including logistics and operations support for community drives and pantry work."
     },
     {
         name: "Karl Bronson Prize",
         org: "The Lawrenceville School",
         year: "May 2025",
-        description: "Presented to the student with the highest cumulative GPA in Griswold House.",
-        image: undefined
+        description: "Presented to the student with the highest cumulative GPA in Griswold House."
     },
     {
         name: "Cum Laude Society",
         org: "The Lawrenceville School",
         year: "May 2025",
-        description: "Top 10% of graduating class. Recognized for academic excellence across all disciplines.",
-        image: "/cumlaudesociety.png"
+        description: "Top 10% of graduating class. Recognized for academic excellence across all disciplines."
     },
 ];
 
@@ -112,34 +105,13 @@ export default function AwardsHoverPreview() {
                             top: 0,
                             left: 0,
                             x: mousePos.x + 40,
-                            y: mousePos.y - 100, // Offset upwards slightly
+                            y: mousePos.y - 24,
                         }}
                         initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
                         animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                         exit={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
                         transition={{ type: "spring", stiffness: 150, damping: 15 }}
                     >
-                        <div className="w-full h-40 bg-gradient-to-br from-gray-900 to-black rounded-lg mb-1 overflow-hidden relative border border-white/5">
-                            {awards[hoveredIndex].image ? (
-                                <img
-                                    src={awards[hoveredIndex].image}
-                                    alt={awards[hoveredIndex].name}
-                                    className="w-full h-full object-cover opacity-90"
-                                />
-                            ) : (
-                                <>
-                                    <div className="absolute inset-0 opacity-40"
-                                        style={{
-                                            backgroundImage: `radial-gradient(circle at 50% 50%, ${hoveredIndex % 2 ? '#00D9FF' : '#D4AF37'} 0%, transparent 60%)`,
-                                        }}
-                                    />
-                                    <div className="absolute inset-0 flex items-center justify-center text-xs text-gray-500 font-mono tracking-widest">
-                                        [IMAGE PREVIEW]
-                                    </div>
-                                </>
-                            )}
-                        </div>
-
                         <div>
                             <p className="text-white font-bold text-sm mb-1">{awards[hoveredIndex].name}</p>
                             <p className="text-[10px] text-cyan-400 mb-2 uppercase tracking-wider">{awards[hoveredIndex].org}</p>
