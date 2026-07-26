@@ -73,7 +73,7 @@ const NavigationMenu = () => {
                             `}>
                                 <div className="relative z-10 flex items-center justify-center">
                                     <span className={`
-                                        text-sm font-medium text-text-muted
+                                        t-meta font-medium text-text-muted
                                         transition-colors duration-300
                                         ${navItem.color}
                                     `}>

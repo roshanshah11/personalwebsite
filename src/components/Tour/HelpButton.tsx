@@ -61,7 +61,7 @@ export function HelpButton() {
                     >
                         {/* Header */}
                         <div className="px-4 py-3 border-b border-white/10">
-                            <h3 className="text-sm font-semibold text-white flex items-center gap-2">
+                            <h3 className="t-title text-white flex items-center gap-2">
                                 <HelpCircle size={14} className="text-amber-400" />
                                 Tour Controls
                             </h3>
@@ -71,7 +71,7 @@ export function HelpButton() {
                         <div className="p-4 space-y-4">
                             {/* Keyboard shortcuts */}
                             <div className="space-y-2">
-                                <h4 className="text-xs font-medium text-white/60 uppercase tracking-wider">
+                                <h4 className="t-label text-white/60">
                                     Keyboard Shortcuts
                                 </h4>
                                 <div className="space-y-1.5">
@@ -96,7 +96,7 @@ export function HelpButton() {
 
                             {/* Playback controls */}
                             <div className="space-y-2">
-                                <h4 className="text-xs font-medium text-white/60 uppercase tracking-wider">
+                                <h4 className="t-label text-white/60">
                                     Playback Controls
                                 </h4>
                                 <div className="space-y-1.5">
@@ -121,7 +121,7 @@ export function HelpButton() {
 
                             {/* Timeline tip */}
                             <div className="pt-2 border-t border-white/10">
-                                <p className="text-[11px] text-white/50 leading-relaxed">
+                                <p className="t-meta text-white/60">
                                     💡 <span className="text-white/70">Tip:</span> Click anywhere on the progress bar to jump to that point in the tour.
                                 </p>
                             </div>
@@ -151,13 +151,13 @@ export function HelpButton() {
  */
 function KeyboardShortcut({ keys, label }: { keys: string[]; label: string }) {
     return (
-        <div className="flex items-center justify-between text-xs">
+        <div className="flex items-center justify-between t-meta">
             <span className="text-white/70">{label}</span>
             <div className="flex items-center gap-1">
                 {keys.map((key, i) => (
                     <kbd
                         key={i}
-                        className="px-2 py-0.5 rounded bg-white/10 border border-white/20 text-[10px] font-mono text-amber-400"
+                        className="px-2 py-0.5 rounded bg-white/10 border border-white/20 t-label text-amber-400"
                     >
                         {key}
                     </kbd>
@@ -172,7 +172,7 @@ function KeyboardShortcut({ keys, label }: { keys: string[]; label: string }) {
  */
 function ControlHint({ icon, label }: { icon: React.ReactNode; label: string }) {
     return (
-        <div className="flex items-center gap-2 text-xs text-white/70">
+        <div className="flex items-center gap-2 t-meta text-white/70">
             <span className="text-amber-400/80">{icon}</span>
             <span>{label}</span>
         </div>

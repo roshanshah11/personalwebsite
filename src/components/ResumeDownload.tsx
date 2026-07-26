@@ -23,7 +23,7 @@ const ResumeDownload = () => {
                 </div>
 
                 {/* Text (desktop only) */}
-                <span className="hidden md:inline ml-8 text-sm font-mono font-bold text-primary opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                <span className="hidden md:inline ml-8 t-label text-primary opacity-100 transition-opacity duration-300 whitespace-nowrap">
                     GET RESUME
                 </span>
 

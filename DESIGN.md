@@ -15,35 +15,77 @@ colors:
   destructive: "#EF4444"
 typography:
   display:
-    fontFamily: "Space Grotesk, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(3rem, 12vw, 9rem)"
-    fontWeight: 700
-    lineHeight: 0.95
-    letterSpacing: "-0.04em"
+    class: "t-display"
+    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(3rem, 11vw, 8.5rem)"
+    fontWeight: 800
+    fontStretch: "112%"
+    lineHeight: 0.92
+    letterSpacing: "-0.045em"
+  display-split:
+    class: "t-display-split"
+    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(2.5rem, 8vw, 6rem)"
+    fontWeight: 800
+    fontStretch: "112%"
+    lineHeight: 0.92
+    letterSpacing: "-0.045em"
   headline:
-    fontFamily: "Space Grotesk, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(1.875rem, 5vw, 3rem)"
+    class: "t-headline"
+    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(1.5rem, 2.6vw, 1.9375rem)"
     fontWeight: 700
-    lineHeight: 1.1
+    fontStretch: "105%"
+    lineHeight: 1.05
     letterSpacing: "-0.02em"
   title:
-    fontFamily: "Space Grotesk, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "0.875rem"
+    class: "t-title"
+    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1.25rem"
     fontWeight: 700
     lineHeight: 1.3
-    letterSpacing: "normal"
+    letterSpacing: "-0.01em"
   body:
-    fontFamily: "Space Grotesk, ui-sans-serif, system-ui, sans-serif"
+    class: "t-body"
+    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1rem"
+    fontWeight: 450
+    lineHeight: 1.65
+    letterSpacing: "0.005em"
+    measure: "68ch"
+  meta:
+    class: "t-meta"
+    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
     fontSize: "0.875rem"
-    fontWeight: 400
-    lineHeight: 1.6
-    letterSpacing: "normal"
+    fontWeight: 450
+    lineHeight: 1.55
+    letterSpacing: "0.005em"
   label:
-    fontFamily: "JetBrains Mono, monospace"
-    fontSize: "0.625rem"
-    fontWeight: 700
+    class: "t-label"
+    fontFamily: "Martian Mono, ui-monospace, monospace"
+    fontSize: "0.75rem"
+    fontWeight: 550
+    fontStretch: "87.5%"
     lineHeight: 1.4
-    letterSpacing: "0.1em"
+    letterSpacing: "0.14em"
+    textTransform: "uppercase"
+  tag:
+    class: "t-tag"
+    fontFamily: "Martian Mono, ui-monospace, monospace"
+    fontSize: "0.75rem"
+    fontWeight: 450
+    fontStretch: "87.5%"
+    lineHeight: 1.4
+    letterSpacing: "0.02em"
+  eyebrow:
+    class: "t-eyebrow"
+    fontFamily: "Martian Mono, ui-monospace, monospace"
+    fontSize: "0.75rem"
+    fontWeight: 550
+    fontStretch: "87.5%"
+    lineHeight: 1.4
+    letterSpacing: "0.32em"
+    textTransform: "uppercase"
 rounded:
   sm: "8px"
   md: "12px"
@@ -104,7 +146,7 @@ The signature to protect is the blue space theme itself: the deep near-black fie
 **Key Characteristics:**
 - The blue space field is the hero: near-black zinc base (`#09090B`) with a live 3D starfield and blue atmospheric glow. Preserve it.
 - Two-signal accent system layered on top: gold/amber for work, cyan for personality and interaction.
-- Oversized Space Grotesk display type against small JetBrains Mono labels.
+- Oversized Archivo display type, expanded on its width axis, against small condensed Martian Mono labels.
 - Motion is choreographed but exponential and calm (no bounce, no elastic).
 - Content leads; effects support; the space field stays.
 
@@ -139,21 +181,46 @@ A near-black instrument field carrying two saturated signals plus a structural b
 
 ## 3. Typography
 
-**Display Font:** Space Grotesk (with ui-sans-serif, system-ui fallback)
-**Body Font:** Space Grotesk (same family, lighter weights)
-**Label/Mono Font:** JetBrains Mono (with monospace fallback)
+**Display / Body Font:** Archivo (variable, `wght` 100-900 and `wdth` 62-125, with ui-sans-serif, system-ui fallback)
+**Label/Mono Font:** Martian Mono (variable, `wght` 100-800 and `wdth` 75-112.5, with ui-monospace fallback)
 
-**Character:** One geometric sans doing the heavy lifting at every size, paired with a mono that only ever appears in small uppercase labels. The contrast is scale and case, not family: a wall of Space Grotesk from 9rem down to 0.875rem, punctuated by tiny mechanical mono tags.
+**Character:** One grotesque carries every proportional size, and the display contrast comes from its *width* axis rather than a second family. The hero name runs expanded to 112% like a stamped nameplate; body copy runs at normal width; the skeleton never changes. Martian Mono is the instrument voice: condensed to 87.5% so tracked caps stay compact, and never used above 0.75rem. Two families, nine roles, one 1.25 ratio.
 
 ### Hierarchy
-- **Display** (700, `clamp(3rem, 12vw, 9rem)`, line-height 0.95, tracking -0.04em): the hero name only. Fills the first screen; tight tracking makes the scale feel engineered, not shouted.
-- **Headline** (700, `clamp(1.875rem, 5vw, 3rem)`, line-height 1.1): section titles (Experience, Projects), rendered in Telemetry Gold.
-- **Title** (700, 0.875rem, line-height 1.3): card headers (school name, role, project title) in Instrument White.
-- **Body** (400, 0.875rem–1rem, line-height 1.6): bio and descriptions in a gray-300 tint. Cap measure at 65–75ch.
-- **Label** (700, 0.625rem, tracking 0.1em, UPPERCASE): JetBrains Mono category tags (LANGUAGES, SKILLS, INTERESTS) in Signal Amber.
+
+Every role is a class in `globals.css`, not a stack of Tailwind utilities. Use the class; override only color and spacing alongside it.
+
+| Class | Size | Weight | Width | Leading | Tracking | Use |
+|---|---|---|---|---|---|---|
+| `t-display` | `clamp(3rem, 11vw, 8.5rem)` | 800 | 112% | 0.92 | -0.045em | Hero name only |
+| `t-display-split` | `clamp(2.5rem, 8vw, 6rem)` | 800 | 112% | 0.92 | -0.045em | Intro splash, name in two lockups |
+| `t-headline` | `clamp(1.5rem, 2.6vw, 1.9375rem)` | 700 | 105% | 1.05 | -0.02em | Section titles, in Telemetry Gold |
+| `t-title` | 1.25rem | 700 | normal | 1.3 | -0.01em | Card headers: school, company, project |
+| `t-quote` | 1.25rem serif italic | 400 | normal | 1.45 | 0.01em | The footer pull quote, and nothing else |
+| `t-body` | 1rem | 450 | normal | 1.65 | 0.005em | Prose. Pair with `.measure` (68ch) |
+| `t-meta` | 0.875rem | 450 | normal | 1.55 | 0.005em | Roles, sub-lines, captions, links |
+| `t-label` | 0.75rem mono | 550 | 87.5% | 1.4 | 0.14em | UPPERCASE micro-labels, dates, categories |
+| `t-tag` | 0.75rem mono | 450 | 87.5% | 1.4 | 0.02em | Skills, tech stacks, chips (not uppercased) |
+| `t-eyebrow` | 0.75rem mono | 550 | 87.5% | 1.4 | 0.32em | Hero and intro only, twice on the page |
+
+Two utilities compose with the above: `.measure` caps a column at 68ch, and `.t-num` sets `tabular-nums` so dates and counters do not jitter.
+
+**Fluid where cinematic, fixed where readable.** Display uses `clamp()` because it is the page's cinematic moment and must fill a viewport. Everything at reading size is a fixed rem step (12 / 14 / 16 / 20), so card layouts stay spatially predictable across breakpoints. Headline is fluid but tightly bounded, because it must hold a ratio to the fixed steps under it at every width.
+
+**Light-on-dark compensation.** Light type on a near-black field loses perceived weight and gains apparent tightness, so prose compensates on all three axes at once: line-height 1.65, tracking +0.005em, and a real body weight of 450 (available because Archivo is variable).
 
 ### Named Rules
-**The Uppercase-Mono Label Rule.** Uppercasing is reserved for JetBrains Mono micro-labels and the logotype-style hero. Prose is never uppercased, and in the personal copy it stays lowercase and casual, first person, concrete over label.
+**The Uppercase-Mono Label Rule.** Uppercasing is reserved for Martian Mono micro-labels (`t-label`, `t-eyebrow`) and the logotype-style hero. Prose is never uppercased, and in the personal copy it stays lowercase and casual, first person, concrete over label. Mono that names a term rather than a heading (skills, tech stacks) uses `t-tag` and keeps its natural case.
+
+**The No-Gaps Rule.** Every adjacent pair in the reading ladder (label through headline) sits between 1.2x and 1.6x apart: 12, 14, 16, 20, 31. Nothing may skip a tier. `t-headline` was originally 32-48px, which put it 2.4x above `t-title` and 3x above body; the result was that any section with a heading shouted next to the About section, which has none. Only `t-display` is allowed to break the ladder, because it lives alone on the hero with nothing beside it to compare against.
+
+Note the correct fix direction: when a heading and a paragraph feel mismatched, bring the heading down to the ladder rather than pushing the paragraph up. The intro's copy is deliberately quiet, lowercase, and first-person, and enlarging it would contradict its tone.
+
+**The Width-Not-Family Rule.** Display contrast comes from Archivo's `wdth` axis, never from importing a third face. Only three widths exist: 112% (display), 105% (headline), and 87.5% (mono labels). Everything else is normal width.
+
+The single exception is `t-quote`, the footer pull quote, which is a serif italic. It earns the exception because it is the one place on the page carrying someone else's words, and the change of voice is the point. It is a system serif, so it costs no webfont, and it appears exactly once. A second use of a third face anywhere else is a bug.
+
+**The Font-Variables-On-`html` Rule.** The `next/font` variables must be set on the `<html>` element, not `<body>`. Tailwind declares `--font-sans: var(--font-archivo), ...` on `:root`; if the font variables sat one level lower, that inner `var()` would be unresolvable at `:root` and the whole token would compute to the guaranteed-invalid value, silently falling back to `system-ui`.
 
 ## 4. Elevation
 
@@ -175,7 +242,7 @@ This system is nearly flat. Depth does not come from drop shadows stacked on car
 - **Resume pill (floating):** Telemetry Gold on Void Black, `rounded-full`, Hairline border, `shadow-lg`. Compacts to a 44px icon-only circle below 768px; expands to a labeled 160px pill on desktop.
 
 ### Chips
-- **Style:** `rounded-full`, `padding: 6px 12px`, JetBrains-adjacent small type, an 8%-accent fill with a 25%-accent border and full-accent text.
+- **Style:** `rounded-full`, `padding: 6px 12px`, `t-tag` type, an 8%-accent fill with a 25%-accent border and full-accent text.
 - **Variants:** focus chips carry Signal Amber (work: robotics, drone tech, trading); personality chips carry Scanline Cyan (finance + ai, tabla, poker). The color IS the taxonomy (see the Two-Signal Rule). Mobile-only; desktop uses the labeled skills columns instead.
 
 ### Cards / Containers
@@ -196,8 +263,9 @@ A scroll-choreographed walkthrough (Spotlight, TimelineControls, per-step camera
 ### Do:
 - **Do** protect the blue space theme: near-black base (`#09090B`), live 3D starfield, and blue atmospheric glow are the signature and stay. Let depth come from that field and 1px hairlines, not shadows.
 - **Do** use the Two-Signal system exactly: gold/amber for work, cyan for personality and interaction. Pair color with label or position so it never depends on color alone.
-- **Do** go oversized on the Space Grotesk display type with tight negative tracking (-0.04em); scale is the drama.
-- **Do** keep personal prose lowercase, first person, and concrete, and reserve uppercase for JetBrains Mono micro-labels.
+- **Do** go oversized on the Archivo display type, expanded to 112% with tight negative tracking (-0.045em); scale and width are the drama.
+- **Do** reach for the `t-*` classes instead of assembling one-off Tailwind size, weight, and tracking utilities.
+- **Do** keep personal prose lowercase, first person, and concrete, and reserve uppercase for Martian Mono micro-labels.
 - **Do** ease with exponential curves (`cubic-bezier(0.2, 0.8, 0.2, 1)`); choreograph entrances but never bounce or overshoot.
 - **Do** collapse the two floating controls to compact icons below 768px so they never overlap content.
 

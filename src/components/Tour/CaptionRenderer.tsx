@@ -152,7 +152,7 @@ export function CaptionRenderer() {
                         {/* Text content */}
                         <div className="px-6 py-4">
                             <p
-                                className="text-base md:text-lg text-white/90 font-medium leading-relaxed"
+                                className="t-body measure text-white/90"
                                 style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}
                             >
                                 {displayText}
@@ -168,11 +168,11 @@ export function CaptionRenderer() {
 
                         {/* Chapter indicator */}
                         <div className="px-6 pb-3 flex items-center gap-2">
-                            <span className="text-[10px] uppercase tracking-widest text-amber-400/70 font-mono">
+                            <span className="t-label text-amber-400/80">
                                 {currentStep.chapter}
                             </span>
                             <span className="w-1 h-1 rounded-full bg-white/20" />
-                            <span className="text-[10px] text-white/40 font-mono">
+                            <span className="t-label t-num text-white/50">
                                 {currentStep.id}
                             </span>
                         </div>

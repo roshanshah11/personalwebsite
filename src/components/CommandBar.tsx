@@ -21,7 +21,7 @@ const CommandBar = () => {
     };
 
     return (
-        <div className="w-full bg-background-dark/90 backdrop-blur-md border-t border-white/10 text-xs md:text-sm font-mono z-50">
+        <div className="w-full bg-background-dark/90 backdrop-blur-md border-t border-white/10 t-tag z-50">
             <div className="max-w-7xl mx-auto px-4 h-12 flex items-center justify-between">
 
                 {/* Left: Status & Path */}

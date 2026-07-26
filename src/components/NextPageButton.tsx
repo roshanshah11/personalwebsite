@@ -12,7 +12,7 @@ const NextPageButton = ({ href, label }: NextPageButtonProps) => {
                 href={href}
                 className="group flex flex-col items-center gap-3 text-text-muted hover:text-accent-cyan transition-all duration-300"
             >
-                <span className="text-sm font-mono tracking-[0.2em] uppercase border-b border-transparent group-hover:border-accent-cyan pb-1 transition-all">
+                <span className="t-label border-b border-transparent group-hover:border-accent-cyan pb-1 transition-all">
                     NEXT: {label}
                 </span>
                 <div className="animate-bounce text-accent-cyan opacity-70 group-hover:opacity-100 transition-opacity">

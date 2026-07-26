@@ -129,7 +129,7 @@ export function TourOverlay() {
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: 0.4 }}
-                                            className="text-2xl text-white font-bold"
+                                            className="t-title text-white"
                                         >
                                             Thanks for watching!
                                         </motion.p>

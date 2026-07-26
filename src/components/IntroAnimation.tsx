@@ -180,7 +180,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
                                 duration: 1,
                                 ease: [0.6, 0.05, 0.01, 0.9]
                             }}
-                            className="text-5xl md:text-8xl font-bold font-mono tracking-tight bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent"
+                            className="t-display-split text-white"
                             style={{
                                 textShadow: '0 0 40px rgba(59, 130, 246, 0.3)',
                                 transformStyle: 'preserve-3d'
@@ -200,7 +200,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
                                 ease: [0.6, 0.05, 0.01, 0.9],
                                 delay: 0.1
                             }}
-                            className="text-5xl md:text-8xl font-bold font-mono tracking-tight bg-gradient-to-r from-gray-300 via-gray-100 to-white bg-clip-text text-transparent"
+                            className="t-display-split text-white"
                             style={{
                                 textShadow: '0 0 40px rgba(212, 175, 55, 0.3)',
                                 transformStyle: 'preserve-3d'
@@ -236,7 +236,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
                         }}
                         className="relative z-10 px-8 py-4 backdrop-blur-sm"
                     >
-                        <div className="text-lg md:text-2xl tracking-[0.4em] font-light bg-gradient-to-r from-accent-cyan via-primary to-accent-gold bg-clip-text text-transparent">
+                        <div className="t-eyebrow text-base md:text-xl text-accent-cyan">
                             {SUB_TEXT}
                         </div>
                     </motion.div>

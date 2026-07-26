@@ -69,7 +69,7 @@ export default function AboutSection() {
                     >
                         {/* Bio — short on every screen */}
                         <div className="space-y-4">
-                            <p className="text-sm md:text-base text-gray-300 leading-relaxed">
+                            <p className="t-body measure text-gray-300">
                                 hey, i'm <span className="text-amber-400 font-bold">roshan</span>. sophomore at uchicago studying econ, building in aerospace, simulation, and the technical side of investing at blue oak.
                             </p>
 
@@ -85,7 +85,7 @@ export default function AboutSection() {
                                 ].map(({ label, tone }) => (
                                     <span
                                         key={label}
-                                        className={`px-3 py-1.5 rounded-full text-xs font-mono border ${
+                                        className={`px-3 py-1.5 rounded-full t-tag border ${
                                             tone === "amber"
                                                 ? "bg-amber-500/[0.08] border-amber-500/25 text-amber-300"
                                                 : "bg-cyan-500/[0.08] border-cyan-500/25 text-cyan-300"
@@ -108,10 +108,10 @@ export default function AboutSection() {
                                     transition={{ delay: i * 0.1 }}
                                     className="bg-white/[0.02] border border-white/10 rounded-lg p-4"
                                 >
-                                    <h4 className="text-sm font-bold text-white">{edu.school}</h4>
-                                    <p className="text-xs text-cyan-400 font-mono mt-1">{edu.program}</p>
-                                    <p className="text-xs text-white font-medium mt-2">{edu.degree}</p>
-                                    {edu.details && <p className="text-xs text-gray-400 mt-1">{edu.details}</p>}
+                                    <h4 className="t-title text-white">{edu.school}</h4>
+                                    <p className="t-meta text-cyan-400 mt-1">{edu.program}</p>
+                                    <p className="t-meta text-white mt-3">{edu.degree}</p>
+                                    {edu.details && <p className="t-meta text-gray-400 mt-1">{edu.details}</p>}
                                 </motion.div>
                             ))}
                         </div>
@@ -127,12 +127,12 @@ export default function AboutSection() {
                                     transition={{ delay: i * 0.05 }}
                                     className="space-y-2"
                                 >
-                                    <h4 className="text-[10px] font-bold text-amber-400 uppercase tracking-wider">
+                                    <h4 className="t-label text-amber-400">
                                         {category}
                                     </h4>
                                     <ul className="space-y-1">
                                         {items.map((item, j) => (
-                                            <li key={j} className="text-xs text-gray-400 font-mono">{item}</li>
+                                            <li key={j} className="t-tag text-gray-400">{item}</li>
                                         ))}
                                     </ul>
                                 </motion.div>
@@ -143,7 +143,7 @@ export default function AboutSection() {
                     <div className="flex flex-wrap gap-3">
                         <a
                             href="mailto:rashah@uchicago.edu"
-                            className="flex items-center gap-2 px-4 py-2 bg-amber-500/20 border border-amber-500/30 rounded-lg hover:bg-amber-500/30 transition-all text-sm text-amber-400 font-medium"
+                            className="flex items-center gap-2 px-4 py-2 bg-amber-500/20 border border-amber-500/30 rounded-lg hover:bg-amber-500/30 transition-all t-meta font-medium text-amber-400"
                         >
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -153,7 +153,7 @@ export default function AboutSection() {
                         </a>
                         <a
                             href="mailto:roshah2007@gmail.com"
-                            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-amber-500/50 hover:bg-white/10 transition-all text-sm text-white"
+                            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-amber-500/50 hover:bg-white/10 transition-all t-meta text-white"
                         >
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -164,7 +164,7 @@ export default function AboutSection() {
                         <a
                             href="https://www.linkedin.com/in/roshan-shah11/"
                             target="_blank"
-                            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-cyan-500/50 hover:bg-white/10 transition-all text-sm text-white"
+                            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-cyan-500/50 hover:bg-white/10 transition-all t-meta text-white"
                         >
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -176,7 +176,7 @@ export default function AboutSection() {
                         <a
                             href="https://github.com/roshanshah11"
                             target="_blank"
-                            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-gray-500/50 hover:bg-white/10 transition-all text-sm text-white"
+                            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-gray-500/50 hover:bg-white/10 transition-all t-meta text-white"
                         >
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
@@ -187,7 +187,7 @@ export default function AboutSection() {
                         <a
                             href="/roshan_shah_resume.pdf"
                             target="_blank"
-                            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-amber-500/50 hover:bg-white/10 transition-all text-sm text-white"
+                            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-amber-500/50 hover:bg-white/10 transition-all t-meta text-white"
                         >
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />

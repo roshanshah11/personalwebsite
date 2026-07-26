@@ -67,7 +67,7 @@ export function ContentViewerModal() {
                             >
                                 <ZoomOut size={16} />
                             </button>
-                            <span className="text-xs text-white/50 font-mono w-12 text-center">
+                            <span className="t-label t-num text-white/60 w-12 text-center">
                                 {Math.round(imageZoom * 100)}%
                             </span>
                             <button
@@ -98,7 +98,7 @@ export function ContentViewerModal() {
             case 'code':
                 return (
                     <div className="w-full h-full overflow-auto">
-                        <pre className="p-6 text-sm font-mono text-gray-300 bg-gray-900 rounded-lg overflow-auto h-full">
+                        <pre className="p-6 t-tag text-gray-300 bg-gray-900 rounded-lg overflow-auto h-full">
                             <code className={`language-${viewerContent.language ?? 'plaintext'}`}>
                                 {viewerContent.src}
                             </code>
@@ -157,7 +157,7 @@ export function ContentViewerModal() {
                                     <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
                                     <span className="w-3 h-3 rounded-full bg-green-500/80" />
                                 </div>
-                                <h3 className="text-sm font-medium text-white/80 truncate max-w-md">
+                                <h3 className="t-meta font-medium text-white/80 truncate max-w-md">
                                     {viewerContent.title ?? 'Content Viewer'}
                                 </h3>
                             </div>

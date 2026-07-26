@@ -61,37 +61,43 @@ export default function AwardsHoverPreview() {
     return (
         <div
             data-tour="awards"
-            className="relative section-container py-16 px-4"
+            className="relative section-container py-12 px-4"
             onMouseMove={handleMouseMove}
         >
             <div className="px-4 mb-6">
-                <p className="text-[11px] font-mono uppercase tracking-[0.25em] text-gray-600 mb-1">Supporting signal</p>
-                <h2 className="text-2xl md:text-3xl font-bold text-amber-300">
+                <p className="t-label text-gray-500 mb-2">Supporting signal</p>
+                <h2 className="t-headline text-amber-300">
                     Honors &amp; Publications
                 </h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 px-4">
+            {/* A list, not a card grid. Six identical bordered boxes cost ~500px
+                and claimed the same visual weight as the work itself; as hairline
+                rows they read as the supporting evidence they are, in a third of
+                the height. The hover preview still carries the detail. */}
+            <div className="px-4 grid grid-cols-1 md:grid-cols-2 md:gap-x-10">
                 {awards.map((award, index) => (
                     <motion.div
                         key={index}
-                        className={`group relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.02] p-4 cursor-none transition-colors hover:border-amber-500/40 hover:bg-white/[0.04] ${index === 0 ? "sm:col-span-2" : ""}`}
+                        className="group relative flex items-baseline gap-3 py-2.5 border-t border-white/[0.07] cursor-none transition-colors hover:border-amber-500/40"
                         onMouseEnter={() => setHoveredIndex(index)}
                         onMouseLeave={() => setHoveredIndex(null)}
-                        initial={{ opacity: 0, y: 12 }}
+                        initial={{ opacity: 0, y: 8 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: index * 0.05, duration: 0.4, ease: [0.2, 0.8, 0.2, 1] }}
+                        transition={{ delay: index * 0.04, duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
                         data-tour={index === 0 ? "award-0" : undefined}
                     >
-                        <div className="flex items-center justify-between gap-2 relative z-10">
-                            <span className="text-[10px] text-cyan-400 font-mono">0{index + 1}</span>
-                            <span className="text-[10px] text-gray-600 font-mono group-hover:text-amber-400 transition-colors whitespace-nowrap">{award.year}</span>
+                        <span className="t-label t-num text-cyan-400 shrink-0">0{index + 1}</span>
+                        <div className="min-w-0 flex-1">
+                            <h3 className="t-meta font-semibold text-gray-300 group-hover:text-white transition-colors">
+                                {award.name}
+                            </h3>
+                            <p className="t-tag text-gray-500">{award.org}</p>
                         </div>
-                        <h3 className={`mt-2 font-bold text-gray-300 leading-snug group-hover:text-white transition-colors ${index === 0 ? "text-base md:text-lg" : "text-sm"}`}>
-                            {award.name}
-                        </h3>
-                        <p className="mt-1 text-[11px] text-gray-600 font-mono">{award.org}</p>
+                        <span className="t-label t-num text-gray-600 group-hover:text-amber-400 transition-colors whitespace-nowrap shrink-0">
+                            {award.year}
+                        </span>
                     </motion.div>
                 ))}
             </div>
@@ -113,9 +119,9 @@ export default function AwardsHoverPreview() {
                         transition={{ type: "spring", stiffness: 150, damping: 15 }}
                     >
                         <div>
-                            <p className="text-white font-bold text-sm mb-1">{awards[hoveredIndex].name}</p>
-                            <p className="text-[10px] text-cyan-400 mb-2 uppercase tracking-wider">{awards[hoveredIndex].org}</p>
-                            <p className="text-xs text-gray-400 leading-relaxed font-mono">
+                            <p className="t-title text-white mb-1">{awards[hoveredIndex].name}</p>
+                            <p className="t-label text-cyan-400 mb-3">{awards[hoveredIndex].org}</p>
+                            <p className="t-meta text-gray-400">
                                 {awards[hoveredIndex].description}
                             </p>
                         </div>

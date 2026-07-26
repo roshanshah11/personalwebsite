@@ -96,7 +96,7 @@ export function PlayTourButton() {
                 </motion.div>
 
                 {/* Text */}
-                <span className="hidden sm:inline relative text-sm font-medium text-white/90 whitespace-nowrap">
+                <span className="hidden sm:inline relative t-meta font-medium text-white/90 whitespace-nowrap">
                     Quick walkthrough here
                 </span>
 
@@ -109,7 +109,7 @@ export function PlayTourButton() {
 
             {/* Tooltip */}
             <motion.div
-                className="absolute bottom-full right-0 mb-2 px-3 py-1.5 rounded-lg text-xs text-white/80 whitespace-nowrap pointer-events-none"
+                className="absolute bottom-full right-0 mb-2 px-3 py-1.5 rounded-lg t-meta text-white/80 whitespace-nowrap pointer-events-none"
                 style={{
                     background: 'rgba(0, 0, 0, 0.8)',
                     backdropFilter: 'blur(10px)',

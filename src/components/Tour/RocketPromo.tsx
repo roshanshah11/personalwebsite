@@ -450,7 +450,7 @@ export function RocketPromo() {
                             }}
                         >
                             <span
-                                className="text-sm font-bold px-3 py-1.5 rounded-full"
+                                className="t-meta font-bold px-3 py-1.5 rounded-full"
                                 style={{
                                     background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.92) 0%, rgba(20, 20, 30, 0.95) 100%)',
                                     color: '#FCD34D',

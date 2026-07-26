@@ -4,28 +4,9 @@ import { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Line } from "@react-three/drei";
 import * as THREE from "three";
+import { STAR_CONSTELLATIONS, type StarConstellation } from "./constellationData";
 
 // --- Utils ---
-
-function createStarTexture() {
-    const canvas = document.createElement("canvas");
-    canvas.width = 32;
-    canvas.height = 32;
-    const context = canvas.getContext("2d");
-    if (context) {
-        const gradient = context.createRadialGradient(16, 16, 0, 16, 16, 16);
-        gradient.addColorStop(0, "rgba(255, 255, 255, 1)");
-        gradient.addColorStop(0.1, "rgba(255, 255, 255, 0.8)");
-        gradient.addColorStop(0.4, "rgba(255, 255, 255, 0.1)");
-        gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-        context.fillStyle = gradient;
-        context.fillRect(0, 0, 32, 32);
-    }
-    return new THREE.CanvasTexture(canvas);
-}
-
-// Reuse geometry for stars to save draw calls if possible, but sprite is okay.
-// For lines, we will generate them.
 
 function ScrollDrivenCamera() {
     const { camera } = useThree();
@@ -108,71 +89,132 @@ function PointerParallax() {
     return null;
 }
 
-// --- CONSTANT DATA ---
-// Real constellations + procedural ones
-// We will scatter them along the Z axis.
-// Z=0 is start. Negative Z is forward.
-const PRESET_CONSTELLATIONS = [
-    {
-        name: "Big Dipper",
-        points: [
-            [-50, 20, -20], [-45, 15, -20], [-40, 18, -20],
-            [-32, 16, -20], [-25, 18, -20], [-20, 20, -20], [-15, 23, -20]
-        ]
-    },
-    {
-        name: "Cassiopeia",
-        points: [
-            [30, 30, -50], [35, 25, -50], [40, 28, -50],
-            [45, 22, -50], [50, 28, -50]
-        ]
-    },
-    {
-        name: "Orion's Belt",
-        points: [
-            [-20, -10, -80], [-15, -8, -80], [-10, -6, -80]
-        ]
-    },
-    {
-        name: "Triangulum",
-        points: [
-            [20, -20, -120], [30, -15, -120], [25, -25, -120], [20, -20, -120]
-        ]
-    }
-];
+// --- CONSTELLATIONS ---
+// Eight real constellations placed along the Z axis so the scroll-driven camera
+// flies past them one at a time. Z=0 is the start; negative Z is forward.
+//
+// The star positions come from the HYG catalogue (see constellationData.ts):
+// every star down to magnitude 7 inside each figure's frame, roughly 150-250 per
+// constellation, so the shape reads from a real star field instead of a bare
+// stick figure.
+//
+// Placement is expressed in screen terms rather than world units, because that
+// is what actually governs legibility: a figure spanning most of the viewport
+// reads as stray lines, while one taking up roughly a quarter of the height
+// reads instantly as a constellation. `size` is the figure's half-extent as a
+// fraction of the visible half-height at its depth, and x/y are offsets in
+// -1..1 screen fractions; `place` converts both into world space. Every figure
+// therefore subtends about the same angle when the camera reaches it.
+//
+// Cassiopeia is deliberately nearest — the figure framing the hero — because
+// its W is a single open zigzag with no closed polygons to read as boxes.
+type Placement = { z: number; x: number; y: number; size: number };
 
-// Generate random constellations for "infinite" feel
-function generateRandomConstellations(count: number, startZ: number, endZ: number) {
-    const constellations = [];
-    for (let i = 0; i < count; i++) {
-        const z = startZ + Math.random() * (endZ - startZ);
-        const x = (Math.random() - 0.5) * 200;
-        const y = (Math.random() - 0.5) * 100;
+// Sizes shrink with depth and the offsets are spread around the frame, so at
+// rest the hero shows one clear near figure and a scatter of small distant ones
+// rather than eight overlapping charts. Flying toward a figure magnifies it
+// several times over, so each takes its turn as the dominant shape. Nothing is
+// placed over the middle of the frame, where the hero type sits.
+const PLACEMENT_SPECS: Record<string, Placement> = {
+    Cas: { z: 70, x: -0.52, y: 0.40, size: 0.22 },
+    UMa: { z: 150, x: 0.55, y: 0.46, size: 0.17 },
+    Cyg: { z: 240, x: -0.60, y: -0.42, size: 0.16 },
+    Ori: { z: 340, x: 0.62, y: -0.20, size: 0.14 },
+    Lyr: { z: 430, x: -0.20, y: 0.55, size: 0.12 },
+    Sco: { z: 520, x: 0.28, y: -0.58, size: 0.14 },
+    Leo: { z: 640, x: -0.75, y: 0.08, size: 0.13 },
+    Cru: { z: 800, x: 0.80, y: 0.30, size: 0.10 },
+};
 
-        const numStars = 3 + Math.floor(Math.random() * 4);
-        const points = [];
-        let curX = x;
-        let curY = y;
+const FOV_HALF_TAN = Math.tan((60 * Math.PI) / 360); // matches the Canvas fov
+const NOMINAL_ASPECT = 1.6;
+const FIGURE_EXTENT = 13; // author-space half-extent of every generated figure
 
-        for (let j = 0; j < numStars; j++) {
-            points.push([curX, curY, z]);
-            curX += (Math.random() - 0.5) * 15;
-            curY += (Math.random() - 0.5) * 15;
-        }
-        constellations.push({ points });
-    }
-    return constellations;
+function place(spec: Placement) {
+    const halfH = FOV_HALF_TAN * spec.z;
+    return {
+        position: [spec.x * halfH * NOMINAL_ASPECT, spec.y * halfH, -spec.z] as [number, number, number],
+        scale: (spec.size * halfH) / FIGURE_EXTENT,
+    };
 }
 
-const EXTENDED_CONSTELLATIONS = [
-    ...PRESET_CONSTELLATIONS,
-    ...generateRandomConstellations(20, -100, -600), // Near
-    ...generateRandomConstellations(30, -600, -1500) // Far
-];
+const PLACEMENTS: Record<string, ReturnType<typeof place>> = Object.fromEntries(
+    Object.entries(PLACEMENT_SPECS).map(([abbr, spec]) => [abbr, place(spec)])
+);
+
+// Draw order = flight order, nearest first.
+const CONSTELLATIONS = Object.keys(PLACEMENT_SPECS)
+    .map((abbr) => STAR_CONSTELLATIONS.find((c) => c.abbr === abbr))
+    .filter((c): c is StarConstellation => Boolean(c));
+
+// Apparent magnitude runs backwards (lower is brighter) and spans about 8
+// stops here, so it is remapped to a 0..1 ramp and then curved hard: the chart
+// stars have to punch several times the size of the mag-7 field to be picked out
+// of the ambient dust, which is exactly what makes the figure read.
+const MAG_LIMIT = 7.0;
+
+function magToRamp(mag: number) {
+    return Math.min(1, Math.max(0, (MAG_LIMIT - mag) / 8.5));
+}
+
+function buildConstellationGeometry(def: StarConstellation, scale: number) {
+    const count = def.stars.length;
+    const pos = new Float32Array(count * 3);
+    const size = new Float32Array(count);
+    const phase = new Float32Array(count);
+    const bright = new Float32Array(count);
+
+    def.stars.forEach(([x, y, mag], i) => {
+        const b = magToRamp(mag);
+        pos[i * 3] = x * scale;
+        pos[i * 3 + 1] = y * scale;
+        // A shallow depth spread keeps the field from looking like a decal.
+        pos[i * 3 + 2] = (Math.random() - 0.5) * 2.0 * scale;
+        // Sizes carry the figure's scale so that, since scale grows with depth
+        // and the shader divides by depth, a star's on-screen size is the same
+        // whichever constellation it belongs to.
+        size[i] = (0.18 + 3.6 * Math.pow(b, 2.0)) * scale;
+        phase[i] = Math.random() * Math.PI * 2;
+        bright[i] = 0.16 + 1.15 * Math.pow(b, 1.3);
+    });
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    geometry.setAttribute("aSize", new THREE.BufferAttribute(size, 1));
+    geometry.setAttribute("aPhase", new THREE.BufferAttribute(phase, 1));
+    geometry.setAttribute("aBright", new THREE.BufferAttribute(bright, 1));
+    return geometry;
+}
+
+// One THREE.Points per constellation with the twinkle computed on the GPU, so
+// ~1.5k stars across the whole sky cost eight draw calls and no React state.
+const CONSTELLATION_VERT = `
+    attribute float aSize;
+    attribute float aPhase;
+    attribute float aBright;
+    uniform float uTime;
+    varying float vBright;
+    void main() {
+        float twinkle = 0.72 + 0.28 * sin(uTime * 1.6 + aPhase);
+        vBright = aBright * twinkle;
+        vec4 mv = modelViewMatrix * vec4(position, 1.0);
+        gl_Position = projectionMatrix * mv;
+        gl_PointSize = max(1.0, aSize * twinkle * (600.0 / -mv.z));
+    }
+`;
+
+const CONSTELLATION_FRAG = `
+    varying float vBright;
+    void main() {
+        float d = length(gl_PointCoord - vec2(0.5));
+        if (d > 0.5) discard;
+        float glow = pow(1.0 - d * 2.0, 1.6);
+        gl_FragColor = vec4(vec3(0.86, 0.91, 1.0), glow * vBright);
+    }
+`;
 
 function ConstellationsGroup() {
     const groupRef = useRef<THREE.Group>(null);
-    const [starTexture] = useState(() => createStarTexture());
 
     useFrame((state) => {
         if (groupRef.current) {
@@ -183,52 +225,56 @@ function ConstellationsGroup() {
 
     return (
         <group ref={groupRef}>
-            {EXTENDED_CONSTELLATIONS.map((constellation, idx) => (
-                <Constellation key={idx} points={constellation.points as number[][]} texture={starTexture} />
+            {CONSTELLATIONS.map((def) => (
+                <Constellation key={def.abbr} def={def} />
             ))}
         </group>
     );
 }
 
-function Constellation({ points, texture }: { points: number[][], texture: THREE.Texture }) {
-    const vecPoints = useMemo(() => points.map(p => new THREE.Vector3(p[0], p[1], p[2])), [points]);
+function Constellation({ def }: { def: StarConstellation }) {
+    const { position, scale } = PLACEMENTS[def.abbr];
 
-    return (
-        <group>
-            {points.map((pos, i) => (
-                <StarSprite key={i} position={pos} texture={texture} />
-            ))}
-            <Line points={vecPoints} color="#ffffff" opacity={0.08} transparent lineWidth={1} />
-        </group>
+    const geometry = useMemo(() => buildConstellationGeometry(def, scale), [def, scale]);
+    const uniforms = useMemo(() => ({ uTime: { value: 0 } }), []);
+
+    // Asterism strokes, faint enough to guide the eye without drawing a diagram
+    // over the sky.
+    const strokes = useMemo(
+        () => def.lines.map(([a, b]) => [
+            new THREE.Vector3(def.stars[a][0] * scale, def.stars[a][1] * scale, 0),
+            new THREE.Vector3(def.stars[b][0] * scale, def.stars[b][1] * scale, 0),
+        ]),
+        [def, scale]
     );
-}
-
-function StarSprite({ position, texture }: { position: number[], texture: THREE.Texture }) {
-    const spriteRef = useRef<THREE.Sprite>(null);
-    const [randomPhase] = useState(() => Math.random() * Math.PI * 2);
 
     useFrame((state) => {
-        if (spriteRef.current) {
-            const t = state.clock.elapsedTime;
-            // Twinkle effect
-            const scale = 0.8 + 0.3 * Math.sin(t * 2 + randomPhase);
-            spriteRef.current.scale.set(scale, scale, 1);
-            if (spriteRef.current.material) {
-                spriteRef.current.material.opacity = 0.5 + 0.4 * Math.sin(t * 3 + randomPhase);
-            }
-        }
+        uniforms.uTime.value = state.clock.elapsedTime;
     });
 
     return (
-        <sprite ref={spriteRef} position={new THREE.Vector3(...position)} scale={[1, 1, 1]}>
-            <spriteMaterial map={texture} transparent opacity={0.6} depthWrite={false} blending={THREE.AdditiveBlending} />
-        </sprite>
+        <group position={position}>
+            <points geometry={geometry}>
+                <shaderMaterial
+                    vertexShader={CONSTELLATION_VERT}
+                    fragmentShader={CONSTELLATION_FRAG}
+                    uniforms={uniforms}
+                    transparent
+                    depthWrite={false}
+                    blending={THREE.AdditiveBlending}
+                />
+            </points>
+            {strokes.map((pts, i) => (
+                <Line key={i} points={pts} color="#ffffff" opacity={0.08} transparent lineWidth={1} />
+            ))}
+        </group>
     );
 }
 
-
 function InfiniteSpaceDust({ count = 30000 }: { count?: number }) {
     const meshRef = useRef<THREE.Points>(null);
+    const lastScroll = useRef(0);
+    const velocity = useRef(0);
 
     const [positions, cssColors, phases] = useMemo(() => {
         const positions = new Float32Array(count * 3);
@@ -261,11 +307,13 @@ function InfiniteSpaceDust({ count = 30000 }: { count?: number }) {
     const uniforms = useMemo(() => ({
         uTime: { value: 0 },
         uCameraZ: { value: 0 },
+        uVelocity: { value: 0 },
     }), []);
 
     const vertexShader = `
         uniform float uTime;
         uniform float uCameraZ;
+        uniform float uVelocity;
         attribute vec3 aColor;
         attribute float aPhase;
         varying vec3 vColor;
@@ -274,7 +322,14 @@ function InfiniteSpaceDust({ count = 30000 }: { count?: number }) {
         void main() {
             vColor = aColor;
             vec3 pos = position;
-            
+
+            // Scroll-velocity warp: a sine displacement whose amplitude follows
+            // how fast the visitor is scrolling, then decays back to a calm field.
+            float wave = sin(pos.z * 0.045 + uTime * 2.2 + aPhase);
+            float wave2 = cos(pos.z * 0.045 + uTime * 1.7 + aPhase);
+            pos.x += wave * uVelocity * 7.0;
+            pos.y += wave2 * uVelocity * 7.0;
+
             // Infinite scrolling logic
             // The camera moves in -Z direction.
             // If a star is significantly behind the camera (pos.z > camera.z + threshold),
@@ -315,6 +370,15 @@ function InfiniteSpaceDust({ count = 30000 }: { count?: number }) {
             const mat = meshRef.current.material as THREE.ShaderMaterial;
             mat.uniforms.uTime.value = state.clock.elapsedTime;
             mat.uniforms.uCameraZ.value = state.camera.position.z;
+
+            // Instantaneous scroll delta, normalized and clamped, then decayed so
+            // the warp eases out smoothly after the visitor stops scrolling.
+            const delta = window.scrollY - lastScroll.current;
+            lastScroll.current = window.scrollY;
+            const impulse = Math.max(-1, Math.min(1, delta * 0.015));
+            velocity.current += (impulse - velocity.current) * 0.15;
+            velocity.current *= 0.92;
+            mat.uniforms.uVelocity.value = velocity.current;
         }
     });
 
@@ -466,6 +530,114 @@ function ReactiveNebula() {
     );
 }
 
+// A short additive-blend particle streak that chases the cursor through the
+// field: gold at the head, cooling to cyan down the tail. Pointer-only.
+function CursorComet() {
+    const N = 26;
+    const pointsRef = useRef<THREE.Points>(null);
+    const mouse = useRef({ x: 0, y: 0, active: false });
+    const seeded = useRef(false);
+    const enabled = useRef(true);
+    const { camera } = useThree();
+
+    const positions = useMemo(() => new Float32Array(N * 3), []);
+    const alphas = useMemo(() => new Float32Array(N), []);
+    const tmp = useMemo(() => new THREE.Vector3(), []);
+
+    useEffect(() => {
+        const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const coarse = window.matchMedia("(pointer: coarse)").matches;
+        if (reduced || coarse) {
+            enabled.current = false;
+            return;
+        }
+        const onMove = (e: MouseEvent) => {
+            mouse.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+            mouse.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
+            mouse.current.active = true;
+        };
+        window.addEventListener("mousemove", onMove, { passive: true });
+        return () => window.removeEventListener("mousemove", onMove);
+    }, []);
+
+    const vertexShader = `
+        attribute float aAlpha;
+        varying float vAlpha;
+        void main() {
+            vAlpha = aAlpha;
+            vec4 mv = modelViewMatrix * vec4(position, 1.0);
+            gl_Position = projectionMatrix * mv;
+            gl_PointSize = (115.0 + 175.0 * aAlpha) / -mv.z * aAlpha;
+        }
+    `;
+    const fragmentShader = `
+        varying float vAlpha;
+        void main() {
+            float d = length(gl_PointCoord - vec2(0.5));
+            if (d > 0.5) discard;
+            float glow = pow(1.0 - d * 2.0, 2.0);
+            // Gold head cooling to cyan tail as alpha decays.
+            vec3 gold = vec3(0.83, 0.68, 0.21);
+            vec3 cyan = vec3(0.0, 0.85, 1.0);
+            vec3 col = mix(cyan, gold, vAlpha);
+            gl_FragColor = vec4(col, glow * vAlpha * 0.9);
+        }
+    `;
+
+    const uniforms = useMemo(() => ({}), []);
+
+    useFrame(() => {
+        if (!enabled.current || !pointsRef.current) return;
+
+        // Unproject the cursor onto a plane ~18 units ahead of the camera.
+        tmp.set(mouse.current.x, mouse.current.y, 0.5).unproject(camera);
+        const dir = tmp.sub(camera.position).normalize();
+        const tx = camera.position.x + dir.x * 18;
+        const ty = camera.position.y + dir.y * 18;
+        const tz = camera.position.z + dir.z * 18;
+
+        // On first pointer contact, seed every slot so no streak whips in from origin.
+        if (!seeded.current && mouse.current.active) {
+            for (let i = 0; i < N; i++) {
+                positions[i * 3] = tx; positions[i * 3 + 1] = ty; positions[i * 3 + 2] = tz;
+            }
+            seeded.current = true;
+        }
+
+        // Shift the trail back one slot; newest head at index 0.
+        for (let i = N - 1; i > 0; i--) {
+            positions[i * 3] = positions[(i - 1) * 3];
+            positions[i * 3 + 1] = positions[(i - 1) * 3 + 1];
+            positions[i * 3 + 2] = positions[(i - 1) * 3 + 2];
+            alphas[i] = 1 - i / N;
+        }
+        positions[0] = tx; positions[1] = ty; positions[2] = tz;
+        alphas[0] = 1;
+
+        const geo = pointsRef.current.geometry;
+        geo.attributes.position.needsUpdate = true;
+        geo.attributes.aAlpha.needsUpdate = true;
+    });
+
+    return (
+        <points ref={pointsRef} frustumCulled={false}>
+            <bufferGeometry>
+                <bufferAttribute attach="attributes-position" count={N} array={positions} itemSize={3} args={[positions, 3]} />
+                <bufferAttribute attach="attributes-aAlpha" count={N} array={alphas} itemSize={1} args={[alphas, 1]} />
+            </bufferGeometry>
+            <shaderMaterial
+                vertexShader={vertexShader}
+                fragmentShader={fragmentShader}
+                uniforms={uniforms}
+                transparent
+                depthWrite={false}
+                depthTest={false}
+                blending={THREE.AdditiveBlending}
+            />
+        </points>
+    );
+}
+
 export default function ShaderBackground() {
     const [frameloop, setFrameloop] = useState<"always" | "never">("always");
     const [reducedMotion, setReducedMotion] = useState(false);
@@ -508,6 +680,14 @@ export default function ShaderBackground() {
 
                 {/* Constellations layer */}
                 <ConstellationsGroup />
+
+                {/* Cursor comet (pointer devices only) */}
+                {!reducedMotion && <CursorComet />}
+
+                {/* No bloom pass. With 30k additively-blended star cores, even a
+                    high threshold blurs into a haze that lifts the entire field
+                    off black and flattens the deep blue. The starfield's own
+                    additive falloff already reads as glow. */}
             </Canvas>
             <div className="absolute inset-0 bg-gradient-to-t from-background-dark/30 via-transparent to-transparent pointer-events-none" />
         </div>

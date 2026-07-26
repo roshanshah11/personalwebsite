@@ -43,10 +43,10 @@ const Panels = () => {
                         <div className="transform group-hover:-translate-y-2 transition-transform duration-300">
                             {panel.icon}
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-2 tracking-wider group-hover:text-primary transition-colors">
+                        <h3 className="t-title text-white mb-2 group-hover:text-primary transition-colors">
                             {panel.title}
                         </h3>
-                        <p className="text-text-muted text-xs font-medium tracking-widest">
+                        <p className="t-label text-text-muted">
                             {panel.description}
                         </p>
                     </div>

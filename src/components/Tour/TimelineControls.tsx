@@ -133,9 +133,9 @@ export function TimelineControls() {
                         <div className="px-4 py-3 flex items-center justify-between gap-4">
                             {/* Left: Time display */}
                             <div className="flex items-center gap-2 min-w-[100px]">
-                                <span className="text-xs font-mono text-white/60">{elapsedTime}</span>
-                                <span className="text-xs text-white/30">/</span>
-                                <span className="text-xs font-mono text-white/40">{totalTime}</span>
+                                <span className="t-label t-num text-white/60">{elapsedTime}</span>
+                                <span className="t-label text-white/40">/</span>
+                                <span className="t-label t-num text-white/50">{totalTime}</span>
                             </div>
 
                             {/* Center: Playback controls */}
@@ -186,7 +186,7 @@ export function TimelineControls() {
                                 <div className="relative">
                                     <button
                                         onClick={() => setIsChapterDropdownOpen(!isChapterDropdownOpen)}
-                                        className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-medium text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+                                        className="flex items-center gap-1 px-2 py-1 rounded-lg t-meta font-medium text-white/60 hover:text-white hover:bg-white/10 transition-colors"
                                     >
                                         <span className="truncate max-w-[80px]">{currentChapter?.title ?? 'Chapters'}</span>
                                         <ChevronDown size={14} className={`transition-transform ${isChapterDropdownOpen ? 'rotate-180' : ''}`} />
@@ -212,7 +212,7 @@ export function TimelineControls() {
                                                             tour.goToChapter(chapter.id);
                                                             setIsChapterDropdownOpen(false);
                                                         }}
-                                                        className={`w-full px-3 py-2 text-left text-xs transition-colors ${currentChapter?.id === chapter.id
+                                                        className={`w-full px-3 py-2 text-left t-meta transition-colors ${currentChapter?.id === chapter.id
                                                                 ? 'text-amber-400 bg-amber-400/10'
                                                                 : 'text-white/60 hover:text-white hover:bg-white/10'
                                                             }`}
@@ -255,7 +255,7 @@ export function TimelineControls() {
                     </div>
 
                     {/* Keyboard hints */}
-                    <div className="max-w-4xl mx-auto mt-2 flex items-center justify-center gap-4 text-[10px] text-white/30 font-mono">
+                    <div className="max-w-4xl mx-auto mt-2 flex items-center justify-center gap-4 t-label text-white/50">
                         <span>Esc to exit</span>
                         <span>•</span>
                         <span>Space to pause</span>
