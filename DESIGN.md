@@ -1,95 +1,104 @@
 ---
 name: Roshan Shah Portfolio
-description: A cinematic builder's portfolio where finance, AI, and hardware meet, lit like a mission-control panel at midnight.
+description: A copperplate star atlas rendered live. Engraved serif type and hairline rules over a real 3D starfield, with one brass accent and nothing else.
 colors:
-  telemetry-gold: "#D4AF37"
-  signal-amber: "#FBBF24"
-  scanline-cyan: "#00D9FF"
-  deep-space-blue: "#3B82F6"
-  void-black: "#09090B"
-  panel-charcoal: "#18181B"
-  instrument-white: "#EDEDED"
-  muted-zinc: "#71717A"
-  hairline: "#FFFFFF1A"
-  glass-fill: "#FFFFFF05"
-  destructive: "#EF4444"
+  background-dark: "#050810"
+  background-light: "#070B15"
+  ink: "#E9E5DA"
+  dim: "#8695AC"
+  faint: "#707F99"
+  brass: "#C9A227"
+  brass-light: "#D8B65A"
+  brass-dark: "#A8871F"
+  rule: "#96AFD738"
+  hair: "#96AFD721"
+  destructive: "#AE3A2B"
 typography:
   display:
     class: "t-display"
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(3rem, 11vw, 8.5rem)"
-    fontWeight: 800
-    fontStretch: "112%"
-    lineHeight: 0.92
-    letterSpacing: "-0.045em"
+    fontFamily: "Bodoni Moda, Didot, Bodoni 72, Times New Roman, serif"
+    fontSize: "clamp(2.25rem, 10.5vw, 8rem)"
+    fontWeight: 400
+    lineHeight: 0.9
+    letterSpacing: "0.045em"
+    textTransform: "uppercase"
   display-split:
     class: "t-display-split"
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Bodoni Moda, Didot, Bodoni 72, Times New Roman, serif"
     fontSize: "clamp(2.5rem, 8vw, 6rem)"
-    fontWeight: 800
-    fontStretch: "112%"
-    lineHeight: 0.92
-    letterSpacing: "-0.045em"
+    fontWeight: 400
+    lineHeight: 0.9
+    letterSpacing: "0.045em"
+    textTransform: "uppercase"
   headline:
     class: "t-headline"
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(1.5rem, 2.6vw, 1.9375rem)"
-    fontWeight: 700
-    fontStretch: "105%"
-    lineHeight: 1.05
-    letterSpacing: "-0.02em"
+    fontFamily: "Bodoni Moda, Didot, Bodoni 72, Times New Roman, serif"
+    fontSize: "clamp(1.6rem, 2.6vw, 2.15rem)"
+    fontWeight: 500
+    lineHeight: 1.14
+    letterSpacing: "0.005em"
   title:
     class: "t-title"
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "1.25rem"
-    fontWeight: 700
-    lineHeight: 1.3
-    letterSpacing: "-0.01em"
+    fontFamily: "Bodoni Moda, Didot, Bodoni 72, Times New Roman, serif"
+    fontSize: "1.3rem"
+    fontWeight: 500
+    lineHeight: 1.22
+    letterSpacing: "0.005em"
+  quote:
+    class: "t-quote"
+    fontFamily: "Cormorant Garamond, Garamond, Georgia, serif"
+    fontSize: "1.495rem"
+    fontStyle: "italic"
+    fontWeight: 300
+    lineHeight: 1.42
+    letterSpacing: "0.005em"
+  gloss:
+    class: "t-gloss"
+    fontFamily: "Cormorant Garamond, Garamond, Georgia, serif"
+    fontStyle: "italic"
+    fontWeight: 300
+    lineHeight: 1.38
+    letterSpacing: "0.005em"
   body:
     class: "t-body"
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "1rem"
-    fontWeight: 450
-    lineHeight: 1.65
-    letterSpacing: "0.005em"
-    measure: "68ch"
+    fontFamily: "EB Garamond, Garamond, Georgia, serif"
+    fontSize: "1.09rem"
+    fontWeight: 400
+    lineHeight: 1.62
+    letterSpacing: "0"
+    measure: "62ch"
   meta:
     class: "t-meta"
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "0.875rem"
-    fontWeight: 450
+    fontFamily: "EB Garamond, Garamond, Georgia, serif"
+    fontSize: "0.94rem"
+    fontWeight: 400
     lineHeight: 1.55
-    letterSpacing: "0.005em"
+    letterSpacing: "0"
   label:
     class: "t-label"
-    fontFamily: "Martian Mono, ui-monospace, monospace"
-    fontSize: "0.75rem"
-    fontWeight: 550
-    fontStretch: "87.5%"
-    lineHeight: 1.4
+    fontFamily: "EB Garamond, Garamond, Georgia, serif"
+    fontSize: "0.78rem"
+    fontWeight: 500
+    lineHeight: 1.45
     letterSpacing: "0.14em"
     textTransform: "uppercase"
   tag:
     class: "t-tag"
-    fontFamily: "Martian Mono, ui-monospace, monospace"
-    fontSize: "0.75rem"
-    fontWeight: 450
-    fontStretch: "87.5%"
-    lineHeight: 1.4
-    letterSpacing: "0.02em"
+    fontFamily: "EB Garamond, Garamond, Georgia, serif"
+    fontSize: "0.94rem"
+    fontWeight: 400
+    lineHeight: 1.75
+    letterSpacing: "0"
   eyebrow:
     class: "t-eyebrow"
-    fontFamily: "Martian Mono, ui-monospace, monospace"
-    fontSize: "0.75rem"
-    fontWeight: 550
-    fontStretch: "87.5%"
-    lineHeight: 1.4
-    letterSpacing: "0.32em"
+    fontFamily: "EB Garamond, Garamond, Georgia, serif"
+    fontSize: "0.78rem"
+    fontWeight: 500
+    lineHeight: 1.45
+    letterSpacing: "0.14em"
     textTransform: "uppercase"
 rounded:
-  sm: "8px"
-  md: "12px"
-  lg: "16px"
+  none: "0px"
   full: "9999px"
 spacing:
   xs: "8px"
@@ -97,34 +106,17 @@ spacing:
   md: "16px"
   lg: "32px"
 components:
-  button-primary:
-    backgroundColor: "{colors.signal-amber}"
-    textColor: "{colors.signal-amber}"
-    rounded: "{rounded.sm}"
-    padding: "8px 16px"
-  button-ghost:
-    backgroundColor: "{colors.glass-fill}"
-    textColor: "{colors.instrument-white}"
-    rounded: "{rounded.sm}"
-    padding: "8px 16px"
-  chip-focus:
-    backgroundColor: "{colors.signal-amber}"
-    textColor: "{colors.signal-amber}"
-    rounded: "{rounded.full}"
-    padding: "6px 12px"
-  chip-personality:
-    backgroundColor: "{colors.scanline-cyan}"
-    textColor: "{colors.scanline-cyan}"
-    rounded: "{rounded.full}"
-    padding: "6px 12px"
-  card:
-    backgroundColor: "{colors.glass-fill}"
-    textColor: "{colors.instrument-white}"
-    rounded: "{rounded.sm}"
-    padding: "16px"
+  rule-group:
+    borderTop: "{colors.rule}"
+    padding: "16px 0 0 0"
+  link-inline:
+    textColor: "{colors.ink}"
+    hoverTextColor: "{colors.brass}"
+    borderBottom: "{colors.hair}"
+    padding: "6px 0"
   resume-pill:
-    backgroundColor: "{colors.void-black}"
-    textColor: "{colors.telemetry-gold}"
+    backgroundColor: "{colors.ground}"
+    textColor: "{colors.brass}"
     rounded: "{rounded.full}"
     padding: "0 12px"
 ---
@@ -133,124 +125,131 @@ components:
 
 ## 1. Overview
 
-**Creative North Star: "Mission Control at Midnight"**
+**Creative North Star: "A Copperplate Star Atlas, Rendered Live"**
 
-The page reads like an instrument panel in a dark room: a near-black field with a live 3D starfield behind it, and content lit by two signal colors, a telemetry gold and a scanline cyan. It is a builder's portfolio for founders and engineers, so the craft of the page is itself the evidence. Type goes cinematic and large (the hero name fills the viewport), motion is scroll-driven, and an optional guided tour walks a visitor through the work like a flight director narrating a sequence.
+The reference is print, and specifically the engraved celestial atlas: Bode's *Uranographia* (1801), Hevelius's *Firmamentum Sobiescianum* (1690), Bayer's *Uranometria* (1603). Those plates set a real sky in engraved type, separated everything with hairline rules, and used exactly one metallic ink. The page does the same thing over a live 3D starfield instead of paper.
 
-Bold is the brief, but never loud for its own sake. Every effect earns attention or comprehension; the moment a flourish fights readability it is cut. The register is cinematic-but-disciplined: maximal ambition, minimal gimmick.
+That reference is the whole defense against looking generated. Nobody has done this on the web, so it cannot be pattern-matched to a template. The failure mode this replaced was the opposite: near-black with amber and cyan, wide-tracked uppercase monospace eyebrows in nine places, and rounded glass cards, which is the single most common look an image model produces when asked for "developer portfolio."
 
-This system explicitly rejects the generic SaaS landing template (no cream/navy kit, no hero-metric blocks, no identical feature-card grids), the stiff corporate resume (no LinkedIn-style bullet walls), and crypto/AI neon futurism (no gradient text, no overhyped "next-gen" framing). It also rejects decoration that outshouts the content: glassmorphism is not a default here.
-
-The signature to protect is the blue space theme itself: the deep near-black field, the live 3D starfield, and the blue atmospheric glow. It is clean and it is the identity. Everything else (the gold/amber and cyan accents, the type) sits on top of that field and must never flatten or fight it.
+Bold is still the brief. The boldness is now spent on the type and the emptiness around it rather than on effects.
 
 **Key Characteristics:**
-- The blue space field is the hero: near-black zinc base (`#09090B`) with a live 3D starfield and blue atmospheric glow. Preserve it.
-- Two-signal accent system layered on top: gold/amber for work, cyan for personality and interaction.
-- Oversized Archivo display type, expanded on its width axis, against small condensed Martian Mono labels.
-- Motion is choreographed but exponential and calm (no bounce, no elastic).
-- Content leads; effects support; the space field stays.
+- The blue space field is the hero: the shader's own near-black (`#050810`) with a live 3D starfield. Preserve it. The palette is sampled *off* that field, not chosen beside it.
+- Three serifs, no monospace anywhere, and oldstyle figures site-wide.
+- One accent (brass), spent sparingly. There is no second signal color.
+- Structure comes from hairline rules and the grid, never from cards, borders-on-all-sides, or fills.
+- Motion is choreographed and calm (no bounce, no elastic).
 
 ## 2. Colors
 
-A near-black instrument field carrying two saturated signals plus a structural blue glow. This is a Committed strategy: the dark surface dominates, and the two accents do deliberate, non-interchangeable work.
+A near-black field with one metallic ink. This is a **single-accent** strategy, and that is a deliberate reversal: the previous system ran two saturated signals (amber and cyan) and the result read as *themed* rather than designed. A second saturated hue is what made the old page look generated.
 
-### Primary
-- **Telemetry Gold** (`#D4AF37`): the identity accent. Section headings, the resume pill, the tour controls, and the primary "work" signal. Warmer and more metallic than the brighter amber.
-- **Signal Amber** (`#FBBF24`): the brighter, higher-chroma partner to gold. Used for inline emphasis (the highlighted name), primary contact button, and the work-focus chips (robotics, drone tech, trading).
+### Ground
+- **Background Dark** (`#050810`): the base. This is the shader's own near-black, sampled from the starfield rather than picked to sit beside it, so nothing reads as pasted on top of the sky. `--color-background-black` aliases it.
+- **Background Light** (`#070B15`): the barely-lifted variant, for the rare surface that must separate from the field.
 
-### Secondary
-- **Scanline Cyan** (`#00D9FF`): the interaction and personality signal. Program subtitles, the profile scan-line, and the personality chips (finance + ai, tabla, poker). Also the cyan hover accent on ghost buttons.
+### Ink
+- **Ink** (`#E9E5DA`): primary text, warm bone. Never pure `#fff`: white on a blue-black ground glares and flattens the serif's stroke contrast, which on a Didone is the entire face.
+- **Dim** (`#8695AC`): secondary text, biased toward the starfield's blue instead of sitting dead-grey beside it. 6.6:1 on ground.
+- **Faint** (`#707F99`): labels, dates, metadata. 4.94:1 on ground.
 
-### Tertiary
-- **Deep Space Blue** (`#3B82F6`): the signature atmosphere (the `--color-primary` token, the starfield particles, focus and text glows). This is the blue of the space theme and the thing that makes the site feel clean and distinct. It carries the mood, so it stays out of copy and buttons rather than being diluted into them.
+### Accent
+- **Brass** (`#C9A227`), with `#D8B65A` light and `#A8871F` dark: the only accent. Brass because the starfield already contains a warm point of light, so the accent belongs to the image instead of arguing with it. It is also the target of the palette remap: `--color-amber-300/400/500` now resolve to the brass ramp, and `--color-primary` and `--color-accent-gold` both point at brass, so the fifteen components that reached for amber by name landed here without being edited.
 
-### Neutral
-- **Void Black** (`#09090B`, zinc 950): the base background under the 3D field.
-- **Panel Charcoal** (`#18181B`, zinc 900): raised surfaces and secondary panels.
-- **Instrument White** (`#EDEDED`): primary text. Never pure `#fff`.
-- **Muted Zinc** (`#71717A`): labels, metadata, de-emphasized text.
-- **Hairline** (`#FFFFFF1A`, white at 10%): the default border on cards, pills, and chips.
-- **Glass Fill** (`#FFFFFF05`, white at 2%): the barely-there card fill that reads as surface without a hard edge.
+### Structure
+- **Rule** (`rgba(150,175,215,0.22)`): the primary hairline. Section divisions, column dividers, list separators.
+- **Hair** (`rgba(150,175,215,0.13)`): the secondary hairline, for divisions inside an already-ruled group.
 
 ### Named Rules
-**The Two-Signal Rule.** Gold/amber marks work and focus; cyan marks personality and interaction. Never swap the two, and never rely on color alone to carry the distinction (pair with position, label, or icon), so it survives color-blindness.
 
-**The Blue-Stays-Behind Rule.** Deep Space Blue belongs to the atmosphere: glows, particles, focus rings. It is forbidden as a text or button color, so it never competes with the two content signals.
+**The One-Accent Rule.** Brass is the only accent, and it is spent, not applied. If three brass things are visible at once, two of them are wrong. It marks the single most important item in a group and nothing else. There is no second signal color; do not reintroduce one.
 
-**The Space-Field-Is-Sacred Rule.** The blue space field (near-black base + live 3D starfield + blue glow) is the signature and stays. Do not swap it for a flat dark background, a different hue, or a busier pattern. New surfaces sit on top of it as faint hairline planes; they never cover it edge to edge.
+**The Contrast-Floor Rule.** `faint` and `gray-500` carry real content (every job date, every section label, the footer credits), not decoration, so they must clear 4.5:1 against `ground`. Anything quieter than `#707F99` on this ground fails AA and disappears in daylight. Quiet is a design goal; absent is a bug.
+
+**The Space-Field-Is-Sacred Rule.** The blue space field (near-black base + live 3D starfield) is the signature and stays. Do not swap it for a flat dark background, a different hue, or a busier pattern. New surfaces sit on top of it as ruled planes; they never cover it edge to edge and they never get an opaque fill.
+
+**The No-Literal-Colors Rule.** Never write a color as a hex or `rgba()` literal in a component. The palette is retired and replaced at the token layer (`@theme` in `globals.css`), which rewrites utility classes but **cannot reach a literal in an inline style**. Three components once hardcoded `#FBBF24` and `rgba(212,175,55,…)`; they survived a full palette change untouched and kept flashing the retired hue. Use `var(--color-brass)` in inline styles, or a Tailwind utility.
 
 ## 3. Typography
 
-**Display / Body Font:** Archivo (variable, `wght` 100-900 and `wdth` 62-125, with ui-sans-serif, system-ui fallback)
-**Label/Mono Font:** Martian Mono (variable, `wght` 100-800 and `wdth` 75-112.5, with ui-monospace fallback)
+**Display:** Bodoni Moda (variable, `opsz` 6-96, `wght` 400-900, with Didot / Bodoni 72 / Times New Roman fallback)
+**Text:** EB Garamond (variable, `wght` 400-800, with Garamond / Georgia fallback)
+**Italic display:** Cormorant Garamond (variable italic, `wght` 300-700, with Garamond / Georgia fallback)
 
-**Character:** One grotesque carries every proportional size, and the display contrast comes from its *width* axis rather than a second family. The hero name runs expanded to 112% like a stamped nameplate; body copy runs at normal width; the skeleton never changes. Martian Mono is the instrument voice: condensed to 87.5% so tracked caps stay compact, and never used above 0.75rem. Two families, nine roles, one 1.25 ratio.
+**There is no monospace.** Tracked-out uppercase mono was the loudest generated-template tell on the previous page, used in nine separate places. Tailwind's preflight is explicitly overridden so `code`, `kbd`, `samp` and `pre` do not reintroduce it.
+
+**Character:** Three faces from one period argument, not three faces chosen for contrast. Bodoni Moda is a Didone: hairline serifs, extreme stroke contrast, letterforms cut for copperplate title pages. It carries the name and every heading and does nothing else, because at label size its thins disappear. EB Garamond does all the reading. Cormorant Garamond is a display Garamond, much lighter and sharper, which falls apart below about 16px, which is exactly why it is confined to large italic subtitles and captions.
 
 ### Hierarchy
 
 Every role is a class in `globals.css`, not a stack of Tailwind utilities. Use the class; override only color and spacing alongside it.
 
-| Class | Size | Weight | Width | Leading | Tracking | Use |
+| Class | Face | Size | Weight | Leading | Tracking | Use |
 |---|---|---|---|---|---|---|
-| `t-display` | `clamp(3rem, 11vw, 8.5rem)` | 800 | 112% | 0.92 | -0.045em | Hero name only |
-| `t-display-split` | `clamp(2.5rem, 8vw, 6rem)` | 800 | 112% | 0.92 | -0.045em | Intro splash, name in two lockups |
-| `t-headline` | `clamp(1.5rem, 2.6vw, 1.9375rem)` | 700 | 105% | 1.05 | -0.02em | Section titles, in Telemetry Gold |
-| `t-title` | 1.25rem | 700 | normal | 1.3 | -0.01em | Card headers: school, company, project |
-| `t-quote` | 1.25rem serif italic | 400 | normal | 1.45 | 0.01em | The footer pull quote, and nothing else |
-| `t-body` | 1rem | 450 | normal | 1.65 | 0.005em | Prose. Pair with `.measure` (68ch) |
-| `t-meta` | 0.875rem | 450 | normal | 1.55 | 0.005em | Roles, sub-lines, captions, links |
-| `t-label` | 0.75rem mono | 550 | 87.5% | 1.4 | 0.14em | UPPERCASE micro-labels, dates, categories |
-| `t-tag` | 0.75rem mono | 450 | 87.5% | 1.4 | 0.02em | Skills, tech stacks, chips (not uppercased) |
-| `t-eyebrow` | 0.75rem mono | 550 | 87.5% | 1.4 | 0.32em | Hero and intro only, twice on the page |
+| `t-display` | Bodoni | `clamp(2.25rem, 10.5vw, 8rem)` | 400 | 0.9 | +0.045em | Hero name only, uppercase |
+| `t-display-split` | Bodoni | `clamp(2.5rem, 8vw, 6rem)` | 400 | 0.9 | +0.045em | Name in two lockups, uppercase |
+| `t-headline` | Bodoni | `clamp(1.6rem, 2.6vw, 2.15rem)` | 500 | 1.14 | 0.005em | Section titles, in Ink |
+| `t-title` | Bodoni | 1.3rem | 500 | 1.22 | 0.005em | Card headers: school, company, project |
+| `t-quote` | Cormorant italic | 1.495rem | 300 | 1.42 | 0.005em | The footer pull quote, and nothing else |
+| `t-gloss` | Cormorant italic | inherit | 300 | 1.38 | 0.005em | Subtitles, captions, asides |
+| `t-body` | Garamond | 1.09rem | 400 | 1.62 | 0 | Prose. Pair with `.measure` (62ch) |
+| `t-meta` | Garamond | 0.94rem | 400 | 1.55 | 0 | Roles, sub-lines, captions, links |
+| `t-label` | Garamond | 0.78rem | 500 | 1.45 | 0.14em | UPPERCASE micro-labels, dates, categories |
+| `t-tag` | Garamond | 0.94rem | 400 | 1.75 | 0 | Skills, tech stacks, list items |
+| `t-eyebrow` | Garamond | 0.78rem | 500 | 1.45 | 0.14em | Hero and intro only |
 
-Two utilities compose with the above: `.measure` caps a column at 68ch, and `.t-num` sets `tabular-nums` so dates and counters do not jitter.
+Two utilities compose with the above: `.measure` caps a column at 62ch, and `.t-num` opts an element back into `lining-nums tabular-nums` for anything that must align in a column.
 
-**Fluid where cinematic, fixed where readable.** Display uses `clamp()` because it is the page's cinematic moment and must fill a viewport. Everything at reading size is a fixed rem step (12 / 14 / 16 / 20), so card layouts stay spatially predictable across breakpoints. Headline is fluid but tightly bounded, because it must hold a ratio to the fixed steps under it at every width.
-
-**Light-on-dark compensation.** Light type on a near-black field loses perceived weight and gains apparent tightness, so prose compensates on all three axes at once: line-height 1.65, tracking +0.005em, and a real body weight of 450 (available because Archivo is variable).
+**The scale is 13 / 15 / 17.5 / 21px**, then two fluid display steps. Every step is about 1.17x larger than the previous system's, because Garamond's x-height is markedly shorter than Archivo's: matched rem sizes are not matched reading sizes.
 
 ### Named Rules
-**The Uppercase-Mono Label Rule.** Uppercasing is reserved for Martian Mono micro-labels (`t-label`, `t-eyebrow`) and the logotype-style hero. Prose is never uppercased, and in the personal copy it stays lowercase and casual, first person, concrete over label. Mono that names a term rather than a heading (skills, tech stacks) uses `t-tag` and keeps its natural case.
 
-**The No-Gaps Rule.** Every adjacent pair in the reading ladder (label through headline) sits between 1.2x and 1.6x apart: 12, 14, 16, 20, 31. Nothing may skip a tier. `t-headline` was originally 32-48px, which put it 2.4x above `t-title` and 3x above body; the result was that any section with a heading shouted next to the About section, which has none. Only `t-display` is allowed to break the ladder, because it lives alone on the hero with nothing beside it to compare against.
+**The Positive-Tracking Rule.** Display runs **positive** tracking (+0.045em), the opposite sign from the wide grotesque that used to sit here. A Didone set large and tight closes its counters and its hairlines collide. Letterspaced open, it reads as a plate title. Never set `t-display` negative.
 
-Note the correct fix direction: when a heading and a paragraph feel mismatched, bring the heading down to the ladder rather than pushing the paragraph up. The intro's copy is deliberately quiet, lowercase, and first-person, and enlarging it would contradict its tone.
+**The Oldstyle-Figures Rule.** `font-variant-numeric: oldstyle-nums` is set once on `body` and inherited everywhere. This is the single change that does the most work on a page this full of years and grades: 2026, 3.92 and 4.00 stop sitting at cap height like tabulated data and drop into the line like the words around them. Anything that genuinely needs to align in a column opts back out with `.t-num`.
 
-**The Width-Not-Family Rule.** Display contrast comes from Archivo's `wdth` axis, never from importing a third face. Only three widths exist: 112% (display), 105% (headline), and 87.5% (mono labels). Everything else is normal width.
+Note the keyword is **plural**. `oldstyle-num` parses as nothing, the browser drops the declaration silently, and the page paints lining figures with no error and no visual warning that the rule is dead. This exact typo shipped once.
 
-The single exception is `t-quote`, the footer pull quote, which is a serif italic. It earns the exception because it is the one place on the page carrying someone else's words, and the change of voice is the point. It is a system serif, so it costs no webfont, and it appears exactly once. A second use of a third face anywhere else is a bug.
+**The No-Mono Rule.** No monospace anywhere, and no uppercase above 0.14em tracking. The 0.32em eyebrow tracking that used to exist was never a design decision; it was damage control for setting mono in caps. Garamond carries a label at 0.14em and stops looking like a system readout.
 
-**The Font-Variables-On-`html` Rule.** The `next/font` variables must be set on the `<html>` element, not `<body>`. Tailwind declares `--font-sans: var(--font-archivo), ...` on `:root`; if the font variables sat one level lower, that inner `var()` would be unresolvable at `:root` and the whole token would compute to the guaranteed-invalid value, silently falling back to `system-ui`.
+**The Optical-Size Rule.** Bodoni Moda must be loaded with `axes: ["opsz"]`. Without it, `next/font` pins the optical-size axis at the 11pt text master and `font-optical-sizing: auto` on `.t-display` silently does nothing, so the hero name at up to 128px renders with text-weight hairlines. On a Didone, the hairline *is* the face.
+
+**The Uppercase Rule.** Uppercasing is reserved for the hero lockup (`t-display`) and micro-labels (`t-label`, `t-eyebrow`). Prose is never uppercased, and in the personal copy it stays lowercase and casual, first person, concrete over label.
+
+**The Font-Variables-On-`html` Rule.** The `next/font` variables must be set on the `<html>` element, not `<body>`. Tailwind declares `--font-sans: var(--font-garamond), ...` on `:root`; if the font variables sat one level lower, that inner `var()` would be unresolvable at `:root` and the whole token would compute to the guaranteed-invalid value, silently falling back to `system-ui`.
+
+**The Font-Shim-Parity Rule.** The design-system bundle does not run `next/font`. Whenever a face or a `--font-*` variable changes in `layout.tsx`, `.design-sync/fonts/fonts.css` must change with it, or `--type-display` computes to the invalid value and every preview card photographs in the browser default face.
 
 ## 4. Elevation
 
-This system is nearly flat. Depth does not come from drop shadows stacked on cards; it comes from the live 3D starfield behind everything and from tonal layering (Void Black base, Glass Fill surfaces, Hairline borders). Cards sit on the background as faint 2%-white planes with a 1px hairline, not as lifted objects. Shadows appear only on genuinely floating controls (the resume pill, the tour button) to separate them from scrolling content.
+This system is flat, and more so than the one it replaced. Depth comes from the live 3D starfield behind everything, and separation comes from hairline rules. There are no cards. There is no fill. `rounded` is `0` everywhere except the two floating controls, which stay pills.
+
+The previous system's "faint 2%-white plane with a 1px hairline" was still a box, and boxing every block individually was the tell that the page had been assembled rather than composed. The `.glass-panel` utility is retained under its old name only because a dozen components ask for it; it now renders as a transparent field bounded by a single hairline.
 
 ### Shadow Vocabulary
-- **Floating control** (`box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3)`, Tailwind `shadow-lg`): fixed-position controls (resume pill, play-tour button) only.
-- **Accent glow** (`box-shadow`/`filter: blur` in Telemetry Gold or Deep Space Blue at low opacity): a response to hover on interactive elements, never a resting state.
+- **Floating control** (`shadow-lg`): fixed-position controls (resume pill, play-tour button) only, to separate them from scrolling content.
+- Nothing else casts a shadow. There is no accent glow: a 35px bloom fills exactly the gaps a Didone's stroke contrast lives in.
 
 ### Named Rules
-**The Depth-From-Background Rule.** Surfaces are flat at rest. If an element needs to feel lifted, it is because it floats above scroll (fixed position), not because it is a content card. Content cards never get more than a 1px hairline.
+**The Rules-Not-Boxes Rule.** Grouping comes from a rule and the grid. Two things side by side under one hairline are already a group; a border around each of them says the same thing twice and adds two more edges to the page. If an element needs to feel separate, give it a rule above it, not a container around it.
 
 ## 5. Components
 
-### Buttons
-- **Shape:** pill for floating actions (`rounded-full`), gently rounded for inline actions (8px, `rounded-lg`).
-- **Primary (contact / UChicago email):** Signal Amber text on a 20%-amber fill with a 30%-amber border, `padding: 8px 16px`. Reads as lit, not filled.
-- **Ghost (Gmail, LinkedIn, GitHub, Resume):** Instrument White text on Glass Fill with a Hairline border. Hover shifts the border to cyan or gold and lifts the fill to white-at-10%.
-- **Resume pill (floating):** Telemetry Gold on Void Black, `rounded-full`, Hairline border, `shadow-lg`. Compacts to a 44px icon-only circle below 768px; expands to a labeled 160px pill on desktop.
+### Links
+- **Inline / list:** Ink text, hairline underneath (`border-b border-hair`), 6px vertical padding. Hover and focus shift to Brass.
+- **Focus is never color alone.** Keep the ring. `focus-visible:outline-none` with only a color change is invisible to a colour-blind visitor and easy to lose on a dim screen; the contact list shipped that way once. Use `focus-visible:outline focus-visible:outline-1 focus-visible:outline-brass focus-visible:outline-offset-4`.
 
-### Chips
-- **Style:** `rounded-full`, `padding: 6px 12px`, `t-tag` type, an 8%-accent fill with a 25%-accent border and full-accent text.
-- **Variants:** focus chips carry Signal Amber (work: robotics, drone tech, trading); personality chips carry Scanline Cyan (finance + ai, tabla, poker). The color IS the taxonomy (see the Two-Signal Rule). Mobile-only; desktop uses the labeled skills columns instead.
+### Lists
+- Ruled, not chipped. Rounded pills in two competing accents became inline lists separated by hairlines: same terms, same order, no containers. Lead items take a Brass marker; the rest take Faint.
 
 ### Cards / Containers
-- **Corner Style:** 8px (`rounded-lg`).
-- **Background:** Glass Fill (2% white). No opaque panel.
-- **Shadow Strategy:** none; see Elevation. Hairline border does the separation.
-- **Border:** 1px Hairline (`#FFFFFF1A`).
-- **Internal Padding:** 16px.
+- **Corner style:** square. No radius on content.
+- **Background:** none. The starfield is the background.
+- **Border:** a single rule on one edge, not four.
+- **Internal padding:** 16px.
+
+### Portrait
+- Squared, hairline-bounded, full colour. Formerly a `rounded-3xl` square with a cyan scan line, an RGB glitch flicker on hover, and a blurred cyan-to-gold glow behind it: three effects, none of which the photograph needed, all of which announced themselves before the face did.
 
 ### Navigation
 - No persistent chrome nav. Wayfinding is scroll plus the guided tour. The two fixed controls (resume top-right, tour bottom-right) are the only always-present affordances; both shrink to compact icons under 768px so they never cover content.
@@ -261,19 +260,22 @@ A scroll-choreographed walkthrough (Spotlight, TimelineControls, per-step camera
 ## 6. Do's and Don'ts
 
 ### Do:
-- **Do** protect the blue space theme: near-black base (`#09090B`), live 3D starfield, and blue atmospheric glow are the signature and stay. Let depth come from that field and 1px hairlines, not shadows.
-- **Do** use the Two-Signal system exactly: gold/amber for work, cyan for personality and interaction. Pair color with label or position so it never depends on color alone.
-- **Do** go oversized on the Archivo display type, expanded to 112% with tight negative tracking (-0.045em); scale and width are the drama.
+- **Do** protect the blue space theme: the shader's near-black (`#050810`) and the live 3D starfield are the signature and stay. Let depth come from that field and 1px rules, not shadows.
+- **Do** spend Brass sparingly. One accent per group, on the item that earns it.
+- **Do** set the display face large, uppercase, and **positively** letterspaced; the drama is scale plus air, not weight.
 - **Do** reach for the `t-*` classes instead of assembling one-off Tailwind size, weight, and tracking utilities.
-- **Do** keep personal prose lowercase, first person, and concrete, and reserve uppercase for Martian Mono micro-labels.
+- **Do** separate with a rule and the grid instead of a container.
+- **Do** keep personal prose lowercase, first person, and concrete.
 - **Do** ease with exponential curves (`cubic-bezier(0.2, 0.8, 0.2, 1)`); choreograph entrances but never bounce or overshoot.
-- **Do** collapse the two floating controls to compact icons below 768px so they never overlap content.
+- **Do** check contrast against `#050810` before introducing any new text tone.
 
 ### Don't:
-- **Don't** ship the generic SaaS template: no cream/navy kit, no hero-metric block (big number + small label + gradient), no grid of identical icon+heading+text cards.
-- **Don't** let it read as a stiff corporate resume: no LinkedIn-style bullet walls with no personality.
-- **Don't** drift into crypto/AI neon: no neon-on-black, no `background-clip: text` gradient text (retire the legacy `.text-gradient` util rather than reach for it), no "next-gen" hype copy.
-- **Don't** overdesign: glassmorphism is not a default (the `.glass-panel` util is a rare, purposeful exception, never decoration), and no effect may fight readability.
-- **Don't** use Deep Space Blue (`#3B82F6`) as a text or button color; it stays in the atmosphere.
-- **Don't** put a colored `border-left`/`border-right` stripe on any card or chip; use the full Hairline border or a background tint.
+- **Don't** reintroduce a second accent. Amber-plus-cyan is the specific thing this system was built to remove.
+- **Don't** use monospace, anywhere, for anything, including code samples.
+- **Don't** write a color as a hex or `rgba()` literal in a component; the token layer cannot reach it.
+- **Don't** set display type with negative tracking.
+- **Don't** put a rounded border around a content block, or a fill behind it.
+- **Don't** ship the generic SaaS template: no cream/navy kit, no hero-metric block, no grid of identical icon+heading+text cards.
+- **Don't** drift into neon: no neon-on-black, no `background-clip: text` gradient text, no glow behind serif type.
+- **Don't** animate an element horizontally out of its column; it creates viewport overflow that `overflow-x: hidden` then hides from you.
 - **Don't** use em dashes in copy; use commas, colons, or periods.

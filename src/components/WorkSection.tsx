@@ -293,7 +293,11 @@ function ExperienceItem({ exp, index }: { exp: Experience; index: number }) {
 
 function ProjectItem({ project, index }: { project: Project; index: number }) {
     return (
-        <InteractiveItem index={index} accentColor="cyan" dataTour={index === 0 ? "project-0" : undefined}>
+        // Every project is addressable, the way every experience already was.
+        // Only project-0 carried a handle before, so the tour could point at
+        // Murmur and nothing else — which is why the step narrating the HAL
+        // paper framed the wrong card for as long as it existed.
+        <InteractiveItem index={index} accentColor="cyan" dataTour={`project-${index}`}>
             <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mb-1">
                 <h3 className="t-body font-bold text-white group-hover:text-amber-400 transition-colors duration-200">
                     {project.link ? (
@@ -346,9 +350,15 @@ export default function WorkSection() {
                     {/* Experience Column */}
                     <div data-tour="experience">
                         <motion.h2
-                            className="t-headline text-amber-300 mb-6"
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
+                            className="t-headline text-ink mb-6"
+                            // Rises rather than slides. The two column headings
+                            // used to fly in from opposite sides — a mirrored
+                            // gesture that only reads as mirrored on a wide
+                            // screen, and that parked "Projects" 20px right of
+                            // its column while it waited to animate, which is
+                            // where the page's 4px of mobile overflow came from.
+                            initial={{ opacity: 0, y: 12 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
                         >
@@ -402,9 +412,9 @@ export default function WorkSection() {
                     {/* Projects Column */}
                     <div data-tour="projects">
                         <motion.h2
-                            className="t-headline text-amber-300 mb-6"
-                            initial={{ opacity: 0, x: 20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
+                            className="t-headline text-ink mb-6"
+                            initial={{ opacity: 0, y: 12 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
                         >

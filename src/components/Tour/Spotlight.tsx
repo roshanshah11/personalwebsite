@@ -51,7 +51,17 @@ export function Spotlight() {
         }
     }, [currentStep?.id]);
 
-    // Track target element position
+    // Track target element position.
+    //
+    // This runs inside a requestAnimationFrame loop for the whole tour, so it
+    // fires ~60 times a second on a page that is also driving a WebGL
+    // starfield. It used to hand setTargetRect a freshly allocated object every
+    // one of those frames, and a new object is never Object.is-equal to the old
+    // one, so React re-rendered the spotlight and every child on every single
+    // frame whether or not the target had moved a pixel. Most frames of a tour
+    // are stationary: the scroll finishes about a second into a step and then
+    // nothing moves until the next one. Bailing out when the rect is unchanged
+    // turns those frames back into a cheap measurement.
     const updateTargetRect = useCallback(() => {
         if (!currentStep?.targetSelector) {
             setTargetRect(null);
@@ -64,12 +74,22 @@ export function Spotlight() {
         }
 
         const rect = element.getBoundingClientRect();
-        setTargetRect({
+        const next = {
             top: rect.top - padding,
             left: rect.left - padding,
             width: rect.width + padding * 2,
             height: rect.height + padding * 2,
-        });
+        };
+
+        setTargetRect((prev) =>
+            prev &&
+                prev.top === next.top &&
+                prev.left === next.left &&
+                prev.width === next.width &&
+                prev.height === next.height
+                ? prev
+                : next
+        );
     }, [currentStep?.targetSelector, padding]);
 
     // Setup ResizeObserver and RAF for smooth tracking
@@ -105,30 +125,30 @@ export function Spotlight() {
 
     if (!isActive) return null;
 
-    // Calculate mask path for the cutout
+    // Calculate mask path for the cutout.
+    //
+    // Square. The cutout used to be a 12px-radius rounded rectangle built out of
+    // four quadratic curves, framed by a 2px glowing border, four corner
+    // brackets, three stacked box-shadows and an infinite pulse. That is a
+    // sci-fi targeting reticle, and this page does not have one rounded corner
+    // anywhere else on it.
     const getMaskPath = () => {
         if (!targetRect || windowSize.width === 0) {
             return `M 0 0 L ${windowSize.width} 0 L ${windowSize.width} ${windowSize.height} L 0 ${windowSize.height} Z`;
         }
 
         const { top, left, width, height } = targetRect;
-        const r = 12; // border radius
 
         return `
-            M 0 0 
-            L ${windowSize.width} 0 
-            L ${windowSize.width} ${windowSize.height} 
-            L 0 ${windowSize.height} 
+            M 0 0
+            L ${windowSize.width} 0
+            L ${windowSize.width} ${windowSize.height}
+            L 0 ${windowSize.height}
             Z
-            M ${left + r} ${top}
-            L ${left + width - r} ${top}
-            Q ${left + width} ${top} ${left + width} ${top + r}
-            L ${left + width} ${top + height - r}
-            Q ${left + width} ${top + height} ${left + width - r} ${top + height}
-            L ${left + r} ${top + height}
-            Q ${left} ${top + height} ${left} ${top + height - r}
-            L ${left} ${top + r}
-            Q ${left} ${top} ${left + r} ${top}
+            M ${left} ${top}
+            L ${left + width} ${top}
+            L ${left + width} ${top + height}
+            L ${left} ${top + height}
             Z
         `;
     };
@@ -149,7 +169,9 @@ export function Spotlight() {
             >
                 <motion.path
                     d={getMaskPath()}
-                    fill="rgba(0, 0, 0, 0.85)"
+                    // The ground, not pure black. Black over a blue-black page
+                    // reads as a hole punched in it.
+                    fill="rgba(5, 8, 16, 0.86)"
                     fillRule="evenodd"
                 />
             </motion.svg>
@@ -174,117 +196,42 @@ export function Spotlight() {
                             height: targetRect.height,
                         }}
                     >
-                        {/* Main border frame */}
-                        <div
-                            className="absolute inset-0"
-                            style={{
-                                borderRadius: 12,
-                                border: '2px solid rgba(251, 191, 36, 0.9)',
-                                boxShadow: isReducedMotion ? 'none' : `
-                                    0 0 20px rgba(251, 191, 36, 0.4),
-                                    0 0 40px rgba(251, 191, 36, 0.2),
-                                    inset 0 0 30px rgba(251, 191, 36, 0.05)
-                                `,
-                            }}
-                        />
+                        {/* A hairline and four brass ticks, which is how the
+                            rest of the page marks something. Every glow here
+                            was written as a literal rgba(251,191,36,…) — the
+                            retired Tailwind amber — so the frame survived the
+                            palette change untouched and kept lighting the one
+                            hue this design dropped. */}
+                        <div className="absolute inset-0 border border-rule" />
 
-                        {/* Corner brackets */}
-                        {!isReducedMotion && (
-                            <>
-                                {/* Top-left */}
-                                <div
-                                    className="absolute"
-                                    style={{
-                                        top: -3,
-                                        left: -3,
-                                        width: 24,
-                                        height: 24,
-                                        borderTop: '3px solid #fbbf24',
-                                        borderLeft: '3px solid #fbbf24',
-                                        borderTopLeftRadius: 8,
-                                    }}
-                                />
-                                {/* Top-right */}
-                                <div
-                                    className="absolute"
-                                    style={{
-                                        top: -3,
-                                        right: -3,
-                                        width: 24,
-                                        height: 24,
-                                        borderTop: '3px solid #fbbf24',
-                                        borderRight: '3px solid #fbbf24',
-                                        borderTopRightRadius: 8,
-                                    }}
-                                />
-                                {/* Bottom-left */}
-                                <div
-                                    className="absolute"
-                                    style={{
-                                        bottom: -3,
-                                        left: -3,
-                                        width: 24,
-                                        height: 24,
-                                        borderBottom: '3px solid #fbbf24',
-                                        borderLeft: '3px solid #fbbf24',
-                                        borderBottomLeftRadius: 8,
-                                    }}
-                                />
-                                {/* Bottom-right */}
-                                <div
-                                    className="absolute"
-                                    style={{
-                                        bottom: -3,
-                                        right: -3,
-                                        width: 24,
-                                        height: 24,
-                                        borderBottom: '3px solid #fbbf24',
-                                        borderRight: '3px solid #fbbf24',
-                                        borderBottomRightRadius: 8,
-                                    }}
-                                />
-                            </>
-                        )}
-
-                        {/* Subtle pulse animation on glow */}
-                        {!isReducedMotion && (
-                            <motion.div
-                                className="absolute inset-[-4px]"
-                                animate={{
-                                    boxShadow: [
-                                        '0 0 20px rgba(251, 191, 36, 0.3)',
-                                        '0 0 35px rgba(251, 191, 36, 0.5)',
-                                        '0 0 20px rgba(251, 191, 36, 0.3)',
-                                    ],
-                                }}
-                                transition={{
-                                    duration: 2,
-                                    repeat: Infinity,
-                                    ease: 'easeInOut',
-                                }}
+                        {/* Corner ticks. Marks, not brackets: a short rule off
+                            each corner, the way a plate registers a detail. */}
+                        {[
+                            { top: -1, left: -1, borderTop: true, borderLeft: true },
+                            { top: -1, right: -1, borderTop: true, borderRight: true },
+                            { bottom: -1, left: -1, borderBottom: true, borderLeft: true },
+                            { bottom: -1, right: -1, borderBottom: true, borderRight: true },
+                        ].map((tick, i) => (
+                            <div
+                                key={i}
+                                className="absolute"
                                 style={{
-                                    borderRadius: 16,
-                                    pointerEvents: 'none',
+                                    top: tick.top,
+                                    left: tick.left,
+                                    right: tick.right,
+                                    bottom: tick.bottom,
+                                    width: 14,
+                                    height: 14,
+                                    borderTop: tick.borderTop ? '1px solid var(--color-brass)' : undefined,
+                                    borderRight: tick.borderRight ? '1px solid var(--color-brass)' : undefined,
+                                    borderBottom: tick.borderBottom ? '1px solid var(--color-brass)' : undefined,
+                                    borderLeft: tick.borderLeft ? '1px solid var(--color-brass)' : undefined,
                                 }}
                             />
-                        )}
+                        ))}
                     </motion.div>
                 )}
             </AnimatePresence>
-
-            {/* Vignette overlay */}
-            {!isReducedMotion && (
-                <motion.div
-                    className="fixed inset-0 pointer-events-none z-[9995]"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
-                    style={{
-                        background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.2) 100%)',
-                    }}
-                />
-            )}
 
             {/* Interactive layer */}
             {targetRect && currentStep?.allowInteraction && (

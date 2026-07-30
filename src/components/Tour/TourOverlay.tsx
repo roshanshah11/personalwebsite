@@ -7,7 +7,6 @@ import { CaptionRenderer } from './CaptionRenderer';
 import { TimelineControls } from './TimelineControls';
 import { KeyboardHandler } from './KeyboardHandler';
 import { ContentViewerModal } from './ContentViewerModal';
-import { HelpButton } from './HelpButton';
 
 /**
  * Main Tour Overlay - the fullscreen cinematic layer
@@ -49,20 +48,24 @@ export function TourOverlay() {
                                 ease: 'easeInOut'
                             }}
                         >
-                            {/* Cinematic letterbox bars for dramatic effect */}
+                            {/* A rule top and bottom, where the letterbox bars
+                                used to be. Those were 24px and 100px of solid
+                                black clamped over a live starfield to signal
+                                "cinematic", which mostly signalled that the
+                                sky had been switched off for the duration. */}
                             {!isReducedMotion && (
                                 <>
                                     <motion.div
-                                        className="absolute top-0 left-0 right-0 bg-black"
-                                        initial={{ height: 0 }}
-                                        animate={{ height: isEntering ? 40 : (isExiting || isCompleted ? 0 : 24) }}
-                                        transition={{ duration: 0.6, ease: 'easeInOut' }}
+                                        className="absolute top-0 left-0 right-0 h-px bg-rule"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: isExiting || isCompleted ? 0 : 1 }}
+                                        transition={{ duration: 0.5, ease: 'easeInOut' }}
                                     />
                                     <motion.div
-                                        className="absolute bottom-0 left-0 right-0 bg-black"
-                                        initial={{ height: 0 }}
-                                        animate={{ height: isEntering ? 40 : (isExiting || isCompleted ? 0 : 100) }}
-                                        transition={{ duration: 0.6, ease: 'easeInOut' }}
+                                        className="absolute bottom-0 left-0 right-0 h-px bg-rule"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: isExiting || isCompleted ? 0 : 1 }}
+                                        transition={{ duration: 0.5, ease: 'easeInOut' }}
                                     />
                                 </>
                             )}
@@ -92,8 +95,12 @@ export function TourOverlay() {
                         {/* Content viewer modal */}
                         <ContentViewerModal />
 
-                        {/* Help button - top left */}
-                        <HelpButton />
+                        {/* There was a HelpButton here: a circular glass button
+                            top-left that opened a 288px panel explaining that
+                            the pause button pauses and the next button skips,
+                            with a 💡 emoji tip at the bottom. Four labelled
+                            icons and a one-line hints row under the timeline
+                            already say all of it. Chrome explaining chrome. */}
 
                         {/* Timeline controls - fade out on exit */}
                         <motion.div
@@ -116,22 +123,24 @@ export function TourOverlay() {
                                     exit={{ opacity: 0, scale: 1.1 }}
                                     transition={{ duration: 0.5 }}
                                 >
-                                    <div className="text-center">
+                                    {/* Was a 60px ✨ emoji spring-scaling in over
+                                        "Thanks for watching!". Now the closing
+                                        line is just a line, set the way the
+                                        rest of the page sets a line. */}
+                                    <div className="text-center px-6">
                                         <motion.div
-                                            initial={{ scale: 0 }}
-                                            animate={{ scale: 1 }}
-                                            transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-                                            className="text-6xl mb-4"
-                                        >
-                                            ✨
-                                        </motion.div>
+                                            initial={{ scaleX: 0 }}
+                                            animate={{ scaleX: 1 }}
+                                            transition={{ delay: 0.1, duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
+                                            className="w-24 h-px bg-brass mx-auto mb-5"
+                                        />
                                         <motion.p
-                                            initial={{ opacity: 0, y: 20 }}
+                                            initial={{ opacity: 0, y: 8 }}
                                             animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: 0.4 }}
-                                            className="t-title text-white"
+                                            transition={{ delay: 0.3 }}
+                                            className="t-gloss text-ink text-[1.35rem]"
                                         >
-                                            Thanks for watching!
+                                            that's it. thanks for looking.
                                         </motion.p>
                                     </div>
                                 </motion.div>

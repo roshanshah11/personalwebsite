@@ -106,16 +106,41 @@ for await (const line of rl) {
     const ra = parseFloat(f[idx.ra]);   // decimal hours
     const dec = parseFloat(f[idx.dec]); // degrees
     if (!Number.isFinite(ra) || !Number.isFinite(dec)) continue;
+    // `dist` is parsecs. HYG parks stars with no usable parallax at 100000,
+    // which is a sentinel and not a measurement, so it is dropped rather than
+    // treated as "very far away" — those stars get the figure's median plane.
+    const distRaw = parseFloat(f[idx.dist]);
+    const dist = Number.isFinite(distRaw) && distRaw > 0 && distRaw < 99999
+        ? distRaw
+        : null;
+    // B-V colour index. Blank for a minority of faint entries.
+    const ciRaw = parseFloat(f[idx.ci]);
+    const ci = Number.isFinite(ciRaw) ? ciRaw : null;
     rows.push({
         con,
         mag,
         ra: ra * 15 * Math.PI / 180, // hours -> radians
         dec: dec * Math.PI / 180,
+        dist,
+        ci,
         bayer: f[idx.bayer],
         comp: parseInt(f[idx.comp] || "1", 10),
         proper: f[idx.proper],
     });
 }
+
+// Robust spread: the median absolute deviation scaled at the 85th percentile,
+// so one 3,000-parsec outlier in a figure of 200-parsec stars cannot collapse
+// everything else onto a single plane.
+function quantile(sorted, q) {
+    if (!sorted.length) return 0;
+    const pos = (sorted.length - 1) * q;
+    const lo = Math.floor(pos);
+    const hi = Math.ceil(pos);
+    return lo === hi ? sorted[lo] : sorted[lo] + (sorted[hi] - sorted[lo]) * (pos - lo);
+}
+
+const DEPTH_CLAMP = 1.8;
 
 const DEG = 180 / Math.PI;
 
@@ -197,7 +222,7 @@ for (const [abbr, def] of Object.entries(ASTERISMS)) {
 
     // Field stars: everything in the constellation that lands inside a modest
     // margin around the asterism, so we get real texture without sprawl.
-    const stars = [];
+    const raw = [];
     const keyToIndex = {};
     const LIMIT = TARGET * 1.5;
     for (const r of all) {
@@ -207,27 +232,65 @@ for (const [abbr, def] of Object.entries(ASTERISMS)) {
         const y = (p[1] - cy) * k;
         if (Math.abs(x) > LIMIT || Math.abs(y) > LIMIT * 0.95) continue;
         const namedKey = Object.keys(named).find((kk) => named[kk] === r);
-        if (namedKey) keyToIndex[namedKey] = stars.length;
-        stars.push([Math.round(x * 100) / 100, Math.round(y * 100) / 100, Math.round(r.mag * 10) / 10]);
+        if (namedKey) keyToIndex[namedKey] = raw.length;
+        raw.push({ x, y, mag: r.mag, dist: r.dist, ci: r.ci });
     }
 
     // Any asterism star clipped by the margin gets appended so lines resolve.
     for (const key of Object.keys(anchorXY)) {
         if (keyToIndex[key] !== undefined) continue;
         const p = anchorXY[key];
-        keyToIndex[key] = stars.length;
-        stars.push([
-            Math.round((p[0] - cx) * k * 100) / 100,
-            Math.round((p[1] - cy) * k * 100) / 100,
-            Math.round(named[key].mag * 10) / 10,
-        ]);
+        keyToIndex[key] = raw.length;
+        raw.push({
+            x: (p[0] - cx) * k,
+            y: (p[1] - cy) * k,
+            mag: named[key].mag,
+            dist: named[key].dist,
+            ci: named[key].ci,
+        });
     }
+
+    // Real relative depth. A constellation is a chance alignment, not an object:
+    // Orion's belt is Mintaka at ~380 pc, Alnitak at ~380, Alnilam at ~600, and
+    // Betelgeuse sits at ~170 while Rigel is at ~265. Flat, that fact is invisible.
+    //
+    // Distances are centred on the figure's median and divided by one scalar, so
+    // every ratio between stars survives; only the unit changes. That is a scale
+    // factor, not a distortion, and it is what lets the asterism hold together
+    // from Earth (camera z = 0) and come apart as the camera flies past it.
+    const known = raw.map((s) => s.dist).filter((d) => d !== null).sort((a, b) => a - b);
+    const centre = quantile(known, 0.5);
+    const devs = known.map((d) => Math.abs(d - centre)).sort((a, b) => a - b);
+    const spread = quantile(devs, 0.85) || 1;
+
+    const stars = raw.map((s) => [
+        Math.round(s.x * 100) / 100,
+        Math.round(s.y * 100) / 100,
+        Math.round(s.mag * 10) / 10,
+        // Unknown parallax means no claim: the star sits on the median plane.
+        s.dist === null
+            ? 0
+            : Math.round(
+                Math.max(-DEPTH_CLAMP, Math.min(DEPTH_CLAMP, (s.dist - centre) / spread)) * 100
+            ) / 100,
+        // B-V. 0.3 (roughly F0) stands in where the catalogue has no colour.
+        s.ci === null ? 0.3 : Math.round(s.ci * 100) / 100,
+    ]);
 
     const lines = def.lines
         .filter(([a, b]) => keyToIndex[a] !== undefined && keyToIndex[b] !== undefined)
         .map(([a, b]) => [keyToIndex[a], keyToIndex[b]]);
 
-    result.push({ name: def.name, abbr, stars, lines });
+    // Tangent point, kept so the renderer can compute the parallactic angle and
+    // tilt each figure the way it actually leans from Chicago tonight.
+    result.push({
+        name: def.name,
+        abbr,
+        ra0: Math.round(ra0 * 1e5) / 1e5,
+        dec0: Math.round(dec0 * 1e5) / 1e5,
+        stars,
+        lines,
+    });
     console.log(`${def.name.padEnd(12)} ${String(stars.length).padStart(4)} stars, ${lines.length} strokes`);
     if (process.env.PLOT) plot(def.name, stars, lines);
 }
@@ -246,12 +309,31 @@ const body = `// GENERATED FILE — do not edit by hand.
 // direction, scaled to local scene units; \`mag\` is real apparent magnitude
 // (lower is brighter). Asterism strokes are authored in-house from standard
 // chart geometry — deliberately NOT Stellarium's line data, which is GPL.
+//
+// \`depth\` carries the third dimension a star chart throws away. A constellation
+// is a chance alignment of stars at wildly different distances, so the pattern
+// only exists from Earth; the renderer puts the camera at Earth and lets the
+// figure come apart as it flies past. Distances are centred on each figure's
+// median and divided by a single scalar, so every ratio between stars is
+// preserved and only the unit changes.
+//
+// \`ci\` is the B-V colour index, which the renderer turns into a real surface
+// temperature and therefore a real colour: Betelgeuse comes out red, Rigel
+// blue-white, instead of every star sharing one tint.
 
 export type StarConstellation = {
     name: string;
     abbr: string;
-    /** [x, y, apparent magnitude] in local units. */
-    stars: [number, number, number][];
+    /** Tangent-point right ascension, radians. Drives the parallactic tilt. */
+    ra0: number;
+    /** Tangent-point declination, radians. */
+    dec0: number;
+    /**
+     * [x, y, apparent magnitude, relative depth, B-V colour index].
+     * Depth is signed and roughly -1.8..1.8, positive meaning further from
+     * Earth; 0 means the catalogue had no usable parallax, not "at the median".
+     */
+    stars: [number, number, number, number, number][];
     /** Index pairs into \`stars\` defining each asterism stroke. */
     lines: [number, number][];
 };

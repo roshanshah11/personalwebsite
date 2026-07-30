@@ -53,52 +53,106 @@ export default function AboutSection() {
     return (
         <section id="about" ref={sectionRef} data-tour="about" className="py-16 px-4 relative">
             <div className="section-container">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                    {/* Left: Profile Image */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-x-12 items-start">
+                    {/* Left: portrait, then the contact list beneath it. The links
+                        used to sit at the bottom of the right-hand column, which
+                        left the whole left column empty below the photograph —
+                        about six hundred pixels of nothing on a desktop. Moving
+                        them here fills that column and puts the plate portrait and
+                        the ways to reach the person in it side by side. */}
                     <motion.div
-                        className="lg:col-span-4"
+                        className="order-1 lg:col-start-1 lg:row-start-1 lg:col-span-3"
                         style={isMounted ? { scale: imageScale, opacity: textOpacity } : {}}
                     >
                         <ProfileImage3D />
                     </motion.div>
 
-                    {/* Right: Bio Content */}
-                    <motion.div
-                        className="lg:col-span-8 space-y-8"
-                        style={isMounted ? { x: textX, opacity: textOpacity } : {}}
+                    {/* Contact. Explicitly ordered rather than left to source order:
+                        stacked on a phone the whole left column comes first, which
+                        would have put five links above the sentence explaining who
+                        they belong to. Third on mobile, second on desktop. */}
+                    <motion.nav
+                        className="order-3 lg:order-none lg:col-start-1 lg:row-start-2 lg:col-span-3 lg:mt-7 border-t border-rule pt-4 max-w-[264px] mx-auto lg:mx-0 w-full"
+                        style={isMounted ? { opacity: textOpacity } : {}}
                     >
-                        {/* Bio — short on every screen */}
-                        <div className="space-y-4">
-                            <p className="t-body measure text-gray-300">
-                                hey, i'm <span className="text-amber-400 font-bold">roshan</span>. sophomore at uchicago studying econ, building in aerospace, simulation, and the technical side of investing at blue oak.
-                            </p>
-
-                            {/* Focus + personality chips — mobile only */}
-                            <div className="flex flex-wrap gap-2 md:hidden">
-                                {[
-                                    { label: "robotics", tone: "amber" },
-                                    { label: "drone tech", tone: "amber" },
-                                    { label: "trading", tone: "amber" },
-                                    { label: "finance + ai", tone: "cyan" },
-                                    { label: "tabla", tone: "cyan" },
-                                    { label: "poker", tone: "cyan" },
-                                ].map(({ label, tone }) => (
-                                    <span
-                                        key={label}
-                                        className={`px-3 py-1.5 rounded-full t-tag border ${
-                                            tone === "amber"
-                                                ? "bg-amber-500/[0.08] border-amber-500/25 text-amber-300"
-                                                : "bg-cyan-500/[0.08] border-cyan-500/25 text-cyan-300"
-                                        }`}
+                        <p className="t-label text-faint mb-1.5">Reach</p>
+                        <ul className="list-none">
+                            {[
+                                { label: "UChicago Email", href: "mailto:rashah@uchicago.edu" },
+                                { label: "Gmail", href: "mailto:roshah2007@gmail.com" },
+                                { label: "LinkedIn", href: "https://www.linkedin.com/in/roshan-shah11/", external: true },
+                                { label: "GitHub", href: "https://github.com/roshanshah11", external: true },
+                                { label: "Resume", href: "/roshan_shah_resume.pdf", external: true, note: "pdf" },
+                            ].map(({ label, href, external, note }) => (
+                                <li key={label} className="border-b border-hair last:border-b-0">
+                                    <a
+                                        href={href}
+                                        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                                        // Colour alone is not a focus indicator:
+                                        // it is invisible to anyone with a colour
+                                        // vision deficiency and easy to lose on a
+                                        // dim screen. The ring is kept and tuned
+                                        // to the palette rather than suppressed.
+                                        className="t-body flex items-baseline gap-2 py-1.5 text-ink/85 transition-colors hover:text-brass focus-visible:text-brass focus-visible:outline focus-visible:outline-1 focus-visible:outline-brass focus-visible:outline-offset-4"
                                     >
                                         {label}
-                                    </span>
+                                        {note && <span className="t-gloss text-faint text-[0.85rem] ml-auto">{note}</span>}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </motion.nav>
+
+                    {/* Right: Bio Content */}
+                    <motion.div
+                        className="order-2 lg:order-none lg:col-start-4 lg:row-start-1 lg:row-span-2 lg:col-span-9 space-y-8"
+                        style={isMounted ? { x: textX, opacity: textOpacity } : {}}
+                    >
+                        {/* Bio — short on every screen. The name used to be amber
+                            and bold; at Garamond's stroke contrast a colour swap
+                            alone carries the emphasis, and it keeps the accent
+                            budget for the one place it earns its keep. */}
+                        <div className="space-y-5">
+                            <p className="t-body measure text-ink/85 text-[clamp(1.09rem,1.5vw,1.22rem)]">
+                                hey, i'm <span className="text-ink">roshan</span>. sophomore at uchicago studying econ, interested in aerospace, simulation, and the technical side of investing at blue oak.
+                            </p>
+
+                            {/* Focus + personality chips — mobile only. Rounded pills
+                                in two competing accents became a ruled inline list:
+                                same terms, same order, no containers. */}
+                            <ul className="flex flex-wrap items-baseline gap-x-4 gap-y-1 md:hidden border-t border-hair pt-3 list-none">
+                                {[
+                                    { label: "robotics", lead: true },
+                                    { label: "drone tech", lead: true },
+                                    { label: "trading", lead: true },
+                                    { label: "finance + ai", lead: false },
+                                    { label: "tabla", lead: false },
+                                    { label: "poker", lead: false },
+                                ].map(({ label, lead }) => (
+                                    <li
+                                        key={label}
+                                        className={`t-tag flex items-baseline gap-1.5 ${lead ? "text-ink" : "text-dim"}`}
+                                    >
+                                        <span
+                                            aria-hidden="true"
+                                            className={`text-[0.45em] -translate-y-[0.25em] ${lead ? "text-brass" : "text-faint"}`}
+                                        >
+                                            ●
+                                        </span>
+                                        {label}
+                                    </li>
                                 ))}
-                            </div>
+                            </ul>
                         </div>
 
-                        {/* Education */}
-                        <div data-tour="education" className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Education. Two rounded, bordered, tinted cards became two
+                            columns off a single rule, divided by one hairline. The
+                            grouping was never coming from the boxes — it was coming
+                            from the fact that they sit side by side. */}
+                        <div
+                            data-tour="education"
+                            className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-x-12 gap-y-6 border-t border-rule pt-4"
+                        >
                             {education.map((edu, i) => (
                                 <motion.div
                                     key={i}
@@ -106,98 +160,59 @@ export default function AboutSection() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: i * 0.1 }}
-                                    className="bg-white/[0.02] border border-white/10 rounded-lg p-4"
+                                    className={i > 0 ? "md:pl-8 lg:pl-12 md:border-l md:border-hair" : ""}
                                 >
-                                    <h4 className="t-title text-white">{edu.school}</h4>
-                                    <p className="t-meta text-cyan-400 mt-1">{edu.program}</p>
-                                    <p className="t-meta text-white mt-3">{edu.degree}</p>
-                                    {edu.details && <p className="t-meta text-gray-400 mt-1">{edu.details}</p>}
+                                    <p className="t-label text-faint mb-1.5">{i === 0 ? "Present" : "Prior"}</p>
+                                    <h4 className="t-title text-ink">{edu.school}</h4>
+                                    <p className="t-gloss text-dim text-[1.02rem] mt-1">{edu.program}</p>
+                                    {edu.degree && <p className="t-meta text-ink/70 mt-2.5">{edu.degree}</p>}
+                                    {edu.details && <p className="t-meta text-faint mt-1">{edu.details}</p>}
                                 </motion.div>
                             ))}
                         </div>
 
-                        {/* Skills Grid — desktop only; mobile uses the chip row above */}
-                        <div data-tour="skills" className="hidden md:grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {Object.entries(skills).map(([category, items], i) => (
+                        {/* Skills Grid — desktop only; mobile uses the list above.
+                            Headings used to render the raw object keys verbatim,
+                            lowercase and unstyled; they are titled here instead.
+                            The markers are weighted: brass for what you lead
+                            with, faint for the rest. */}
+                        <div
+                            data-tour="skills"
+                            className="hidden md:grid grid-cols-2 md:grid-cols-3 gap-x-8 lg:gap-x-12 border-t border-rule pt-4"
+                        >
+                            {([
+                                ["Languages", skills.languages, 2],
+                                ["Skills", skills.skills, 3],
+                                ["Interests", skills.interests, 3],
+                            ] as const).map(([heading, items, lead], i) => (
                                 <motion.div
-                                    key={category}
+                                    key={heading}
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: i * 0.05 }}
-                                    className="space-y-2"
+                                    className={i > 0 ? "md:pl-8 lg:pl-12 md:border-l md:border-hair" : ""}
                                 >
-                                    <h4 className="t-label text-amber-400">
-                                        {category}
-                                    </h4>
-                                    <ul className="space-y-1">
+                                    <h4 className="t-label text-faint mb-2">{heading}</h4>
+                                    <ul className="list-none">
                                         {items.map((item, j) => (
-                                            <li key={j} className="t-tag text-gray-400">{item}</li>
+                                            <li
+                                                key={item}
+                                                className={`t-tag flex items-baseline gap-2 ${j < lead ? "text-ink" : "text-ink/80"}`}
+                                            >
+                                                <span
+                                                    aria-hidden="true"
+                                                    className={`shrink-0 -translate-y-[0.25em] ${j < lead ? "text-brass text-[0.5em]" : "text-faint text-[0.42em]"}`}
+                                                >
+                                                    ●
+                                                </span>
+                                                {item}
+                                            </li>
                                         ))}
                                     </ul>
                                 </motion.div>
                             ))}
                         </div>
-
-                    {/* Contact Links */}
-                    <div className="flex flex-wrap gap-3">
-                        <a
-                            href="mailto:rashah@uchicago.edu"
-                            className="flex items-center gap-2 px-4 py-2 bg-amber-500/20 border border-amber-500/30 rounded-lg hover:bg-amber-500/30 transition-all t-meta font-medium text-amber-400"
-                        >
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <rect x="2" y="4" width="20" height="16" rx="2" />
-                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                            </svg>
-                            UChicago Email
-                        </a>
-                        <a
-                            href="mailto:roshah2007@gmail.com"
-                            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-amber-500/50 hover:bg-white/10 transition-all t-meta text-white"
-                        >
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <rect x="2" y="4" width="20" height="16" rx="2" />
-                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                            </svg>
-                            Gmail
-                        </a>
-                        <a
-                            href="https://www.linkedin.com/in/roshan-shah11/"
-                            target="_blank"
-                            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-cyan-500/50 hover:bg-white/10 transition-all t-meta text-white"
-                        >
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                                <rect x="2" y="9" width="4" height="12" />
-                                <circle cx="4" cy="4" r="2" />
-                            </svg>
-                            LinkedIn
-                        </a>
-                        <a
-                            href="https://github.com/roshanshah11"
-                            target="_blank"
-                            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-gray-500/50 hover:bg-white/10 transition-all t-meta text-white"
-                        >
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-                                <path d="M9 18c-4.51 2-5-2-7-2" />
-                            </svg>
-                            GitHub
-                        </a>
-                        <a
-                            href="/roshan_shah_resume.pdf"
-                            target="_blank"
-                            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-amber-500/50 hover:bg-white/10 transition-all t-meta text-white"
-                        >
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                                <polyline points="14 2 14 8 20 8" />
-                                <line x1="16" y1="13" x2="8" y2="13" />
-                                <line x1="16" y1="17" x2="8" y2="17" />
-                            </svg>
-                            Resume
-                        </a>
-                    </div>
                     </motion.div>
                 </div>
             </div>

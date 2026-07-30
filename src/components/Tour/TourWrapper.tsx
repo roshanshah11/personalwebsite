@@ -13,17 +13,12 @@ interface TourWrapperProps {
  */
 export function TourWrapper({ children }: TourWrapperProps) {
     return (
-        <TourProvider
-            onAnalyticsEvent={(event) => {
-                // Analytics hook - can be connected to your analytics provider
-                console.log('[Tour Analytics]', event);
-
-                // Example: send to analytics
-                // if (typeof window !== 'undefined' && window.gtag) {
-                //   window.gtag('event', event.type, event);
-                // }
-            }}
-        >
+        // No onAnalyticsEvent handler. The one that used to be here only
+        // console.log'd every tour event to the visitor's own devtools, which
+        // is not analytics, it is noise in someone else's console. TourProvider
+        // still emits the events; wire a real destination here when there is
+        // one to wire.
+        <TourProvider>
             {children}
             <TourOverlay />
             <RocketPromo />

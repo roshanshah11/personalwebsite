@@ -98,7 +98,7 @@ export function ContentViewerModal() {
             case 'code':
                 return (
                     <div className="w-full h-full overflow-auto">
-                        <pre className="p-6 t-tag text-gray-300 bg-gray-900 rounded-lg overflow-auto h-full">
+                        <pre className="p-6 t-tag text-text-main bg-background-dark rounded-lg overflow-auto h-full">
                             <code className={`language-${viewerContent.language ?? 'plaintext'}`}>
                                 {viewerContent.src}
                             </code>
@@ -108,7 +108,7 @@ export function ContentViewerModal() {
 
             default:
                 return (
-                    <div className="flex items-center justify-center h-full text-gray-400">
+                    <div className="flex items-center justify-center h-full text-text-muted">
                         Unsupported content type
                     </div>
                 );

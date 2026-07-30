@@ -66,7 +66,7 @@ export default function AwardsHoverPreview() {
         >
             <div className="px-4 mb-6">
                 <p className="t-label text-gray-500 mb-2">Supporting signal</p>
-                <h2 className="t-headline text-amber-300">
+                <h2 className="t-headline text-ink">
                     Honors &amp; Publications
                 </h2>
             </div>

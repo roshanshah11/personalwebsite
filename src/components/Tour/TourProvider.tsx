@@ -83,9 +83,12 @@ export function TourProvider({ children, onAnalyticsEvent }: TourProviderProps) 
     }, [elapsedTime, totalDurationMs]);
 
     // Analytics helper
+    // Hands the event to whoever passed a handler. It also used to
+    // console.log every one unconditionally, so a visitor who opened devtools
+    // watched "[Tour Analytics] {type: step_viewed…}" scroll past eleven times
+    // while the site explained itself to them.
     const emitEvent = useCallback((event: TourAnalyticsEvent) => {
         onAnalyticsEvent?.(event);
-        console.log('[Tour Analytics]', event);
     }, [onAnalyticsEvent]);
 
     // Scroll locking - block user scroll but allow programmatic scrolling
@@ -302,13 +305,30 @@ export function TourProvider({ children, onAnalyticsEvent }: TourProviderProps) 
         };
     }, [state, animate]);
 
-    // Effect to handle step execution side effects (when index changes)
+    // Effect to handle step execution side effects (when the step changes).
+    //
+    // `state` is in the dependency list because the guard below reads it, so
+    // this effect re-runs on every PLAYING <-> PAUSED transition. Without the
+    // id check that meant pressing pause and then play re-ran the step's
+    // action: the page scrolled itself back to the target under you, and a
+    // second `step_viewed` went out for a step that was already being viewed.
+    // Pausing should stop the tour, not replay the current beat.
+    const lastExecutedStepIdRef = useRef<string | null>(null);
+
     useEffect(() => {
         if ((state !== 'PLAYING' && state !== 'PAUSED') || !currentStep) return;
+        if (lastExecutedStepIdRef.current === currentStep.id) return;
 
+        lastExecutedStepIdRef.current = currentStep.id;
         emitEvent({ type: 'step_viewed', stepId: currentStep.id });
         executeStepAction(currentStep);
     }, [currentStepIndex, currentStep, executeStepAction, emitEvent, state]);
+
+    // Forget the last-executed step whenever the tour goes idle, so starting
+    // again re-runs step 0 instead of assuming it is already on screen.
+    useEffect(() => {
+        if (state === 'IDLE') lastExecutedStepIdRef.current = null;
+    }, [state]);
 
     // Control functions
     const startTour = useCallback((startChapter?: string) => {

@@ -75,7 +75,16 @@ export default function TextReveal({ text, className = "", delay = 0 }: TextReve
                                 delay: reduced ? 0 : index * 0.04,
                                 ease: [0.6, 0.05, 0.01, 0.9],
                             }}
-                            whileHover={reduced ? undefined : { scale: 1.18, y: -6, color: "#FBBF24" }}
+                            // Brass (--color-brass / --color-amber-400), not the
+                            // Tailwind amber-400 #FBBF24 that used to be hardcoded
+                            // here. The palette was retired by redefining theme
+                            // tokens, which rewrites utility classes but cannot
+                            // reach a literal in an inline style — so hovering the
+                            // hero name kept flashing the one saturated hue the
+                            // rest of the page had dropped. Framer animates to a
+                            // resolved colour, so this stays a literal; it is the
+                            // token's value, and the token is the source of truth.
+                            whileHover={reduced ? undefined : { scale: 1.18, y: -6, color: "#C9A227" }}
                             className={`inline-block ${locked ? "" : "text-cyan-400/80"}`}
                             style={{
                                 transformStyle: "preserve-3d",

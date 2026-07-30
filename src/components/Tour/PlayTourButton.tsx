@@ -1,10 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Play, Sparkles } from 'lucide-react';
+import { Play } from 'lucide-react';
 import { useTourController } from './useTourController';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { tourDurationLabel } from './steps';
 
 /**
  * Play Tour button - the entry point for starting the tour
@@ -46,78 +47,38 @@ export function PlayTourButton() {
             transition={{ delay: 2, duration: 0.5 }}
             aria-label="Play portfolio tour"
         >
-            {/* Glow effect */}
+            {/* Button content.
+                Was a rounded-full gradient pill with a radial glow behind it, a
+                shimmer sweeping across it on a 2.5s infinite loop, a pulsing
+                play glyph, and a Sparkles icon. A sparkle emoji-icon on a
+                copperplate star atlas is the single most on-the-nose tell in
+                the repo, and it was doing no work: nothing about the tour is
+                magical, it is a person talking over a scroll. */}
             <motion.div
-                className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                style={{
-                    background: 'radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, transparent 70%)',
-                    filter: 'blur(15px)',
-                    transform: 'scale(1.5)',
-                }}
-            />
-
-            {/* Button content */}
-            <motion.div
-                className="relative flex items-center gap-2 md:gap-3 px-3 py-3 md:px-5 rounded-full overflow-hidden"
-                style={{
-                    background: 'linear-gradient(135deg, rgba(20, 20, 25, 0.95) 0%, rgba(30, 30, 40, 0.95) 100%)',
-                    border: '1px solid rgba(212, 175, 55, 0.3)',
-                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
-                }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
+                className="relative flex items-center gap-2.5 px-3 py-2.5 md:px-4 border border-brass/40"
+                style={{ backgroundColor: 'rgba(5, 8, 16, 0.92)' }}
+                whileHover={{ y: -1 }}
+                whileTap={{ y: 0 }}
+                transition={{ duration: 0.2, ease: [0.2, 0.8, 0.2, 1] }}
             >
-                {/* Animated shimmer */}
-                <motion.div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100"
-                    style={{
-                        background: 'linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent)',
-                    }}
-                    animate={{
-                        x: ['-100%', '200%'],
-                    }}
-                    transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                        repeatDelay: 1,
-                    }}
-                />
+                <Play size={14} className="text-brass shrink-0" />
 
-                {/* Icon */}
-                <motion.div
-                    className="relative"
-                    animate={isHovered ? { scale: [1, 1.2, 1] } : {}}
-                    transition={{ duration: 0.4 }}
-                >
-                    <Play
-                        size={18}
-                        className="text-amber-400 fill-amber-400/50"
-                    />
-                </motion.div>
-
-                {/* Text */}
-                <span className="hidden sm:inline relative t-meta font-medium text-white/90 whitespace-nowrap">
-                    Quick walkthrough here
+                <span className="hidden sm:inline t-label text-ink/85 whitespace-nowrap">
+                    Walkthrough
                 </span>
-
-                {/* Sparkle icon */}
-                <Sparkles
-                    size={14}
-                    className="relative text-amber-400/60 group-hover:text-amber-400 transition-colors"
-                />
             </motion.div>
 
-            {/* Tooltip */}
+            {/* Tooltip. The duration is read from the script, not typed in
+                here: this said "~45 second guided tour" above a tour that ran
+                67.5 seconds, because the script kept growing and the number
+                did not. */}
             <motion.div
-                className="absolute bottom-full right-0 mb-2 px-3 py-1.5 rounded-lg t-meta text-white/80 whitespace-nowrap pointer-events-none"
-                style={{
-                    background: 'rgba(0, 0, 0, 0.8)',
-                    backdropFilter: 'blur(10px)',
-                }}
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 5 }}
+                className="absolute bottom-full right-0 mb-2 px-2.5 py-1 t-label text-dim whitespace-nowrap pointer-events-none border border-rule"
+                style={{ backgroundColor: 'rgba(5, 8, 16, 0.94)' }}
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 4 }}
             >
-                ~45 second guided tour
+                {tourDurationLabel()}, narrated
             </motion.div>
         </motion.button>
     );

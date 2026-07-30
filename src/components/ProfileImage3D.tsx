@@ -1,93 +1,44 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 
+/**
+ * Portrait.
+ *
+ * Was a rounded-3xl square with a cyan scan line sweeping down it, an RGB glitch
+ * flicker on hover, and a blurred cyan-to-gold glow bleeding out behind — three
+ * separate effects, none of which the photograph needed, all of which announced
+ * themselves before the face did.
+ *
+ * It is now squared off inside a hairline rule, in full colour, so it reads as a
+ * photograph on the page rather than as an effect. The only treatment left is a
+ * touch of contrast and saturation, which is grading, not a filter.
+ */
 export default function ProfileImage3D() {
-    const [isHovered, setIsHovered] = useState(false);
-
     return (
-        <motion.div
-            className="relative w-full aspect-square max-w-[260px] mx-auto"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            style={{ perspective: 1000 }}
+        <motion.figure
+            className="relative w-full max-w-[264px] mx-auto lg:mx-0 m-0"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9 }}
         >
-            {/* Main Image Container */}
-            <motion.div
-                className="relative w-full h-full rounded-3xl overflow-hidden"
-                animate={{
-                    rotateY: isHovered ? 5 : 0,
-                    rotateX: isHovered ? -5 : 0,
-                    scale: isHovered ? 1.02 : 1,
-                }}
-                transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                style={{ transformStyle: "preserve-3d" }}
+            <div
+                className="relative aspect-[4/5] overflow-hidden border border-rule"
+                style={{ backgroundColor: "#0B1220" }}
             >
-                {/* Profile Image */}
                 <img
                     src="/profile.jpeg"
                     alt="Roshan Shah"
                     className="w-full h-full object-cover"
-                    style={{ objectPosition: "28% 5%", transform: "scale(1.4)", transformOrigin: "center 15%" }}
-                />
-
-                {/* Scanline Effect */}
-                <motion.div
-                    className="absolute inset-0 pointer-events-none"
                     style={{
-                        background: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)",
+                        objectPosition: "28% 8%",
+                        transform: "scale(1.28)",
+                        transformOrigin: "center 15%",
+                        filter: "contrast(1.04) saturate(1.02)",
                     }}
                 />
-
-                {/* Moving Scan Line */}
-                <motion.div
-                    className="absolute left-0 right-0 h-[2px] bg-cyan-400/60"
-                    animate={{
-                        top: ["0%", "100%", "0%"],
-                    }}
-                    transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "linear",
-                    }}
-                    style={{
-                        boxShadow: "0 0 20px 4px rgba(0, 217, 255, 0.4)",
-                    }}
-                />
-
-                {/* Hover Glitch Effect */}
-                <motion.div
-                    className="absolute inset-0 pointer-events-none"
-                    animate={{
-                        opacity: isHovered ? [0, 0.1, 0] : 0,
-                    }}
-                    transition={{ duration: 0.2, repeat: Infinity }}
-                    style={{
-                        background: "linear-gradient(90deg, rgba(255,0,0,0.1), rgba(0,255,255,0.1), rgba(255,0,0,0.1))",
-                        mixBlendMode: "screen",
-                    }}
-                />
-
-                {/* Vignette */}
-                <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                        background: "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.5) 100%)",
-                    }}
-                />
-
-                {/* Border */}
-                <div className="absolute inset-0 border border-white/10 rounded-2xl pointer-events-none" />
-            </motion.div>
-
-            {/* Glow Effect */}
-            <div
-                className="absolute inset-0 -z-10 opacity-50 blur-[40px] rounded-2xl"
-                style={{
-                    background: "linear-gradient(135deg, rgba(0, 217, 255, 0.3), rgba(212, 175, 55, 0.2))",
-                }}
-            />
-        </motion.div>
+            </div>
+        </motion.figure>
     );
 }

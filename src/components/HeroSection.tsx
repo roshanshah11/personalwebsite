@@ -65,13 +65,22 @@ export default function HeroSection() {
             // peeks in and the scroll becomes the visitor's idea.
             className="relative min-h-[78vh] min-h-[78dvh] flex flex-col items-center justify-center overflow-hidden"
         >
+            {/* No frame, no ticks, no coordinate mark. The name sits on open sky
+                and the starfield is the composition — the only thing the chrome
+                was ever containing was empty space that didn't need containing. */}
             <motion.div
-                className="text-center z-10"
+                // w-full/px-4 are load-bearing, not cosmetic: as a shrink-to-fit
+                // flex child this box sized to its content, so the name's
+                // flex-wrap had no boundary to wrap against and simply ran off
+                // the right edge of a phone.
+                className="text-center z-10 w-full max-w-full px-4"
                 style={isMounted ? { y, opacity, scale } : {}}
             >
-                {/* Main Name */}
+                {/* Main Name. The blue text-shadow is gone: a Didone's whole
+                    character is the contrast between hairline and stem, and a
+                    35px glow fills exactly the gaps that contrast lives in. */}
                 <motion.div
-                    className="overflow-hidden [text-shadow:0_0_35px_rgba(59,130,246,0.28)]"
+                    className="overflow-hidden"
                     style={{ x: driftX, y: driftY }}
                 >
                     <TextReveal
@@ -81,30 +90,24 @@ export default function HeroSection() {
                     />
                 </motion.div>
 
-                {/* Subtitle */}
+                {/* Subtitle. Was an amber rule and a cyan rule flanking mono caps —
+                    both accents firing at once, on the two words meant to be the
+                    quietest thing under the name. Now one brass rule, centred. */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 1.2 }}
-                    className="mt-6"
+                    className="mt-7 flex flex-col items-center gap-4"
                 >
-                    <div className="flex items-center justify-center gap-3">
-                        <motion.div
-                            className="h-px w-12 bg-gradient-to-r from-transparent to-amber-500"
-                            initial={{ scaleX: 0 }}
-                            animate={{ scaleX: 1 }}
-                            transition={{ duration: 0.8, delay: 1.5 }}
-                        />
-                        <span className="t-eyebrow text-sm text-gray-400">
-                            Finance + AI
-                        </span>
-                        <motion.div
-                            className="h-px w-12 bg-gradient-to-l from-transparent to-cyan-500"
-                            initial={{ scaleX: 0 }}
-                            animate={{ scaleX: 1 }}
-                            transition={{ duration: 0.8, delay: 1.5 }}
-                        />
-                    </div>
+                    <motion.div
+                        className="h-px w-14 bg-brass/75 origin-center"
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: 0.8, delay: 1.5 }}
+                    />
+                    <span className="t-eyebrow text-dim">
+                        Finance + AI
+                    </span>
                 </motion.div>
 
                 {/* Brief tagline */}
@@ -112,60 +115,31 @@ export default function HeroSection() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 1.8 }}
-                    className="mt-8 t-body text-gray-400 max-w-[40ch] mx-auto px-4"
+                    className="mt-7 t-gloss text-dim text-[clamp(1.05rem,1.9vw,1.35rem)] max-w-[42ch] mx-auto px-4"
                 >
                     building where finance, ai, and hardware meet, from public markets
                     to aerospace and simulation software.
                 </motion.p>
 
-                {/* Scroll indicator */}
+                {/* Scroll indicator. The rounded pill with a bouncing amber dot was
+                    a stock component; a hairline dropping off the plate edge says
+                    the same thing in the page's own vocabulary. */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 2.2 }}
-                    className="mt-10"
+                    className="mt-12 flex flex-col items-center gap-3"
                 >
-                    <motion.div
-                        animate={{ y: [0, 10, 0] }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                        className="flex flex-col items-center gap-2"
-                    >
-                        <span className="t-label text-gray-500">Scroll</span>
-                        <div className="w-5 h-8 border border-gray-600 rounded-full flex justify-center pt-2">
-                            <motion.div
-                                animate={{ y: [0, 8, 0], opacity: [1, 0, 1] }}
-                                transition={{ duration: 1.5, repeat: Infinity }}
-                                className="w-1 h-1 bg-amber-500 rounded-full"
-                            />
-                        </div>
-                    </motion.div>
+                    <span className="t-label text-faint">Scroll</span>
+                    <div className="relative h-14 w-px bg-hair overflow-hidden">
+                        <motion.div
+                            animate={{ y: ["-100%", "100%"] }}
+                            transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                            className="absolute inset-x-0 h-7 bg-gradient-to-b from-transparent via-brass/70 to-transparent"
+                        />
+                    </div>
                 </motion.div>
             </motion.div>
-
-            {/* Floating particles */}
-            {[...Array(8)].map((_, i) => (
-                <motion.div
-                    key={i}
-                    className="absolute w-1 h-1 rounded-full"
-                    style={{
-                        left: `${20 + (i * 10)}%`,
-                        top: `${30 + (i % 3) * 20}%`,
-                        background: i % 2 === 0 ? "#D4AF37" : "#00D9FF",
-                        boxShadow: `0 0 ${6 + i}px ${i % 2 === 0 ? "#D4AF37" : "#00D9FF"}`,
-                    }}
-                    animate={{
-                        y: [0, -30, 0],
-                        x: [0, i % 2 === 0 ? 20 : -20, 0],
-                        opacity: [0.2, 0.6, 0.2],
-                    }}
-                    transition={{
-                        duration: 4 + i * 0.5,
-                        repeat: Infinity,
-                        delay: i * 0.3,
-                        ease: "easeInOut",
-                    }}
-                />
-            ))}
         </section>
     );
 }

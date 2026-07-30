@@ -1,115 +1,211 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-martian-mono), ui-monospace, monospace;
+  --font-sans: var(--font-garamond), Garamond, Georgia, serif;
+  --font-mono: var(--font-garamond), Garamond, Georgia, serif;
 
-  /* Sleek Modern Palette */
-  --color-background-dark: #09090b;
-  /* Zinc 950 */
-  --color-background-black: #09090b;
-  /* Replaced true black with deep charcoal */
-  --color-background-light: #18181b;
-  /* Zinc 900 */
+  /* Palette sampled off the starfield itself rather than picked beside it. The
+     ground is the shader's own near-black; the neutrals are pulled toward its
+     blue so nothing on the page reads as pasted on top of the sky. */
+  --color-background-dark: #050810;
+  --color-background-black: #050810;
+  --color-background-light: #070B15;
 
-  /* Sophisticated Accents */
-  --color-primary: #3b82f6;
-  --color-primary-glow: rgba(59, 130, 246, 0.3);
+  /* Ink is warm bone, not white: pure #fff on a blue-black ground glares and
+     flattens the serif's stroke contrast. */
+  --color-ink: #E9E5DA;
+  --color-dim: #8695AC;
+  /* 4.94:1 on the ground above. See the note on --color-gray-500: this tone sits
+     under real labels, not decoration, so it has to clear AA. */
+  --color-faint: #707F99;
 
-  --color-accent-cyan: #00D9FF;
-  --color-accent-gold: #D4AF37;
-  --color-accent-blue: #3b82f6;
-  --color-destructive: #ef4444;
+  /* Hairlines, in the two weights the whole layout separates with. Rules do the
+     work that rounded cards used to. */
+  --color-rule: rgba(150, 175, 215, 0.22);
+  --color-hair: rgba(150, 175, 215, 0.13);
 
-  --color-text-main: #ededed;
-  --color-text-muted: #71717a;
+  /* One accent, and it is spent sparingly: plate marks, a single rule, the
+     entries worth leading with. Brass because the starfield already contains a
+     warm point of light, so it belongs to the image instead of arguing with it.
+     The old amber-and-cyan pair is gone. */
+  --color-brass: #C9A227;
 
-  /* Glassmorphism Refined */
-  --color-glass-bg: rgba(255, 255, 255, 0.02);
-  --color-glass-border: rgba(255, 255, 255, 0.06);
+  --color-primary: #C9A227;
+  --color-primary-glow: rgba(201, 162, 39, 0.22);
+  --color-accent-cyan: #8695AC;
+  --color-accent-gold: #C9A227;
+  --color-accent-blue: #8695AC;
+  --color-destructive: #AE3A2B;
+
+  --color-text-main: #E9E5DA;
+  --color-text-muted: #707F99;
+
+  --color-glass-bg: transparent;
+  --color-glass-border: rgba(150, 175, 215, 0.13);
+
+  /* -------------------------------------------------------------------------
+     Palette remap
+     -------------------------------------------------------------------------
+     Amber and cyan were used by name in fifteen components. Rather than chase
+     every call site — and risk missing one, which is how a page ends up with a
+     single stray Tailwind cyan three screens down — the shades themselves are
+     redefined here. Every existing text-amber-400 and border-cyan-500/30 keeps
+     working and lands in the new palette.
+
+     Amber becomes the brass ramp. Cyan becomes blue-grey: it was never carrying
+     meaning, only contrast, and a second saturated hue is what made the old page
+     read as themed rather than designed. Semantic colour is unaffected — nothing
+     here encodes state.
+
+     Only the shades actually in use are overridden. -------------------------------------------------------------------------- */
+  --color-amber-300: #D8B65A;
+  --color-amber-400: #C9A227;
+  --color-amber-500: #A8871F;
+
+  --color-cyan-300: #A3B2C6;
+  --color-cyan-400: #8695AC;
+  --color-cyan-500: #6C7C95;
+
+  --color-blue-400: #8695AC;
+
+  /* Neutrals bias toward the starfield's blue instead of sitting dead-grey
+     beside it.
+
+     gray-500 is the quiet tone, and it carries far more than its name suggests:
+     every job date, every tech line, the footer credits, and the "Present" /
+     "Prior" / "Reach" / "Scroll" labels. It was set to #4E5C74, which is 2.97:1
+     on this ground — under the 4.5:1 AA floor for text that size, and the ground
+     got darker in the same change that set it. #707F99 is 4.94:1. The tone still
+     recedes; it is now legible while receding, which is the difference between
+     quiet and absent. */
+  --color-gray-300: #C9C5BB;
+  --color-gray-400: #8695AC;
+  --color-gray-500: #707F99;
+  --color-gray-600: #55637B;
 }
 
 /* ---------------------------------------------------------------------------
    Type system
    ---------------------------------------------------------------------------
-   Two families, six roles, one 1.25 ratio. Archivo carries every proportional
-   size; its width axis (not a second family) supplies the display contrast.
-   Martian Mono appears only as small condensed uppercase labels.
+   Three faces, one period argument. Bodoni Moda (Didone) sets the name and every
+   heading; EB Garamond does all the reading and supplies oldstyle figures; and
+   Cormorant Garamond, a display Garamond too fragile for body copy, takes the
+   large italic subtitles and captions. There is no monospace anywhere.
 
-   Display and headline are fluid because they are the page's cinematic moments
-   and must fill a viewport. Everything at reading size is a fixed rem step, so
-   card layouts stay spatially predictable across breakpoints.
+   Two things changed structurally, not just cosmetically:
 
-   Light-on-dark loses perceived weight, so prose compensates on all three axes
-   the way it should: heavier line-height, a touch of positive tracking, and a
-   body weight of 450 rather than 400 (a real value, thanks to the variable
-   font, not a rounded-up lie).
-   --------------------------------------------------------------------------- */
+   1. Display now runs POSITIVE tracking, not negative. A Didone set large and
+      tight closes its counters and the hairlines collide; letterspaced open, it
+      reads as a plate title. This is the opposite of the correct setting for the
+      wide grotesque that used to sit here, which is why the value flipped sign.
+
+   2. Labels lost the 0.32em eyebrow tracking. That setting only ever existed to
+      make uppercase mono survivable. Garamond small caps carry a label at 0.14em
+      and stop looking like a system readout.
+
+   Serifs on a dark ground lose perceived weight the same way any face does, but
+   the fix is different: Garamond has real 500 and 600 masters, so secondary text
+   steps up a weight rather than faking it with tracking. --------------------------------------------------------------------------- */
 :root {
   /* Declared here rather than read back out of @theme: Tailwind tree-shakes
-     theme tokens that no utility references, and --font-display has no
-     corresponding utility, so it would vanish from the output. */
-  --type-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
-  --type-mono: var(--font-martian-mono), ui-monospace, monospace;
+     theme tokens that no utility references, and the display and italic faces
+     have no corresponding utility, so they would vanish from the output. */
+  --type-display: var(--font-bodoni), Didot, "Bodoni 72", "Times New Roman", serif;
+  --type-text: var(--font-garamond), Garamond, Georgia, serif;
+  --type-italic: var(--font-cormorant), Garamond, Georgia, serif;
 
-  /* Scale: 12 / 14 / 16 / 20 px, then two fluid display steps. */
-  --text-label: 0.75rem;
-  --text-meta: 0.875rem;
-  --text-body: 1rem;
-  --text-title: 1.25rem;
-  /* 22-28px, not 32-48. At 48 a section title was 2.4x the step below it and
-     3x body, which broke the 1.25 ratio the rest of the ladder keeps and made
-     every headed section shout next to the intro, which carries no heading at
-     all. The intro stays at body size on purpose: it is quiet copy, so the fix
-     belongs on the headline, not on the paragraph. 28 is the floor: below it a
-     section title stops separating from the 20px card headers under it. */
-  --text-headline: clamp(1.375rem, 2.2vw, 1.75rem);
-  /* The intro splash sets two words side by side, so it needs a lower ceiling
-     than the hero's single centered name. */
+  /* Old aliases kept so nothing that still reaches for them falls to system-ui
+     mid-refactor. Both now resolve to the text face; there is no mono. */
+  --type-sans: var(--type-text);
+  --type-mono: var(--type-text);
+
+  /* Scale: 13 / 15 / 17.5 / 21px, then two fluid display steps. Every step is
+     ~1.17 larger than the old ladder, because Garamond runs small on the body:
+     its x-height is markedly shorter than Archivo's, so matched rem sizes are
+     not matched reading sizes. */
+  --text-label: 0.78rem;
+  --text-meta: 0.94rem;
+  --text-body: 1.09rem;
+  --text-title: 1.3rem;
+  --text-headline: clamp(1.6rem, 2.6vw, 2.15rem);
   --text-display-split: clamp(2.5rem, 8vw, 6rem);
-  --text-display: clamp(3rem, 11vw, 8.5rem);
+  /* The 2.25rem floor has to stay under the vw term at the narrowest real
+     viewport (393px x 11vw = 43px) or the name locks large and runs off. */
+  --text-display: clamp(2.25rem, 10.5vw, 8rem);
 
-  --leading-display: 0.92;
-  --leading-headline: 1.05;
-  --leading-title: 1.3;
-  --leading-body: 1.65;
-  --leading-label: 1.4;
+  --leading-display: 0.9;
+  --leading-headline: 1.14;
+  --leading-title: 1.22;
+  --leading-body: 1.62;
+  --leading-label: 1.45;
 
-  --tracking-display: -0.045em;
-  --tracking-headline: -0.02em;
-  --tracking-title: -0.01em;
-  --tracking-body: 0.005em;
+  /* Positive. See note 1 above. */
+  --tracking-display: 0.045em;
+  --tracking-headline: 0.005em;
+  --tracking-title: 0.005em;
+  --tracking-body: 0;
   --tracking-label: 0.14em;
-  /* The one deliberately wide setting: hero and intro eyebrows only. */
-  --tracking-eyebrow: 0.32em;
+  --tracking-eyebrow: 0.14em;
 
-  --weight-body: 450;
-  --weight-medium: 550;
-  --weight-strong: 700;
-  --weight-display: 800;
+  --weight-body: 400;
+  --weight-medium: 500;
+  --weight-strong: 600;
+  --weight-display: 400;
 
-  /* Archivo width axis. Display widens; nothing else deviates from normal. */
-  --width-display: 112%;
-  --width-headline: 105%;
-  --width-label: 87.5%;
+  /* Retained so any leftover font-stretch reference is a no-op rather than a
+     bad value; none of these faces has a width axis. */
+  --width-display: 100%;
+  --width-headline: 100%;
+  --width-label: 100%;
 
-  --measure: 68ch;
+  /* Garamond fits more characters per em than Archivo did, so the measure comes
+     down to hold the same physical line length. */
+  --measure: 62ch;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Load-bearing, not cosmetic. Four components call framer's useScroll with a
+       `target`, and for a window-scrolled page the container framer measures
+       against is <html> itself. It refuses to measure a static container:
+       on-scroll-handler.mjs warns "ensure that the container has a non-static
+       position" and computes each target's offsets against a box it does not
+       trust. Positioning the sections does nothing, since the container is what
+       is checked. One declaration here covers all four. */
+    position: relative;
   }
 
   body {
     @apply text-text-main font-sans min-h-screen flex flex-col antialiased overflow-x-hidden;
     background: transparent;
+    font-family: var(--type-text);
     font-size: var(--text-body);
     font-weight: var(--weight-body);
     line-height: var(--leading-body);
     letter-spacing: var(--tracking-body);
     font-optical-sizing: auto;
     font-kerning: normal;
+    /* Set once, globally, and inherited everywhere. This is the single change
+       that does the most work on a page this full of years and grades: 2026,
+       3.92 and 4.00 stop sitting at cap height like tabulated data and drop
+       into the line like the words around them. Anything that genuinely needs
+       to align in a column opts back out with .t-num.
+
+       The keyword is plural. `oldstyle-num` parses as nothing, so the browser
+       drops the whole declaration and paints lining figures with no warning —
+       which is exactly what was happening here, silently, while this comment
+       claimed otherwise. */
+    font-variant-numeric: oldstyle-nums;
+  }
+
+  /* Tailwind's preflight resets these to the mono stack. There is no mono. */
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--type-text);
+    font-size: 1em;
   }
 
   .bg-background-black {
@@ -119,57 +215,60 @@
 
 @layer components {
 
-  /* Hero name only. Expanded and tightly tracked so the scale reads engineered
-     rather than shouted. */
+  /* Hero name only. Uppercase Didone, set open — the hairline serifs need air
+     between letters or they knit into each other at this size. */
   .t-display {
-    font-family: var(--type-sans);
+    font-family: var(--type-display);
     font-size: var(--text-display);
     font-weight: var(--weight-display);
-    font-stretch: var(--width-display);
     line-height: var(--leading-display);
     letter-spacing: var(--tracking-display);
+    text-transform: uppercase;
+    font-optical-sizing: auto;
   }
 
   /* Intro splash, where the name breaks across two lockups. */
   .t-display-split {
-    font-family: var(--type-sans);
+    font-family: var(--type-display);
     font-size: var(--text-display-split);
     font-weight: var(--weight-display);
-    font-stretch: var(--width-display);
     line-height: var(--leading-display);
     letter-spacing: var(--tracking-display);
+    text-transform: uppercase;
+    font-optical-sizing: auto;
   }
 
   /* Section titles. */
   .t-headline {
-    font-family: var(--type-sans);
+    font-family: var(--type-display);
     font-size: var(--text-headline);
-    font-weight: var(--weight-strong);
-    font-stretch: var(--width-headline);
+    font-weight: var(--weight-medium);
     line-height: var(--leading-headline);
     letter-spacing: var(--tracking-headline);
     text-wrap: balance;
   }
 
-  /* The footer pull quote, and only that. A deliberate exception to the
-     two-family rule: someone else's words, set in someone else's voice. The
-     serif italic is the one place on the page that is not Archivo or Martian
-     Mono, which is exactly why the quote reads as borrowed rather than as more
-     of the site talking. Georgia is a system face, so this costs no webfont. */
+  /* The footer pull quote, and only that. It used to be the page's lone serif —
+     the one borrowed voice among the grotesques. Now that the whole page is
+     set in Garamond, that trick no longer works, so the quote distinguishes
+     itself the other way: Cormorant italic, lighter and sharper than the text
+     face around it, at title size. Still someone else's words in someone else's
+     hand; just a different hand than before. */
   .t-quote {
-    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
-    font-size: var(--text-title);
+    font-family: var(--type-italic);
+    font-size: calc(var(--text-title) * 1.15);
     font-style: italic;
-    font-weight: 400;
-    line-height: 1.45;
-    letter-spacing: 0.01em;
+    font-weight: 300;
+    line-height: 1.42;
+    letter-spacing: 0.005em;
     text-wrap: balance;
   }
 
   /* Card headers: role, school, project name. */
   .t-title {
+    font-family: var(--type-display);
     font-size: var(--text-title);
-    font-weight: var(--weight-strong);
+    font-weight: var(--weight-medium);
     line-height: var(--leading-title);
     letter-spacing: var(--tracking-title);
     text-wrap: balance;
@@ -177,6 +276,7 @@
 
   /* Prose. Pair with .measure anywhere the line can run long. */
   .t-body {
+    font-family: var(--type-text);
     font-size: var(--text-body);
     font-weight: var(--weight-body);
     line-height: var(--leading-body);
@@ -186,60 +286,84 @@
 
   /* Secondary text: dates, sub-roles, list items, captions. */
   .t-meta {
+    font-family: var(--type-text);
     font-size: var(--text-meta);
     font-weight: var(--weight-body);
     line-height: 1.55;
     letter-spacing: var(--tracking-body);
   }
 
-  /* The only place uppercase and the only place mono is allowed. */
+  /* Small caps label. Uppercase survives here because it is Garamond at a human
+     0.14em, not mono at 0.32em: the letterforms still have modulated strokes,
+     so a run of caps reads as a heading rather than as a terminal prompt. */
   .t-label {
-    font-family: var(--type-mono);
+    font-family: var(--type-text);
     font-size: var(--text-label);
     font-weight: var(--weight-medium);
-    font-stretch: var(--width-label);
     line-height: var(--leading-label);
     letter-spacing: var(--tracking-label);
     text-transform: uppercase;
+    font-variant-numeric: lining-nums;
   }
 
-  /* Mechanical tag: the mono texture without the uppercase. Chips, skill lists,
-     tech stacks, anything that is a term rather than a heading. Keeps the
-     personal copy lowercase, which uppercasing would break. */
+  /* Terms rather than headings: skill lists, tech stacks, chips. Previously the
+     mono texture minus the uppercase. Now it is simply the reading face at the
+     small step, because a list of things you know is prose, not a readout. */
   .t-tag {
-    font-family: var(--type-mono);
-    font-size: var(--text-label);
+    font-family: var(--type-text);
+    font-size: var(--text-meta);
     font-weight: var(--weight-body);
-    font-stretch: var(--width-label);
-    line-height: var(--leading-label);
-    letter-spacing: 0.02em;
+    line-height: 1.75;
+    letter-spacing: 0;
   }
 
-  /* Label's wide-tracked sibling. Hero and intro only, twice on the page. */
+  /* Formerly the label's wide-tracked sibling at 0.32em. It now differs from
+     .t-label only in that it is a shade lighter in colour by convention; the
+     tracking is identical, because 0.32em was never a design decision, it was
+     damage control for mono. */
   .t-eyebrow {
-    font-family: var(--type-mono);
+    font-family: var(--type-text);
     font-size: var(--text-label);
     font-weight: var(--weight-medium);
-    font-stretch: var(--width-label);
     line-height: var(--leading-label);
     letter-spacing: var(--tracking-eyebrow);
     text-transform: uppercase;
+    font-variant-numeric: lining-nums;
+  }
+
+  /* Large italic subtitle / caption, in the display Garamond. Confined to sizes
+     where its fragility is legible as refinement instead of as weakness. */
+  .t-gloss {
+    font-family: var(--type-italic);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.38;
+    letter-spacing: 0.005em;
   }
 }
 
 @layer utilities {
 
-  /* Dates, counters, and anything that should not jitter as digits change. */
+  /* Counters and anything that must not jitter as digits change. Has to name
+     both values: the body sets oldstyle globally, and oldstyle figures have
+     ascenders and descenders, so they cannot align in a column. This is the
+     deliberate opt-out. */
   .t-num {
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
   }
 
   .measure {
     max-width: var(--measure);
   }
 
+  /* Was a rounded, blurred, drop-shadowed glass card — the tell that every
+     block on the page had been individually boxed. Now a plain field bounded by
+     a single hairline, so grouping comes from the rule and the grid instead of
+     from a container. Kept under the same name because a dozen components ask
+     for it. */
   .glass-panel {
-    @apply bg-glass-bg border border-glass-border backdrop-blur-xl rounded-2xl shadow-2xl transition-all duration-300;
+    @apply border border-hair transition-colors duration-300;
+    background: transparent;
   }
 
   .no-scrollbar::-webkit-scrollbar {
@@ -316,6 +440,9 @@
   animation-delay: 300ms;
 }
 
+/* 90rem let a two-column record stretch to 1424px on a desktop, which put the
+   two halves of a sentence a foot apart. 80rem holds a readable measure without
+   the layout feeling boxed in. */
 .section-container {
-  @apply max-w-[90rem] mx-auto;
+  @apply max-w-[80rem] mx-auto;
 }

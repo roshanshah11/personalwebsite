@@ -37,11 +37,20 @@ function cubicBezierTangent(p0: Point, p1: Point, p2: Point, p3: Point, t: numbe
     return Math.atan2(dy, dx) * (180 / Math.PI);
 }
 
+interface RocketPromoProps {
+    /**
+     * How long to wait after mount before the rocket appears, in ms.
+     * The default lets the visitor read the hero first. Set 0 to show it
+     * immediately (previews, tests, or a page that has already been read).
+     */
+    revealDelayMs?: number;
+}
+
 /**
  * Animated Rocket Ship that flies around the screen
  * Smooth curved flight paths with C1 tangent continuity
  */
-export function RocketPromo() {
+export function RocketPromo({ revealDelayMs = 5000 }: RocketPromoProps = {}) {
     const tour = useTourController();
     const [isVisible, setIsVisible] = useState(false);
     const [hasBeenDismissed, setHasBeenDismissed] = useState(false);
@@ -100,7 +109,6 @@ export function RocketPromo() {
                 localStorage.removeItem(ROCKET_DISMISSED_KEY);
                 setHasBeenDismissed(false);
                 keySequenceRef.current = '';
-                console.log('🚀 Rocket reset! It will appear in 5 seconds...');
             }
         };
 
@@ -219,23 +227,32 @@ export function RocketPromo() {
         };
     }, [isVisible, tour.isActive, hasBeenDismissed, generateNewCurve]);
 
-    // Initialize with 5-second delay
+    // Hold the rocket back until the visitor has had a moment with the page
     useEffect(() => {
         if (tour.isActive || hasBeenDismissed) return;
 
         isMounted.current = true;
 
-        const timer = setTimeout(() => {
+        const reveal = () => {
             if (isMounted.current && !tour.isActive && !hasBeenDismissed) {
                 setIsVisible(true);
             }
-        }, 5000);
+        };
+
+        if (revealDelayMs <= 0) {
+            reveal();
+            return () => {
+                isMounted.current = false;
+            };
+        }
+
+        const timer = setTimeout(reveal, revealDelayMs);
 
         return () => {
             isMounted.current = false;
             clearTimeout(timer);
         };
-    }, [tour.isActive, hasBeenDismissed]);
+    }, [tour.isActive, hasBeenDismissed, revealDelayMs]);
 
     // Handle click - start tour
     const handleClick = () => {
@@ -303,7 +320,7 @@ export function RocketPromo() {
                             viewBox="0 0 80 120"
                             fill="none"
                             style={{
-                                filter: 'drop-shadow(0 0 12px rgba(251, 191, 36, 0.5))',
+                                filter: 'drop-shadow(0 0 12px rgba(201, 162, 39, 0.5))',
                             }}
                         >
                             <defs>
@@ -453,9 +470,9 @@ export function RocketPromo() {
                                 className="t-meta font-bold px-3 py-1.5 rounded-full"
                                 style={{
                                     background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.92) 0%, rgba(20, 20, 30, 0.95) 100%)',
-                                    color: '#FCD34D',
-                                    textShadow: '0 0 10px rgba(252, 211, 77, 0.6)',
-                                    border: '1px solid rgba(251, 191, 36, 0.3)',
+                                    color: '#D8B65A',
+                                    textShadow: '0 0 10px rgba(216, 182, 90, 0.5)',
+                                    border: '1px solid rgba(201, 162, 39, 0.3)',
                                     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.5)',
                                 }}
                             >

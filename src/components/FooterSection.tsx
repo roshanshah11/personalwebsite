@@ -28,7 +28,7 @@ export default function FooterSection() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                     {/* Open To */}
                     <div>
-                        <h3 className="t-label text-amber-400 mb-4">
+                        <h3 className="t-label text-faint mb-4">
                             Open To
                         </h3>
                         <div className="space-y-3">
@@ -42,7 +42,7 @@ export default function FooterSection() {
 
                     {/* Contact */}
                         <div data-tour="contact">
-                            <h3 className="t-label text-amber-400 mb-4">
+                            <h3 className="t-label text-faint mb-4">
                                 Contact
                             </h3>
                             <div className="space-y-2">
@@ -63,11 +63,15 @@ export default function FooterSection() {
 
                     {/* Branding */}
                     <div>
-                        <h3 className="t-label text-amber-400 mb-4">
+                        <h3 className="t-label text-faint mb-4">
                             Built With
                         </h3>
+                        {/* GSAP was listed here and never imported — the package
+                            was installed, the credit was printed, and no line of
+                            it ever ran. It has been uninstalled; this list now
+                            names only what the page actually loads. */}
                         <p className="t-tag text-gray-500">
-                            Next.js · Three.js · Framer Motion · GSAP · Lenis
+                            Next.js · Three.js · Framer Motion · Lenis
                         </p>
                         <p className="t-tag text-gray-500 mt-4">
                             Star positions from the{" "}
